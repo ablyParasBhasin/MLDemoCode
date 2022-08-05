@@ -60,6 +60,9 @@
     <dimen name="margin_53dp">53dp</dimen>
 
 
+    <dimen name="margin_48dp">48dp</dimen>
+
+
     <dimen name="txt_1sp">1sp</dimen>
     <dimen name="txt_2sp">2sp</dimen>
     <dimen name="txt_3sp">3sp</dimen>

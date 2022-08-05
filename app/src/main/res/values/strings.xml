@@ -7,4 +7,7 @@
     <string name="app_ok">Ok</string>
     <string name="app_yes">Yes</string>
 
+    <string name="app_wallet_balance">Wallet Balance</string>
+    <string name="app_transaction_history">Transaction History</string>
+
 </resources>

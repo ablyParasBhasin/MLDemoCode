@@ -71,7 +71,7 @@
 
     <color name="backround_color">#FFF8F6</color>
 
-
+    <color name="transparent_gray">#3333334D</color>
 
 
 </resources>
