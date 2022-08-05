@@ -18,13 +18,13 @@
 
         <ImageView
             android:id="@+id/img_logo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="153dp"
+            android:layout_height="238dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="top|center"
-            android:visibility="visible"
             android:layout_marginTop="@dimen/margin_40dp"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:visibility="visible"
+            app:srcCompat="@drawable/logo_app_dark_small" />
 
 
         <LinearLayout
@@ -42,7 +42,7 @@
                 android:layout_marginLeft="@dimen/margin_20dp"
                 android:text="Log in"
                 android:textColor="@color/black"
-                android:textSize="@dimen/txt_20sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
 
@@ -76,7 +76,7 @@
                         android:textColor="@color/black"
                         android:fontFamily="sans-serif-black"
                         android:textColorHint="@color/hint_color"
-                        android:textSize="@dimen/txt_14sp" />
+                        android:textSize="@dimen/txt_20sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +89,6 @@
                     android:layout_marginStart="@dimen/margin_15dp"
                     android:layout_marginEnd="@dimen/margin_15dp"
                     android:layout_marginBottom="@dimen/margin_15dp"
-                    app:passwordToggleEnabled="true"
                    >
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -108,7 +107,7 @@
                         android:textAlignment="viewStart"
                         android:textColor="@color/black"
                         android:textColorHint="@color/gray"
-                        android:textSize="@dimen/txt_14sp" />
+                        android:textSize="@dimen/txt_20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 

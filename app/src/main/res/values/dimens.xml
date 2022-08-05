@@ -88,6 +88,7 @@
     <dimen name="txt_22sp">22sp</dimen>
     <dimen name="txt_23sp">23sp</dimen>
     <dimen name="txt_24sp">24sp</dimen>
+    <dimen name="size_50">50dp</dimen>
 
 
 </resources>

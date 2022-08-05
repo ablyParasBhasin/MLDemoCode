@@ -10,9 +10,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@mipmap/splash"
         android:fitsSystemWindows="true"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@mipmap/splash" />
 
     <ProgressBar
         style="?android:attr/progressBarStyleSmall"
