@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/round_bg.xml" value="0.1635" />
         <entry key="app/src/main/res/layout/activity_descrition.xml" value="0.2546875" />
         <entry key="app/src/main/res/layout/activity_empty.xml" value="0.2546875" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2546875" />
         <entry key="app/src/main/res/layout/activity_signing.xml" value="0.2546875" />
         <entry key="app/src/main/res/layout/dummy_lay.xml" value="0.2546875" />
@@ -18,10 +19,18 @@
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>
