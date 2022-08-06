@@ -15,10 +15,16 @@
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_card5.xml" value="0.133" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_card6.xml" value="0.133" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/in_progress.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/recycler_backgroundtopleft_round.xml" value="0.133" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/to_be_synced.xml" value="0.133" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/total_survey.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/activity_acknowledge.xml" value="0.18854166666666666" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/activity_descrition.xml" value="0.18854166666666666" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/activity_home.xml" value="0.18854166666666666" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/activity_signing.xml" value="0.1" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/fragment_reporting_form.xml" value="0.18854166666666666" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/fragment_reporting_form2.xml" value="0.18854166666666666" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/lay_grid.xml" value="0.25" />
       </map>
     </option>
