@@ -1,40 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
+    android:id="@+id/cardlay"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
+    android:layout_height="160dp"
+    app:cardCornerRadius="@dimen/margin_10dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
     <RelativeLayout
+        android:id="@+id/lay_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true">
 
 
         <ImageView
             android:id="@+id/img_grid"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitXY"
+            android:layout_centerHorizontal="true"
+android:layout_marginTop="@dimen/margin_10dp"
+
+            android:src="@mipmap/ic_launcher"
            />
 
+        <TextView
+            android:id="@+id/txt_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="@dimen/txt_14sp"
+            android:layout_centerHorizontal="true"
+            android:text="20"
+            android:textColor="@color/white"
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_below="@+id/img_grid"/>
 
         <TextView
             android:id="@+id/txt_grid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="@dimen/txt_10sp"
             android:layout_centerHorizontal="true"
-            android:text="hygygul"
-            android:layout_below="@+id/img_grid"/>
+            android:text="Total Survey"
+android:layout_marginTop="@dimen/margin_5dp"
+
+            android:layout_below="@+id/txt_count"/>
 
 
 

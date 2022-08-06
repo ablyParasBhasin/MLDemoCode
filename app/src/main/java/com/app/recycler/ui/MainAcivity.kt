@@ -9,12 +9,13 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.recycler.R
+import com.app.recycler.databinding.ActivityMainBinding
 import com.app.recycler.interfaces.ListingItemClick
 import com.app.recycler.models.DummyData
 import com.app.recycler.utility.ConstantMethod
 import com.app.recycler.utility.GridSpacingItemDecoration
+import com.app.recycler.utility.SpacesItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.IOException
@@ -24,19 +25,24 @@ class MainAcivity : AppCompatActivity(), ListingItemClick {
 
     var arrayList: ArrayList<DummyData>? = null
     private val client = OkHttpClient()
+    val databinding:ActivityMainBinding?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-        /*This is for singleListing*/
-    /*     singleListing()*/
+       // databinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         /*The is for gridView*/
         gridViewLsting()
 
-     //ApiCall()
+        //ApiCall()
+
+
+        btnStartActivity.setOnClickListener {
+            val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
@@ -59,13 +65,14 @@ class MainAcivity : AppCompatActivity(), ListingItemClick {
     private fun gridViewLsting() {
 
         /*  if Display GridViewListing View.*/
-        recyclerview.layoutManager = GridLayoutManager(this, 2)
-        val spanCount = 1 // 3 columns
+        recyclerview?.layoutManager = GridLayoutManager(this, 3)
+
+        //val spanCount = 1 // 3 columns
         val spacing = 5 // 50px
-        val includeEdge = true
-        recyclerview.addItemDecoration(
+        val includeEdge = false
+        recyclerview?.addItemDecoration(
             GridSpacingItemDecoration(
-                spanCount,
+                3,
                 spacing,
                 includeEdge
             )
@@ -74,62 +81,28 @@ class MainAcivity : AppCompatActivity(), ListingItemClick {
 
         // This will pass the ArrayList to our Adapter
         val adapter1 = GridViewListingAdapter(this, getGridList(), this)
-
         // Setting the Adapter with the recyclerview
-        recyclerview.adapter = adapter1
+        recyclerview?.adapter = adapter1
     }
-
-    private fun singleListing() {
-         /* if Display singleListing View.*/
-
-        recyclerview.layoutManager = LinearLayoutManager(this)
-
-        // This will pass the ArrayList to our Adapter
-        val adapter1 = SingleListingAdapter(this, getSingleList(), this)
-
-        // Setting the Adapter with the recyclerview
-        recyclerview.adapter = adapter1
-
-    }
-
 
 
     fun getGridList(): ArrayList<DummyData> = arrayListOf(
-        DummyData("Test1", R.mipmap.png1,"This is a view  1"),
-        DummyData("Test2", R.mipmap.png1,"This is a view  2"),
-        DummyData("Test3", R.mipmap.nature,"This is a view  3"),
-        DummyData("Test4", R.mipmap.nature,"This is a view  4"),
-        DummyData("Test5", R.mipmap.nature,"This is a view  5"),
-        DummyData("Test6", R.mipmap.nature,"This is a view  6"),
-        DummyData("Test7", R.mipmap.nature,"This is a view  7"),
-        DummyData("Test8", R.mipmap.nature,"This is a view  8"),
-        DummyData("Teste9", R.mipmap.nature,"This is a view  9"),
-        DummyData("Test10", R.mipmap.nature,"This is a view  10"))
+        DummyData("Total Survey", R.drawable.ic_baseline_access_alarms_24,"20"),
+        DummyData("In Progress", R.drawable.ic_baseline_warning_24,"20"),
+        DummyData("Completed", R.drawable.ic_baseline_access_alarms_24,"20"),
+        DummyData("To be Sync", R.drawable.ic_baseline_warning_24,"20"),
+        DummyData("Delayed", R.drawable.ic_baseline_access_alarms_24,"20"),
+        DummyData("At Risk", R.drawable.ic_baseline_warning_24,"20"))
 
-
-    fun getSingleList(): ArrayList<DummyData> = arrayListOf(
-        DummyData("Test1", 0,"This is a view  1"),
-        DummyData("Test2", 0,"This is a view  2"),
-        DummyData("Test3", 0,"This is a view  3"),
-        DummyData("Test4", 0,"This is a view  4"),
-        DummyData("Test5", 0,"This is a view  5"),
-        DummyData("Test6", 0,"This is a view  6"),
-        DummyData("Test7", 0,"This is a view  7"),
-        DummyData("Test8", 0,"This is a view  8"),
-        DummyData("Test9", 0,"This is a view  9"),
-        DummyData("Test10", 0,"This is a view  10"),
-        DummyData("Test11", 0,"This is a view  11"),
-
-        )
 
 
     override fun clickIten(pos: Int) {
-        println("pos = [${getSingleList().get(pos).discription}]")
+      /*  println("pos = [${getSingleList().get(pos).discription}]")
         
         val intent = Intent(this@MainAcivity, DescritionActivity::class.java)
         intent.putExtra("description", getSingleList().get(pos).discription);
         intent.putExtra("title", getSingleList().get(pos).title);
-        startActivity(intent)
+        startActivity(intent)*/
     }
 
 

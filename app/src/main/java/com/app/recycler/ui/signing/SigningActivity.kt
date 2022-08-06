@@ -128,7 +128,7 @@ class SigningActivity : AppCompatActivity() {
        btn_login.setOnClickListener {
            val intent = Intent(this@SigningActivity, MainAcivity::class.java)
            startActivity(intent)
-           finish()
+           //finish()
        }
 
     }

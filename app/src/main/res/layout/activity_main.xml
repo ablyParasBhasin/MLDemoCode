@@ -1,87 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.MainAcivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/tool"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="#fff"
-        android:elevation="5dp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:padding="5dp"
-            android:layout_marginStart="5dp"
-            android:text="Listing"
-            android:textColor="#000000"
-            android:textSize="16sp" />
-
-
-
-
-
-    </RelativeLayout>
-
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp"
-        app:cardMaxElevation="10dp"
-        android:layout_below="@+id/tool"
-        app:cardPreventCornerOverlap="true"
-        android:background="@color/backround_color"
-        app:cardUseCompatPadding="true">
+        android:background="@color/colorAccent">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/include"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/backround_color">
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/margin_5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:id="@+id/txt_user_name"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/walletBalance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_wallet_balance"
+            android:textColor="@color/white"
+            android:textSize="@dimen/margin_14dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWtran_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/margin_22dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/walletBalance" />
+
+
+        <LinearLayout
+            android:id="@+id/llRoot"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_48dp"
+            android:background="@drawable/recycler_backgroundtopleft_round"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_14dp"
+                android:layout_marginTop="@dimen/margin_30dp"
+                android:layout_marginEnd="@dimen/margin_18dp"
                 android:text="Hello, Rakesh"
-                android:textSize="@dimen/margin_16dp"
-                android:textColor="@color/gray_dark"
-                android:padding="@dimen/margin_5dp"
-                android:textStyle="bold"/>
+                android:textColor="@color/text_color"
+                android:textSize="25sp" />
 
-            <TextView
-                android:id="@+id/txt_welcome"
+            <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Welcome Back"
-                android:textSize="@dimen/margin_22dp"
-                android:textColor="@color/black"
-                android:layout_below="@+id/txt_user_name"
-                android:padding="@dimen/margin_5dp"
-                android:textStyle="bold"/>
+                android:layout_marginStart="@dimen/margin_14dp"
+                android:layout_marginEnd="@dimen/margin_18dp"
+                android:text="@string/welcome_back"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:textSize="30sp" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_14dp"
+                android:layout_marginEnd="@dimen/margin_18dp"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:text="Summary"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/txt_20sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview"
+            <FrameLayout
+                android:id="@+id/llContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-android:layout_below="@+id/txt_welcome"
-                android:layout_margin="@dimen/margin_15dp"
-                android:background="@color/backround_color" />
 
-        </RelativeLayout>
+                android:orientation="vertical">
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    tools:listitem="@layout/lay_grid"
+                    tools:itemCount="6"
+                    app:spanCount="3"
+                    android:layout_marginTop="@dimen/margin_30dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
-    </androidx.cardview.widget.CardView>
 
-</RelativeLayout>
+                <!--
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/btn_login"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/margin_60dp"
+                                    android:layout_gravity="bottom"
+                                    android:layout_margin="@dimen/margin_30dp"
+                                    android:background="@drawable/btn_enable_bg"
+                                    android:backgroundTint="@color/colorAccent"
+                                    android:drawableStart="@drawable/add_circle"
+                                    android:gravity="center"
+                                    android:text="@string/start_new_activity"
+                                    android:textAllCaps="false"
+                                    android:enabled="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/txt_20sp" />
+                -->
+
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_enable_bg"
+                    android:backgroundTint="@color/colorAccent"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:id="@+id/btnStartActivity"
+                    android:layout_margin="@dimen/margin_30dp">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin_60dp"
+                        android:drawableStart="@drawable/add_circle"
+                        android:drawablePadding="@dimen/margin_30dp"
+                        android:background="@drawable/btn_enable_bg"
+                        android:backgroundTint="@color/colorAccent"
+                        android:padding="@dimen/margin_15dp"
+                        android:text="@string/start_new_activity"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

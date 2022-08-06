@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.app.recycler.R
 import com.app.recycler.interfaces.ListingItemClick
@@ -28,6 +30,9 @@ class SingleListingAdapter(val context: Context, var arrayList: ArrayList<DummyD
 
         holder.title.text = arrayList.get(position).title
 
+        val index: Int = position % backgroundColors.size
+        val color = ContextCompat.getColor(context, backgroundColors[index])
+        holder.lay_item.setBackgroundColor(color)
 
         holder.itemView.setOnClickListener {
             //we can then create an intent here and start a new activity
@@ -36,10 +41,19 @@ class SingleListingAdapter(val context: Context, var arrayList: ArrayList<DummyD
         }
     }
 
-
+    // first define colors
+    private val backgroundColors = intArrayOf(
+        R.color.item1,
+        R.color.item2,
+        R.color.item3,
+        R.color.item4,
+        R.color.item5,
+        R.color.item6,
+    )
     class MyViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 
         val title: TextView = itemView!!.findViewById(R.id.title)
+        val lay_item: RelativeLayout = itemView!!.findViewById(R.id.lay_item)
     }
 
 }

@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.app.recycler.applications.MyApp"
+        android:name=".applications.MyApp"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +18,13 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
+        <activity android:name=".ui.AcknowledgeActivity"></activity>
         <activity
             android:name=".ui.signing.SigningActivity"
             android:exported="false" />
-        <activity android:name="com.app.recycler.ui.DescritionActivity" />
+        <activity android:name=".ui.DescritionActivity" />
         <activity
-            android:name="com.app.recycler.ui.SplashActivty"
+            android:name=".ui.SplashActivty"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.app.recycler.ui.MainAcivity"
+            android:name=".ui.MainAcivity"
             android:exported="true"
             android:screenOrientation="portrait">
 
