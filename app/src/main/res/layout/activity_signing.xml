@@ -22,8 +22,8 @@
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="top|center"
-            android:visibility="visible"
             android:layout_marginTop="@dimen/margin_40dp"
+            android:visibility="visible"
             app:srcCompat="@mipmap/ic_launcher" />
 
 
