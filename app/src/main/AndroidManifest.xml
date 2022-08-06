@@ -24,7 +24,7 @@
             android:exported="false" />
         <activity android:name=".ui.DescritionActivity" />
         <activity
-            android:name=".ui.SplashActivty"
+            android:name=".ui.MainAcivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -33,19 +33,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<!--
         <activity
             android:name=".ui.MainAcivity"
             android:exported="true"
             android:screenOrientation="portrait">
 
-            <!--
+            &lt;!&ndash;
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
+            &ndash;&gt;
         </activity>
+-->
     </application>
 
 </manifest>

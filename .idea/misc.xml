@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/all_risk.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/completed.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/delayed.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_baseline_access_alarms_24.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_baseline_warning_24.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_card1.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_card2.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_card3.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_card4.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_card5.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/ic_card6.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/in_progress.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/to_be_synced.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/drawable/total_survey.xml" value="0.133" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/activity_signing.xml" value="0.1" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/lay_grid.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

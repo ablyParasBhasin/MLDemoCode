@@ -15,7 +15,6 @@ import com.app.recycler.interfaces.ListingItemClick
 import com.app.recycler.models.DummyData
 import com.app.recycler.utility.ConstantMethod
 import com.app.recycler.utility.GridSpacingItemDecoration
-import com.app.recycler.utility.SpacesItemDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
 import java.io.IOException
@@ -87,12 +86,12 @@ class MainAcivity : AppCompatActivity(), ListingItemClick {
 
 
     fun getGridList(): ArrayList<DummyData> = arrayListOf(
-        DummyData("Total Survey", R.drawable.ic_baseline_access_alarms_24,"20"),
-        DummyData("In Progress", R.drawable.ic_baseline_warning_24,"20"),
-        DummyData("Completed", R.drawable.ic_baseline_access_alarms_24,"20"),
-        DummyData("To be Sync", R.drawable.ic_baseline_warning_24,"20"),
-        DummyData("Delayed", R.drawable.ic_baseline_access_alarms_24,"20"),
-        DummyData("At Risk", R.drawable.ic_baseline_warning_24,"20"))
+        DummyData("Total Survey", R.drawable.total_survey,"20"),
+        DummyData("In Progress", R.drawable.in_progress,"20"),
+        DummyData("Completed", R.drawable.completed,"20"),
+        DummyData("To be Sync", R.drawable.to_be_synced,"20"),
+        DummyData("Delayed", R.drawable.delayed,"20"),
+        DummyData("At Risk", R.drawable.all_risk,"20"))
 
 
 
