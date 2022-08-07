@@ -7,6 +7,9 @@ import com.app.recycler.applications.MyApp
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.ui.PrefConstants
 import com.uni.retailer.ui.base.BaseActivity
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,10 +62,10 @@ class DataManager private constructor() : BaseActivity() {
     fun setContext(context: MyApp?) {
         this.context = context
     }
-
-    fun login(tag: API_TAG?,params: HashMap<String, Any>, listener: ResponseHandler): Call<*> {
-        val call: Call<BaseResponse> = networkCalls.login(params)
-        call.enqueue(object : Callback<BaseResponse?> {
+//    var jsonObject= JSONObject()
+    fun login(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+     networkCalls.login(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponse?> {
             override fun onResponse(
                 call: Call<BaseResponse?>,
                 response: Response<BaseResponse?>
@@ -80,7 +83,6 @@ class DataManager private constructor() : BaseActivity() {
                 listener.onFailure(tag, t)
             }
         })
-        return call
     }
 
 

@@ -1,6 +1,7 @@
 package com.app.recycler.apinetworks
 
 
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.POST
@@ -10,9 +11,8 @@ import java.util.HashMap
 interface APIService {
 
     //login
-    @FormUrlEncoded
     @POST("auth-login")
-    fun login(@FieldMap params: HashMap<String, Any>): Call<BaseResponse>
+    fun login(@Body requestBody: RequestBody): Call<BaseResponse>
 
    /* // forgot
     @Headers("User-Agent: Android")

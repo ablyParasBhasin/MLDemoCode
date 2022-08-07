@@ -28,7 +28,10 @@ public class APIClient {
                     @Override
                     public Response intercept(Chain chain) throws IOException {
                         Request request = chain.request().newBuilder()
-                                .addHeader("token", DataManager.Companion.getInstance().getToken())
+//                                .addHeader("token", DataManager.Companion.getInstance().getToken())
+                                .addHeader("content-Type", "application/json")
+                                .addHeader("client_secret", "YnpJMGNXbHFaalZ1YlhCaGVHNXZOdz09")
+                                .addHeader("client_id", "437962368853")
                                 .build();
                         return chain.proceed(request);
                     }

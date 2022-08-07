@@ -9,7 +9,7 @@ public interface Constants {
     String USER_DATA = "USER_DATA";
 
     //    API Status
-    String API_FAILURE = "0", API_SUCCESS = "1", INVALID_TOKEN = "2", STONE_NOT_FOUND = "3", BELOW_MIN_BID = "2", KYC_PENDING = "4";
+    String API_FAILURE = "400", API_SUCCESS = "200", INVALID_TOKEN = "2", STONE_NOT_FOUND = "3", BELOW_MIN_BID = "2", KYC_PENDING = "4";
 
 
 }

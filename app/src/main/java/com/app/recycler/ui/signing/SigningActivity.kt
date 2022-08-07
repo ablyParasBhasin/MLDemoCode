@@ -11,6 +11,7 @@ import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.interfaces.ResponseHandler
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_signing.*
+import org.json.JSONObject
 import retrofit2.Response
 import java.util.HashMap
 
@@ -131,6 +132,7 @@ class SigningActivity : BaseActivity(), ResponseHandler {
     }*/
 
        btn_login.setOnClickListener {
+           login()
 
          /*  val intent = Intent(this@SigningActivity, MainAcivity::class.java)
            startActivity(intent)*/
@@ -144,10 +146,10 @@ class SigningActivity : BaseActivity(), ResponseHandler {
             return
         }
         showProgress(true)
-        val params = HashMap<String, Any>()
-        params["email_id"] = edt_username.text.toString()
-        params["password"] = edt_password.text.toString()
-        DataManager.instance.login(API_TAG.LOGIN_API, params, this)
+        var jsonObject=JSONObject()
+        jsonObject.put("email_id",edt_username.text.toString())
+        jsonObject.put("password",edt_password.text.toString())
+        DataManager.instance.login(API_TAG.LOGIN_API, jsonObject, this)
     }
     val mWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable) {
