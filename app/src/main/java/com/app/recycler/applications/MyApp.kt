@@ -1,0 +1,25 @@
+package com.app.recycler.applications
+
+import android.app.Application
+import com.app.recycler.apinetworks.Constants
+import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.ui.PrefConstants
+
+class MyApp : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        initUserInfo()
+    }
+
+    fun initUserInfo() {
+        var serilizableUserData = DataManager.instance.getSharedPrefs(this).getString(
+            Constants.USER_DATA)
+       /* if (serilizableUserData?.isNotEmpty()!!)
+            DataManager.instance.userData = Constants.UserData.create(serilizableUserData)*/
+        DataManager.instance.token =
+            DataManager.instance.getSharedPrefs(this).getString(PrefConstants.TOKEN).toString()
+
+    }
+
+}
