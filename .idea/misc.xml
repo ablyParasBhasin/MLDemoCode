@@ -26,9 +26,11 @@
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/fragment_reporting_form.xml" value="0.18854166666666666" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/fragment_reporting_form2.xml" value="0.18854166666666666" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/lay_grid.xml" value="0.25" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/layout_progress.xml" value="0.10733695652173914" />
+        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/splash_activity.xml" value="0.14895833333333333" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

@@ -1,19 +1,18 @@
 package com.app.recycler.apinetworks
 
 
-import com.fatbit.yoyumm.delivery.activity.ui.login.model.LoginResponse
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.POST
+import java.util.HashMap
 
 
 interface APIService {
 
     //login
-    @Headers("User-Agent: Android")
     @FormUrlEncoded
-    @POST("login")
-    fun login(@Field("user_email") user_email:String, @Field("user_password") user_password:String): Call<LoginResponse>
+    @POST("auth-login")
+    fun login(@FieldMap params: HashMap<String, Any>): Call<BaseResponse>
 
    /* // forgot
     @Headers("User-Agent: Android")
@@ -196,11 +195,6 @@ interface APIService {
                         @Field("walletaccount_phone") walletaccount_phone: String?,
                         @Field("walletaccount_mode") walletaccount_mode: String?,
                         @Field("walletaccount_number") walletaccount_number: String?): Call<CommonResponse>*/
-
-    object ApiUtils {
-        val apiService: APIService
-            get() = RetrofitClient.getClient()!!.create(APIService::class.java)
-    }
 
 }
 

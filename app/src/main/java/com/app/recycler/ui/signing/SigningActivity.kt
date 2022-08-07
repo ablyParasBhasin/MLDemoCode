@@ -1,16 +1,21 @@
 package com.app.recycler.ui.signing
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.appcompat.app.AppCompatActivity
 import com.app.recycler.R
-import com.app.recycler.ui.MainAcivity
+import com.app.recycler.apinetworks.API_TAG
+import com.app.recycler.apinetworks.BaseResponse
+import com.app.recycler.apinetworks.Constants
+import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.interfaces.ResponseHandler
+import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_signing.*
+import retrofit2.Response
+import java.util.HashMap
 
 
-class SigningActivity : AppCompatActivity() {
+class SigningActivity : BaseActivity(), ResponseHandler {
 
    /* private val userViewModel: UserViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
@@ -126,13 +131,24 @@ class SigningActivity : AppCompatActivity() {
     }*/
 
        btn_login.setOnClickListener {
-           val intent = Intent(this@SigningActivity, MainAcivity::class.java)
-           startActivity(intent)
+
+         /*  val intent = Intent(this@SigningActivity, MainAcivity::class.java)
+           startActivity(intent)*/
            //finish()
        }
 
     }
-
+    fun login() {
+        if (!isNetworkConnected) {
+            showDialog(getString(R.string.app_no_internet), true)
+            return
+        }
+        showProgress(true)
+        val params = HashMap<String, Any>()
+        params["email_id"] = edt_username.text.toString()
+        params["password"] = edt_password.text.toString()
+        DataManager.instance.login(API_TAG.LOGIN_API, params, this)
+    }
     val mWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable) {
             val nameNotEmpty: Boolean = edt_username.getText().toString().length > 0
@@ -151,5 +167,33 @@ class SigningActivity : AppCompatActivity() {
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    }
+
+    override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
+        hideProgress()
+        when (tag) {
+            API_TAG.LOGIN_API -> {
+                val login = response?.body() as BaseResponse
+                if (login.status.equals(Constants.API_SUCCESS)) {
+//                    saveLoginInfo(login)
+                    showToast(login.msg)
+                } else
+                    showDialog(login.msg, true)
+            }
+        }
+    }
+  /*  private fun saveLoginInfo(login: Login) {
+        val serializeData = login.userData?.serialize()
+        DataHolder.instance.getStore(this)
+            ?.saveString(Constants.PREF_LOGIN_TOKEN, login.userData?.userToken)
+        DataHolder.instance.getStore(this)?.saveString(Constants.USER_DATA, serializeData)
+        (application as Retailer).initUserInfo()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }*/
+    override fun onFailure(tag: API_TAG?, t: Throwable?) {
+        hideProgress()
+        println("t = [" + t.toString() + "]")
+        showDialog(getString(R.string.error_something_wrong), true)
     }
 }
