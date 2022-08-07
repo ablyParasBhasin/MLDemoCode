@@ -78,7 +78,7 @@
                 android:padding="@dimen/margin_5dp"
                 android:text="@string/app_please_acknowledge_this_message_before_moving_ahead"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/txt_14sp"
+                android:textSize="@dimen/txt_16sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -99,10 +99,11 @@
                     android:layout_height="@dimen/margin_60dp"
                     android:background="@drawable/btn_enable_bg"
                     android:backgroundTint="@color/colorAccent"
-                    android:drawableStart="@drawable/add_circle"
+                    android:drawableStart="@drawable/ic_baseline_check_24"
                     android:drawablePadding="@dimen/margin_30dp"
                     android:padding="@dimen/margin_15dp"
                     android:text="@string/app_acknowledge"
+                    android:textSize="@dimen/txt_20sp"
                     android:textColor="@android:color/white" />
             </LinearLayout>
 

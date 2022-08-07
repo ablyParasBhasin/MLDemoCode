@@ -26,6 +26,7 @@
                 android:layout_marginStart="@dimen/margin_5dp"
                 android:src="@drawable/ic_arrow_back_black_24dp"
                 android:tint="@color/white"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -120,7 +121,7 @@
                     tools:listitem="@layout/lay_grid"
                     tools:itemCount="6"
                     app:spanCount="3"
-                    android:layout_marginTop="@dimen/margin_30dp"
+                    android:layout_marginTop="@dimen/margin_20dp"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
 

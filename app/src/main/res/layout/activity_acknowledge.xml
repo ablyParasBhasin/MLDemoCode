@@ -12,7 +12,7 @@
             android:id="@+id/include"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/colorAccent"
+            android:background="@android:color/transparent"
             android:padding="@dimen/margin_5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -34,14 +34,8 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
 
-            android:layout_below="@+id/include"/>
-
-        <!--<LinearLayout
+        <LinearLayout
             android:id="@+id/llRoot"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -147,7 +141,7 @@
             </LinearLayout>
 
 
-        </LinearLayout>-->
+        </LinearLayout>
 
     </RelativeLayout>
 
