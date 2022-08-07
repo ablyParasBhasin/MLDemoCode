@@ -145,17 +145,17 @@
 
 
                 <LinearLayout
-
+                    android:id="@+id/btnStartActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_enable_bg"
                     android:backgroundTint="@color/colorAccent"
                     android:layout_gravity="bottom"
                     android:gravity="center"
-                    android:id="@+id/btnStartActivity"
                     android:layout_margin="@dimen/margin_30dp">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_start_activity"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/margin_60dp"
                         android:drawableStart="@drawable/add_circle"

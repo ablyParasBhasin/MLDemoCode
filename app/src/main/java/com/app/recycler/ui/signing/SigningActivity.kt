@@ -34,114 +34,9 @@ class SigningActivity : BaseActivity(), ResponseHandler {
        edt_username.addTextChangedListener(mWatcher);
        edt_password.addTextChangedListener(mWatcher);
 
-/*        session = SessionManager(applicationContext)
-        dialog = ProgressDialog.progressDialog(this)
-
-        txt_sign_in.setOnClickListener(this)
-        forgot_password.setOnClickListener(this)
-
-        userViewModel.errorResponse.observe(this, androidx.lifecycle.Observer {
-            if(isFinishing)return@Observer
-            dialog?.cancel()
-            Utility.showErrorDialog(this)
-        })
-
-        homeViewModel.getFailedResult().observe(this, androidx.lifecycle.Observer {
-            if(isFinishing)return@Observer
-            dialog?.cancel()
-            goToHome()
-        })
-
-
-        userViewModel.getLoginResponse().observe(this, androidx.lifecycle.Observer {
-            if(isFinishing)return@Observer
-
-            dialog?.cancel()
-
-            if (it.status == Config.SUCCESS) {
-
-                // Utility.showShortToast(this@SignInActivity, it.msg, true)
-
-                try {
-                    session.createSession(it.data.user_name,
-                        "",
-                        it.data.token,
-                        true,
-                        "",
-                        "",
-                        it.data.user_id,
-                        "",
-                        "",
-                        "", 0)
-
-                    homeViewModel.getDashboardData(it.data.token)
-
-                } catch (e: Exception) {
-                    dialog?.cancel()
-                    e.printStackTrace()
-                    Utility.showErrorDialog(this@SignInActivity)
-                }
-
-            } else {
-                dialog?.cancel()
-                Utility.showDialog(this@SignInActivity, it.msg)
-            }
-        })
-    }
-
-
-
-    override fun onClick(view: View) {
-        when (view.id) {
-            R.id.txt_sign_in -> {
-
-                if (edt_username.text.toString().trim().equals("")) {
-                    edt_username.requestFocus()
-                    edt_username.error = getString(R.string.error_email_id)
-                    return
-                } else {
-                    edt_username.error = null
-                }
-
-                if (edt_password.text.toString().trim().equals("")) {
-                    edt_password.requestFocus()
-                    password_lay.errorIconDrawable = null
-                    edt_password.error = getString(R.string.error_password)
-
-                    return
-                } else {
-                    edt_password.error = null
-                }
-
-                if(!edt_username.text.toString().trim().equals("") && !edt_password.text.toString().trim().equals("")){
-                    dialog?.show()
-                    userViewModel.login(edt_username.text.toString().trim(), edt_password.text.toString().trim())
-                }
-            }
-
-            //forgot_password
-            R.id.forgot_password -> {
-                val intent = Intent(this, ForgotPasswordActivity::class.java)
-                startActivity(intent)
-            }
-        }
-    }
-
-    fun goToHome(){
-        val intent = Intent(applicationContext, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        finish()
-    }*/
-
+       checkLoginCredentials()
        btn_login.setOnClickListener {
            login()
-
-         /*  val intent = Intent(this@SigningActivity, MainAcivity::class.java)
-           startActivity(intent)*/
-           //finish()
        }
 
     }
@@ -158,22 +53,26 @@ class SigningActivity : BaseActivity(), ResponseHandler {
     }
     val mWatcher: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable) {
-            val nameNotEmpty: Boolean = edt_username.getText().toString().length > 0
-            val pwNotEmpty: Boolean = edt_password.getText().toString().length > 0
-
-            println("Userrr = [${nameNotEmpty}]"+"PAssss"+pwNotEmpty)
-            if(nameNotEmpty && pwNotEmpty){
-                btn_login.isEnabled=true
-                btn_login.setBackgroundDrawable(resources.getDrawable(R.drawable.btn_enable_bg))
-            }else{
-                btn_login.isEnabled=false
-                btn_login.setBackgroundDrawable(resources.getDrawable(R.drawable.btn_disable_bg))
-            }
+            checkLoginCredentials()
 
         }
 
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    }
+
+    fun checkLoginCredentials(){
+        val nameNotEmpty: Boolean = edt_username.getText().toString().length > 0
+        val pwNotEmpty: Boolean = edt_password.getText().toString().length > 0
+
+        println("Userrr = [${nameNotEmpty}]"+"PAssss"+pwNotEmpty)
+        if(nameNotEmpty && pwNotEmpty){
+            btn_login.isEnabled=true
+            btn_login.setBackgroundDrawable(resources.getDrawable(R.drawable.btn_enable_bg))
+        }else{
+            btn_login.isEnabled=false
+            btn_login.setBackgroundDrawable(resources.getDrawable(R.drawable.btn_disable_bg))
+        }
     }
 
     override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
@@ -192,6 +91,10 @@ class SigningActivity : BaseActivity(), ResponseHandler {
         val serializeData = login?.serialize()
         DataManager.instance.getSharedPrefs(this)
             ?.saveString(PrefConstants.TOKEN, login.login_token)
+
+        DataManager.instance.getSharedPrefs(this)
+            ?.saveString(PrefConstants.USER_NAME, login.name)
+
         DataManager.instance.getSharedPrefs(this)?.saveString(Constants.USER_DATA, serializeData)
         (application as MyApp).initUserInfo()
         startActivity(Intent(this@SigningActivity, MainAcivity::class.java))

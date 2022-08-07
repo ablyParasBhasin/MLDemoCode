@@ -37,28 +37,45 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
         setContentView(R.layout.activity_main)
        // databinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        /*The is for gridView*/
+        /*The tvUserNameis for gridView*/
 
-        getCounts()
-        //ApiCall()
+        try {
+            val str_name= DataManager.instance.getSharedPrefs(this)?.getString(PrefConstants.USER_NAME).toString()
+            tvUserName.setText("Hello, "+str_name)
 
 
-        btnStartActivity.setOnClickListener {
-            val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
-            startActivity(intent)
+
+            getCounts()
+
+
+            btnStartActivity.setOnClickListener {
+                val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
+                startActivity(intent)
+            }
+            btn_start_activity.setOnClickListener {
+                val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
+                startActivity(intent)
+            }
+        }catch (ex:Exception){
+
         }
 
 
     }
     fun getCounts() {
-        if (!isNetworkConnected) {
-            showDialog(getString(R.string.app_no_internet), true)
-            return
+        try {
+            if (!isNetworkConnected) {
+                showDialog(getString(R.string.app_no_internet), true)
+                return
+            }
+            showProgress(true)
+            var jsonObject= JSONObject()
+            jsonObject.put("login_token",DataManager.instance.token)
+            DataManager.instance.dashboardCounts(API_TAG.DASHBOARD_COUNT, jsonObject, this)
+        }catch (ex:Exception){
+
         }
-        showProgress(true)
-        var jsonObject= JSONObject()
-        jsonObject.put("login_token",DataManager.instance.token)
-        DataManager.instance.dashboardCounts(API_TAG.DASHBOARD_COUNT, jsonObject, this)
+
     }
 
     private fun gridViewLsting() {

@@ -8,6 +8,15 @@
         android:layout_height="match_parent"
         android:background="@color/colorAccent">
 
+
+        <FrameLayout
+            android:id="@+id/containerchild"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/margin_20dp"
+            />
+
         <LinearLayout
             android:id="@+id/llRoot"
             android:layout_width="match_parent"
@@ -82,7 +91,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/btnStartActivity"
+                android:id="@+id/btn_acknowledge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
