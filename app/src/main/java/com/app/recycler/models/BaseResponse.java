@@ -1,15 +1,28 @@
-package com.app.recycler.apinetworks;
+package com.app.recycler.models;
 
+import com.app.recycler.models.dashboard.DashboardData;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class BaseResponse implements Serializable {
-    @SerializedName("msg")
-    private String msg;
+public class BaseResponse<T> implements Serializable {
+    @SerializedName("error_message")
+    private String error_message;
 
-    @SerializedName("status")
+    @SerializedName("code")
     private String status;
+
+    public String getError_message() {
+        return error_message;
+    }
+
+
+    public T getData() {
+        return data;
+    }
+
+    @SerializedName("data")
+    private T data=null;
 
     public int getCartItemCount() {
         return cartItemCount;
@@ -26,10 +39,11 @@ public class BaseResponse implements Serializable {
     private int favoriteItemCount=0;
 
     public String getMsg() {
-        return msg;
+        return error_message;
     }
 
     public String getStatus() {
         return status;
     }
 }
+

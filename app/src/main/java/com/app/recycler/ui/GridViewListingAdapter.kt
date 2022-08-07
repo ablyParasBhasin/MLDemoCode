@@ -33,6 +33,7 @@ class GridViewListingAdapter(val context: Context, var arrayList: ArrayList<Dumm
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         holder.txt_grid.text = arrayList.get(position).title
+        holder.txt_count.text = arrayList.get(position).discription
 
 
 
@@ -66,6 +67,7 @@ class GridViewListingAdapter(val context: Context, var arrayList: ArrayList<Dumm
     class MyViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 
         val txt_grid: TextView = itemView!!.findViewById(R.id.txt_grid)
+        val txt_count: TextView = itemView!!.findViewById(R.id.txt_count)
         val img_grid: ImageView = itemView!!.findViewById(R.id.img_grid)
         val lay_item: RelativeLayout = itemView!!.findViewById(R.id.lay_item)
         val cardlay: CardView = itemView!!.findViewById(R.id.cardlay)

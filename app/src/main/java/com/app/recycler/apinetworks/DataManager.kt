@@ -5,6 +5,9 @@ import android.content.Context
 import android.provider.Settings
 import com.app.recycler.applications.MyApp
 import com.app.recycler.interfaces.ResponseHandler
+import com.app.recycler.models.dashboard.DashboardData
+import com.app.recycler.models.BaseResponse
+import com.app.recycler.models.login.LoginData
 import com.app.recycler.ui.PrefConstants
 import com.uni.retailer.ui.base.BaseActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -25,6 +28,7 @@ class DataManager private constructor() : BaseActivity() {
     var cartCount = 0
     var favCount = 0
     var userType = 0
+    var userData: LoginData? = null
     private var prefs: SharedPref? = null
     private var dataManager: DataManager? = null
 
@@ -65,20 +69,43 @@ class DataManager private constructor() : BaseActivity() {
 //    var jsonObject= JSONObject()
     fun login(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.login(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
-        enqueue(object : Callback<BaseResponse?> {
+        enqueue(object : Callback<BaseResponse<LoginData>> {
             override fun onResponse(
-                call: Call<BaseResponse?>,
-                response: Response<BaseResponse?>
+                call: Call<BaseResponse<LoginData>>,
+                response: Response<BaseResponse<LoginData>>
             ) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
 
                     }
+                    listener.onSuccess(tag,response)
 
                 } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
             }
 
-            override fun onFailure(call: Call<BaseResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<LoginData>>, t: Throwable) {
+                call.cancel()
+                listener.onFailure(tag, t)
+            }
+        })
+    }
+    fun dashboardCounts(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+     networkCalls.dashboardCounts(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponse<DashboardData>> {
+            override fun onResponse(
+                call: Call<BaseResponse<DashboardData>>,
+                response: Response<BaseResponse<DashboardData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listener.onSuccess(tag,response)
+
+                } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponse<DashboardData>>, t: Throwable) {
                 call.cancel()
                 listener.onFailure(tag, t)
             }

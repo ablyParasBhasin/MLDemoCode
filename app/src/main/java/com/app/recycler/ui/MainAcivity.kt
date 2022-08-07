@@ -7,20 +7,26 @@ import retrofit2.Response*/
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.recycler.R
+import com.app.recycler.apinetworks.API_TAG
+import com.app.recycler.apinetworks.Constants
+import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.models.BaseResponse
 import com.app.recycler.databinding.ActivityMainBinding
 import com.app.recycler.interfaces.ListingItemClick
+import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.DummyData
-import com.app.recycler.utility.ConstantMethod
+import com.app.recycler.models.dashboard.DashboardData
 import com.app.recycler.utility.GridSpacingItemDecoration
+import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
-import java.io.IOException
+import org.json.JSONObject
+import retrofit2.Response
 
 
-class MainAcivity : AppCompatActivity(), ListingItemClick {
+class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
 
     var arrayList: ArrayList<DummyData>? = null
     private val client = OkHttpClient()
@@ -32,8 +38,8 @@ class MainAcivity : AppCompatActivity(), ListingItemClick {
        // databinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         /*The is for gridView*/
-        gridViewLsting()
 
+        getCounts()
         //ApiCall()
 
 
@@ -44,21 +50,15 @@ class MainAcivity : AppCompatActivity(), ListingItemClick {
 
 
     }
-
-    fun ApiCall() {
-        val request = Request.Builder()
-            .url(ConstantMethod.APiurl)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {}
-            override fun onResponse(call: Call, response: Response) {
-
-
-
-            }
-
-        })
+    fun getCounts() {
+        if (!isNetworkConnected) {
+            showDialog(getString(R.string.app_no_internet), true)
+            return
+        }
+        showProgress(true)
+        var jsonObject= JSONObject()
+        jsonObject.put("login_token",DataManager.instance.token)
+        DataManager.instance.dashboardCounts(API_TAG.DASHBOARD_COUNT, jsonObject, this)
     }
 
     private fun gridViewLsting() {
@@ -87,11 +87,11 @@ class MainAcivity : AppCompatActivity(), ListingItemClick {
 
     fun getGridList(): ArrayList<DummyData> = arrayListOf(
         DummyData("Total Survey", R.drawable.total_survey,"20"),
-        DummyData("In Progress", R.drawable.in_progress,"20"),
-        DummyData("Completed", R.drawable.completed,"20"),
-        DummyData("To be Sync", R.drawable.to_be_synced,"20"),
-        DummyData("Delayed", R.drawable.delayed,"20"),
-        DummyData("At Risk", R.drawable.all_risk,"20"))
+        DummyData("In Progress", R.drawable.in_progress,count.data.inProgress),
+        DummyData("Completed", R.drawable.completed,count.data.completed),
+        DummyData("To be Sync", R.drawable.to_be_synced,count.data.rejected),
+        DummyData("Delayed", R.drawable.delayed,count.data.approved),
+        DummyData("At Risk", R.drawable.all_risk,count.data.rejectForModification))
 
 
 
@@ -102,6 +102,26 @@ class MainAcivity : AppCompatActivity(), ListingItemClick {
         intent.putExtra("description", getSingleList().get(pos).discription);
         intent.putExtra("title", getSingleList().get(pos).title);
         startActivity(intent)*/
+    }
+    var count=BaseResponse<DashboardData>()
+
+    override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
+        hideProgress()
+        when (tag) {
+            API_TAG.DASHBOARD_COUNT -> {
+                 count = response?.body() as BaseResponse<DashboardData>
+                if (count.status.equals(Constants.API_SUCCESS)) {
+                    gridViewLsting()
+                } else
+                    showDialog(count.msg, true)
+            }
+        }
+    }
+
+    override fun onFailure(tag: API_TAG?, t: Throwable?) {
+        hideProgress()
+        println("t = [" + t.toString() + "]")
+        showDialog(getString(R.string.error_something_wrong), true)
     }
 
 

@@ -1,18 +1,23 @@
 package com.app.recycler.apinetworks
 
 
+import com.app.recycler.models.BaseResponse
+import com.app.recycler.models.dashboard.DashboardData
+import com.app.recycler.models.login.LoginData
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 import retrofit2.http.POST
-import java.util.HashMap
 
 
 interface APIService {
 
     //login
     @POST("auth-login")
-    fun login(@Body requestBody: RequestBody): Call<BaseResponse>
+    fun login(@Body requestBody: RequestBody): Call<BaseResponse<LoginData>>
+ //dashboard-counts
+    @POST("dashboard-counts")
+    fun dashboardCounts(@Body requestBody: RequestBody): Call<BaseResponse<DashboardData>>
 
    /* // forgot
     @Headers("User-Agent: Android")

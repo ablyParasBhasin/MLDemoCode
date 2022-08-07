@@ -1,19 +1,23 @@
 package com.app.recycler.ui.signing
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
-import com.app.recycler.apinetworks.BaseResponse
+import com.app.recycler.models.BaseResponse
 import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.applications.MyApp
 import com.app.recycler.interfaces.ResponseHandler
+import com.app.recycler.models.login.LoginData
+import com.app.recycler.ui.MainAcivity
+import com.app.recycler.ui.PrefConstants
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_signing.*
 import org.json.JSONObject
 import retrofit2.Response
-import java.util.HashMap
 
 
 class SigningActivity : BaseActivity(), ResponseHandler {
@@ -25,7 +29,8 @@ class SigningActivity : BaseActivity(), ResponseHandler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signing)
-
+       edt_username.setText("digantgupta@nirwana.in")
+       edt_password.setText("12345678")
        edt_username.addTextChangedListener(mWatcher);
        edt_password.addTextChangedListener(mWatcher);
 
@@ -175,24 +180,23 @@ class SigningActivity : BaseActivity(), ResponseHandler {
         hideProgress()
         when (tag) {
             API_TAG.LOGIN_API -> {
-                val login = response?.body() as BaseResponse
+                val login = response?.body() as BaseResponse<LoginData>
                 if (login.status.equals(Constants.API_SUCCESS)) {
-//                    saveLoginInfo(login)
-                    showToast(login.msg)
+                    saveLoginInfo(login.data)
                 } else
                     showDialog(login.msg, true)
             }
         }
     }
-  /*  private fun saveLoginInfo(login: Login) {
-        val serializeData = login.userData?.serialize()
-        DataHolder.instance.getStore(this)
-            ?.saveString(Constants.PREF_LOGIN_TOKEN, login.userData?.userToken)
-        DataHolder.instance.getStore(this)?.saveString(Constants.USER_DATA, serializeData)
-        (application as Retailer).initUserInfo()
-        startActivity(Intent(this, MainActivity::class.java))
+    private fun saveLoginInfo(login: LoginData) {
+        val serializeData = login?.serialize()
+        DataManager.instance.getSharedPrefs(this)
+            ?.saveString(PrefConstants.TOKEN, login.login_token)
+        DataManager.instance.getSharedPrefs(this)?.saveString(Constants.USER_DATA, serializeData)
+        (application as MyApp).initUserInfo()
+        startActivity(Intent(this@SigningActivity, MainAcivity::class.java))
         finish()
-    }*/
+    }
     override fun onFailure(tag: API_TAG?, t: Throwable?) {
         hideProgress()
         println("t = [" + t.toString() + "]")
