@@ -10,6 +10,7 @@ import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.dashboard.DashboardData
+import com.app.recycler.utility.Utils
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.fragment_reporting_form.*
 import org.json.JSONObject
@@ -29,6 +30,7 @@ class AcknowledgeActivity : BaseActivity(), ResponseHandler {
         ivBack.setOnClickListener {
             onBackPressed()
         }
+        Utils.enableScroll(terms)
     }
     fun setAcknowledge() {
         try {
