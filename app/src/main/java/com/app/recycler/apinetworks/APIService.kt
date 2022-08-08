@@ -18,6 +18,8 @@ interface APIService {
  //dashboard-counts
     @POST("dashboard-counts")
     fun dashboardCounts(@Body requestBody: RequestBody): Call<BaseResponse<DashboardData>>
+    @POST("acknowledge")
+    fun acknowledge(@Body requestBody: RequestBody): Call<BaseResponse<DashboardData>>
 
    /* // forgot
     @Headers("User-Agent: Android")

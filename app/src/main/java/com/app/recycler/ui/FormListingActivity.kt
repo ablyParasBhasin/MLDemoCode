@@ -1,32 +1,45 @@
 package com.app.recycler.ui
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
 import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.interfaces.ListingItemClick
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
+import com.app.recycler.models.DummyData
 import com.app.recycler.models.dashboard.DashboardData
 import com.uni.retailer.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.fragment_reporting_form.*
+import kotlinx.android.synthetic.main.fragment_reporting_form2.*
 import org.json.JSONObject
 import retrofit2.Response
 
 
-class AcknowledgeActivity : BaseActivity(), ResponseHandler {
+class FormListingActivity : BaseActivity(), ResponseHandler, ListingItemClick {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_reporting_form)
-        btn_acknowledge.setOnClickListener{
-            setAcknowledge()
-        }
-        btnStart_Activity.setOnClickListener {
-            setAcknowledge()
-        }
+        setContentView(R.layout.fragment_reporting_form2)
+        singleListing()
+
     }
+    private fun singleListing() {
+        /* if Display singleListing View. Then Uncomment below code*/
+
+        recyclerview.layoutManager = LinearLayoutManager(this)
+
+        // This will pass the ArrayList to our Adapter
+        val adapter1 = SingleListingAdapter(this, getSingleList(), this)
+
+        // Setting the Adapter with the recyclerview
+        recyclerview.adapter = adapter1
+
+    }
+    fun getSingleList(){
+
+    }
+
     fun setAcknowledge() {
         try {
             if (!isNetworkConnected) {
@@ -47,10 +60,10 @@ class AcknowledgeActivity : BaseActivity(), ResponseHandler {
     override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
         hideProgress()
         when (tag) {
-            API_TAG.SET_ACKNOWLEDGE -> {
+            API_TAG.DASHBOARD_COUNT -> {
                 var count = response?.body() as BaseResponse<DashboardData>
                 if (count.status.equals(Constants.API_SUCCESS)) {
-                    startActivity(Intent(this@AcknowledgeActivity, FormListingActivity::class.java))
+
                 } else
                     showDialog(count.msg, true)
             }
@@ -61,6 +74,10 @@ class AcknowledgeActivity : BaseActivity(), ResponseHandler {
         hideProgress()
         println("t = [" + t.toString() + "]")
         showDialog(getString(R.string.error_something_wrong), true)
+    }
+
+    override fun clickIten(pos: Int) {
+        TODO("Not yet implemented")
     }
 
 }

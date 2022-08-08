@@ -8,16 +8,70 @@
         android:layout_height="match_parent"
         android:background="@color/colorAccent">
 
-        <LinearLayout
-            android:id="@+id/llRoot"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/include"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:background="@drawable/recycler_backgroundtopleft_round"
-            android:orientation="vertical"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/margin_5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:tint="@color/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/walletBalance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_wallet_balance"
+            android:textColor="@color/white"
+            android:textSize="@dimen/margin_14dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWtran_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/margin_22dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/walletBalance" />
+
+
+        <LinearLayout
+            android:id="@+id/llRoot"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_48dp"
+            android:background="@drawable/recycler_backgroundtopleft_round"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/include">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvUserName"
@@ -28,7 +82,7 @@
                 android:layout_marginEnd="@dimen/margin_18dp"
                 android:text="WSAF M&amp;E"
                 android:textColor="@color/text_color"
-                android:textSize="25sp" />
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -37,21 +91,47 @@
                 android:layout_marginEnd="@dimen/margin_20dp"
                 android:text="Weekly reporting form"
                 android:textColor="@android:color/black"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
-
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview"
+            <FrameLayout
+                android:id="@+id/llContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tool"
-                android:layout_marginTop="5dp"
-                android:background="@color/white" />
+                android:layout_height="match_parent"
+
+                android:orientation="vertical">
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    tools:listitem="@layout/lay_single_item"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
+
+                <!--
+                                <androidx.appcompat.widget.AppCompatButton
+                                    android:id="@+id/btn_login"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/margin_60dp"
+                                    android:layout_gravity="bottom"
+                                    android:layout_margin="@dimen/margin_30dp"
+                                    android:background="@drawable/btn_enable_bg"
+                                    android:backgroundTint="@color/colorAccent"
+                                    android:drawableStart="@drawable/add_circle"
+                                    android:gravity="center"
+                                    android:text="@string/start_new_activity"
+                                    android:textAllCaps="false"
+                                    android:enabled="false"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/txt_20sp" />
+                -->
+
+
+            </FrameLayout>
 
         </LinearLayout>
 

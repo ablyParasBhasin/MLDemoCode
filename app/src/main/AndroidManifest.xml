@@ -18,7 +18,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
-        <activity android:name=".ui.AcknowledgeActivity"></activity>
         <activity
             android:name=".ui.signing.SigningActivity"
             android:exported="false" />
@@ -38,13 +37,17 @@
             android:name=".ui.MainAcivity"
             android:exported="true"
             android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.AcknowledgeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
 
-
-          <!--  <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+        <activity
+            android:name=".ui.FormListingActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
         </activity>
 
     </application>

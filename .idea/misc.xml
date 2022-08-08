@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/add_circle.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/all_risk.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/arrow_forward_48px.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/bg_card.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/bt1.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/circle-48px.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/empty_circle.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/recycler_backgroundtopleft_round.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/round_bg.xml" value="0.1635" />
+        <entry key="app/src/main/res/layout/activity_acknowledge.xml" value="0.27760416666666665" />
+        <entry key="app/src/main/res/layout/activity_empty.xml" value="0.32760416666666664" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_reporting_form.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_reporting_form2.xml" value="0.22239583333333332" />
+        <entry key="app/src/main/res/layout/lay_single_item.xml" value="0.33" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
 </project>

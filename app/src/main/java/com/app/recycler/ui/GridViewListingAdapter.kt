@@ -62,7 +62,6 @@ class GridViewListingAdapter(val context: Context, var arrayList: ArrayList<Dumm
         R.color.item3,
         R.color.item4,
         R.color.item5,
-        R.color.item6,
     )
     class MyViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!) {
 

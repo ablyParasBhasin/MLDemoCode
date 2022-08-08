@@ -111,6 +111,28 @@ class DataManager private constructor() : BaseActivity() {
             }
         })
     }
+fun setAcknwoledge(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+     networkCalls.acknowledge(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponse<DashboardData>> {
+            override fun onResponse(
+                call: Call<BaseResponse<DashboardData>>,
+                response: Response<BaseResponse<DashboardData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listener.onSuccess(tag,response)
+
+                } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponse<DashboardData>>, t: Throwable) {
+                call.cancel()
+                listener.onFailure(tag, t)
+            }
+        })
+    }
 
 
     init {

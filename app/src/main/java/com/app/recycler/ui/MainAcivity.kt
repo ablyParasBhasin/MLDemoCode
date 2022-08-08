@@ -43,16 +43,13 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
             val str_name= DataManager.instance.getSharedPrefs(this)?.getString(PrefConstants.USER_NAME).toString()
             tvUserName.setText("Hello, "+str_name)
 
-
-
             getCounts()
-
 
             btnStartActivity.setOnClickListener {
                 val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
                 startActivity(intent)
             }
-            btn_start_activity.setOnClickListener {
+            btnStart_Activity.setOnClickListener {
                 val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
                 startActivity(intent)
             }
@@ -103,12 +100,12 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
 
 
     fun getGridList(): ArrayList<DummyData> = arrayListOf(
-        DummyData("Total Survey", R.drawable.total_survey,"20"),
+        DummyData("Total Survey", R.drawable.total_survey,count.data.approved),
         DummyData("In Progress", R.drawable.in_progress,count.data.inProgress),
         DummyData("Completed", R.drawable.completed,count.data.completed),
-        DummyData("To be Sync", R.drawable.to_be_synced,count.data.rejected),
-        DummyData("Delayed", R.drawable.delayed,count.data.approved),
-        DummyData("At Risk", R.drawable.all_risk,count.data.rejectForModification))
+//        DummyData("To be Sync", R.drawable.to_be_synced,count.data.rejected),
+        DummyData("Delayed", R.drawable.delayed,count.data.rejectForModification),
+        DummyData("At Risk", R.drawable.all_risk,count.data.rejected))
 
 
 
