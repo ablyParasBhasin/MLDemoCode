@@ -100,12 +100,12 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
 
 
     fun getGridList(): ArrayList<DummyData> = arrayListOf(
-        DummyData("Total Survey", R.drawable.total_survey,count.data.approved),
-        DummyData("In Progress", R.drawable.in_progress,count.data.inProgress),
-        DummyData("Completed", R.drawable.completed,count.data.completed),
+        DummyData("Total Reports Approved", R.drawable.total_survey,count.data.approved),
+        DummyData("Reports In Progress", R.drawable.in_progress,count.data.inProgress),
+        DummyData("Reports Completed", R.drawable.completed,count.data.completed),
 //        DummyData("To be Sync", R.drawable.to_be_synced,count.data.rejected),
-        DummyData("Delayed", R.drawable.delayed,count.data.rejectForModification),
-        DummyData("At Risk", R.drawable.all_risk,count.data.rejected))
+        DummyData("Pending Modification", R.drawable.delayed,count.data.rejectForModification),
+        DummyData("Rejected", R.drawable.all_risk,count.data.rejected))
 
 
 
