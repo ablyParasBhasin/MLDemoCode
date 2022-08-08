@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/acknowledge_bg.xml" value="0.207" />
         <entry key="app/src/main/res/drawable/ic_baseline_access_alarms_24.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/ic_withdraw_down_arrow.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/spinner_bg.xml" value="0.11" />
-        <entry key="app/src/main/res/layout/activity_spinner.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18596491228070175" />
+        <entry key="app/src/main/res/layout/activity_spinner.xml" value="0.275" />
+        <entry key="app/src/main/res/layout/fragment_reporting_form.xml" value="0.225" />
         <entry key="app/src/main/res/layout/fragment_reporting_form2.xml" value="0.275" />
         <entry key="app/src/main/res/layout/lay_single_item.xml" value="0.26851851851851855" />
       </map>

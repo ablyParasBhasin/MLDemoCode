@@ -101,6 +101,7 @@
                         tools:itemCount="6"
                         app:spanCount="3"
                         android:layout_marginTop="@dimen/margin_20dp"
+                        android:layout_marginBottom="@dimen/margin_15dp"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
 
