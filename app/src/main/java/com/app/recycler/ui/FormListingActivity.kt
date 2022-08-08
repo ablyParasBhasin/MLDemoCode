@@ -36,9 +36,11 @@ class FormListingActivity : BaseActivity(), ResponseHandler, ListingItemClick {
         recyclerview.adapter = adapter1
 
     }
-    fun getSingleList(){
-
-    }
+    fun getSingleList(): ArrayList<DummyData> = arrayListOf(
+        DummyData("General information about the IP and tea estate", 0,"This is a mountain  1"),
+        DummyData("Activity Level Information", 0,"This is a mountain  2"),
+        DummyData("KPI (Activity Information)", 0,"This is a mountain  3"),
+        )
 
     fun setAcknowledge() {
         try {
