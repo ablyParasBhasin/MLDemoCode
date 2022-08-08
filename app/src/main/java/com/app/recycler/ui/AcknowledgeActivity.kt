@@ -26,6 +26,9 @@ class AcknowledgeActivity : BaseActivity(), ResponseHandler {
         btnStart_Activity.setOnClickListener {
             setAcknowledge()
         }
+        ivBack.setOnClickListener {
+            onBackPressed()
+        }
     }
     fun setAcknowledge() {
         try {

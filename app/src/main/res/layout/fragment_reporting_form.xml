@@ -26,7 +26,6 @@
                 android:layout_marginStart="@dimen/margin_5dp"
                 android:src="@drawable/ic_arrow_back_black_24dp"
                 android:tint="@color/white"
-                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -72,9 +71,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20dp"
-                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_marginEnd="@dimen/margin_20dp"
                 android:background="@drawable/acknowledge_bg">
 
@@ -89,9 +88,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_10dp"
+                        android:lineSpacingExtra="@dimen/margin_5dp"
                         android:padding="@dimen/margin_10dp"
-                        android:textSize="@dimen/txt_16sp"
-                        android:text="@string/app_dummy" />
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/txt_18sp"
+                        android:text="@string/terms_conditions" />
 
 
                 </ScrollView>
@@ -107,7 +108,7 @@
                 android:layout_marginEnd="@dimen/margin_15dp"
                 android:text="@string/app_please_acknowledge_this_message_before_moving_ahead"
                 android:textColor="@color/text_color"
-                android:textSize="@dimen/txt_16sp"
+                android:textSize="@dimen/txt_18sp"
                 android:textStyle="bold" />
 
             <LinearLayout

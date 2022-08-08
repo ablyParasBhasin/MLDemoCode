@@ -22,7 +22,9 @@ class FormListingActivity : BaseActivity(), ResponseHandler, ListingItemClick {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_reporting_form2)
         singleListing()
-
+        ivBack.setOnClickListener {
+            onBackPressed()
+        }
     }
     private fun singleListing() {
         /* if Display singleListing View. Then Uncomment below code*/
@@ -79,7 +81,7 @@ class FormListingActivity : BaseActivity(), ResponseHandler, ListingItemClick {
     }
 
     override fun clickIten(pos: Int) {
-        TODO("Not yet implemented")
+       showToast("Coming soon.... ")
     }
 
 }

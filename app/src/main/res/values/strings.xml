@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Recycler</string>
+    <string name="app_name">Seeds Impact</string>
     <string name="app_no_internet">No Internet Connection</string>
     <string name="app_allow">allow</string>
     <string name="app_info">Information !</string>
-    <string name="app_dummy"><![CDATA[Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum template.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing geMaker including versions of Lorem Ipsum template>]]></string>
+    <string name="terms_conditions"><![CDATA[The IPs will use this Application to collect and report weekly progress made in estate. The form should be filled in by the IP for each estate covered in the week and submit to WSAF team by end of the week. All questions are mandatory for response unless mentioned otherwise. The IP has to collect and submit the date once in a week for each estate. If there are multiple estates under an IP the form should be filled out seperately for each estate. This form will be used to collect data of activities conducted in a week in a particular tea estate. A new form should be filled out for each tea estate]]></string>
     <string name="app_ok">Ok</string>
     <string name="app_yes">Yes</string>
 

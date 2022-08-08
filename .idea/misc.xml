@@ -3,13 +3,32 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/ic_baseline_access_alarms_24.xml" value="0.167" />
-        <entry key="app/src/main/res/drawable/ic_withdraw_down_arrow.xml" value="0.167" />
-        <entry key="app/src/main/res/layout/lay_single_item.xml" value="0.26851851851851855" />
+        <entry key="app/src/main/res/drawable/acknowledge_bg.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/all_risk.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/arrow_forward_48px.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/bg_card.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/bt1.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/btn_disable_bg.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/btn_enable_bg.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/button_bg_wallet.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/delayed.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/ic_baseline_warning_24.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/ic_user_login.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/ic_withdraw_down_arrow.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/recycler_backgroundtopleft_round.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/round_bg.xml" value="0.143" />
+        <entry key="app/src/main/res/drawable/to_be_synced.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/total_survey.xml" value="0.207" />
+        <entry key="app/src/main/res/drawable/white_round_bg.xml" value="0.207" />
+        <entry key="app/src/main/res/layout/fragment_reporting_form.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_reporting_form2.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/lay_single_item.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/splash_activity.xml" value="0.23385416666666667" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
-  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
