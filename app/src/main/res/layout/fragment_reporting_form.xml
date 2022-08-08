@@ -33,112 +33,121 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <LinearLayout
-            android:id="@+id/llRoot"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_20dp"
-            android:background="@drawable/recycler_backgroundtopleft_round"
-            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/include">
 
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvUserName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_20dp"
-                android:layout_marginTop="@dimen/margin_15dp"
-                android:layout_marginEnd="@dimen/margin_18dp"
-                android:text="WSAF M&amp;E"
-                android:textColor="@color/text_color"
-                android:textSize="20sp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_20dp"
-                android:layout_marginEnd="@dimen/margin_20dp"
-                android:text="Weekly reporting form"
-                android:textColor="@android:color/black"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-
             <LinearLayout
+                android:id="@+id/llRoot"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_20dp"
-                android:layout_marginTop="@dimen/margin_10dp"
-                android:layout_marginEnd="@dimen/margin_20dp"
-                android:background="@drawable/acknowledge_bg">
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:background="@drawable/recycler_backgroundtopleft_round"
+                android:orientation="vertical"
+              >
 
-                <ScrollView
-                    android:id="@+id/llContent"
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginStart="@dimen/margin_20dp"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:layout_marginEnd="@dimen/margin_18dp"
+                    android:text="WSAF M&amp;E"
+                    android:textColor="@color/text_color"
+                    android:textSize="20sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20dp"
+                    android:layout_marginEnd="@dimen/margin_20dp"
+                    android:text="Weekly reporting form"
+                    android:textColor="@android:color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
 
 
-                    <androidx.appcompat.widget.AppCompatTextView
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_20dp"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_marginEnd="@dimen/margin_20dp"
+                    android:background="@drawable/acknowledge_bg">
+
+                    <ScrollView
+                        android:id="@+id/llContent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10dp"
-                        android:lineSpacingExtra="@dimen/margin_5dp"
-                        android:padding="@dimen/margin_10dp"
-                        android:textColor="@color/text_color"
-                        android:textSize="@dimen/txt_18sp"
-                        android:text="@string/terms_conditions" />
+                        android:orientation="vertical">
 
 
-                </ScrollView>
-
-            </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-             android:layout_marginTop="@dimen/margin_15dp"
-                android:layout_marginStart="@dimen/margin_15dp"
-                android:layout_marginEnd="@dimen/margin_15dp"
-                android:text="@string/app_please_acknowledge_this_message_before_moving_ahead"
-                android:textColor="@color/text_color"
-                android:textSize="@dimen/txt_18sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/btn_acknowledge"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_margin="@dimen/margin_20dp"
-                android:background="@drawable/btn_enable_bg"
-                android:backgroundTint="@color/colorAccent"
-                android:gravity="center">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10dp"
+                            android:lineSpacingExtra="@dimen/margin_5dp"
+                            android:padding="@dimen/margin_10dp"
+                            android:textColor="@color/text_color"
+                            android:textSize="@dimen/txt_18sp"
+                            android:text="@string/terms_conditions" />
 
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnStart_Activity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/margin_60dp"
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/margin_15dp"
+                    android:layout_marginStart="@dimen/margin_15dp"
+                    android:layout_marginEnd="@dimen/margin_15dp"
+                    android:text="@string/app_please_acknowledge_this_message_before_moving_ahead"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/txt_18sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/btn_acknowledge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_margin="@dimen/margin_20dp"
                     android:background="@drawable/btn_enable_bg"
                     android:backgroundTint="@color/colorAccent"
-                    android:drawableStart="@drawable/ic_baseline_check_24"
-                    android:drawablePadding="@dimen/margin_30dp"
-                    android:padding="@dimen/margin_15dp"
-                    android:text="@string/app_acknowledge"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/txt_20sp" />
+                    android:gravity="center">
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnStart_Activity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/margin_60dp"
+                        android:background="@drawable/btn_enable_bg"
+                        android:backgroundTint="@color/colorAccent"
+                        android:drawableStart="@drawable/ic_baseline_check_24"
+                        android:drawablePadding="@dimen/margin_30dp"
+                        android:padding="@dimen/margin_15dp"
+                        android:text="@string/app_acknowledge"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/txt_20sp" />
+                </LinearLayout>
+
+
             </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
 
-        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
