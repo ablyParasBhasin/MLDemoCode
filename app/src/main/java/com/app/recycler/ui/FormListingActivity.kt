@@ -1,5 +1,6 @@
 package com.app.recycler.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.recycler.R
@@ -81,7 +82,8 @@ class FormListingActivity : BaseActivity(), ResponseHandler, ListingItemClick {
     }
 
     override fun clickIten(pos: Int) {
-       showToast("Coming soon.... ")
+        startActivity(Intent(this@FormListingActivity, SpinnerActivity::class.java))
+       //showToast("Coming soon.... ")
     }
 
 }

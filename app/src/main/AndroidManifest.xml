@@ -19,6 +19,10 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.SpinnerActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".ui.signing.SigningActivity"
             android:exported="false" />
         <activity android:name=".ui.DescritionActivity" />
@@ -32,24 +36,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.MainAcivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.AcknowledgeActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.FormListingActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
