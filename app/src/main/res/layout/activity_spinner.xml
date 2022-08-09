@@ -153,9 +153,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-
-                    android:gravity="center"
                     android:layout_marginLeft="5dp"
+                    android:gravity="center"
                     android:spinnerMode="dropdown" />
 
                 <ImageView

@@ -59,21 +59,7 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
 
 
     }
-    fun getCounts() {
-        try {
-            if (!isNetworkConnected) {
-                showDialog(getString(R.string.app_no_internet), true)
-                return
-            }
-            showProgress(true)
-            var jsonObject= JSONObject()
-            jsonObject.put("login_token",DataManager.instance.token)
-            DataManager.instance.dashboardCounts(API_TAG.DASHBOARD_COUNT, jsonObject, this)
-        }catch (ex:Exception){
 
-        }
-
-    }
 
     private fun gridViewLsting() {
 
@@ -116,6 +102,21 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
         intent.putExtra("description", getSingleList().get(pos).discription);
         intent.putExtra("title", getSingleList().get(pos).title);
         startActivity(intent)*/
+    }
+    fun getCounts() {
+        try {
+            if (!isNetworkConnected) {
+                showDialog(getString(R.string.app_no_internet), true)
+                return
+            }
+            showProgress(true)
+            var jsonObject= JSONObject()
+            jsonObject.put("login_token",DataManager.instance.token)
+            DataManager.instance.dashboardCounts(API_TAG.DASHBOARD_COUNT, jsonObject, this)
+        }catch (ex:Exception){
+
+        }
+
     }
     var count=BaseResponse<DashboardData>()
 

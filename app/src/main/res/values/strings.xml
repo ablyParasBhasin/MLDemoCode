@@ -19,5 +19,8 @@
     <string name="ok">Ok</string>
     <string name="message">Message</string>
     <string name="error_something_wrong">Something went wrong</string>
+    <string name="generalInfoCat">General information about the IP and tea estate</string>
+    <string name="activityInfoCat">Activity Level Information</string>
+    <string name="KpiInfoCat">KPI (Activity Information)</string>
 
 </resources>

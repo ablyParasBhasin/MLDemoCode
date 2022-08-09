@@ -33,16 +33,16 @@ class FormListingActivity : BaseActivity(), ResponseHandler, ListingItemClick {
         recyclerview.layoutManager = LinearLayoutManager(this)
 
         // This will pass the ArrayList to our Adapter
-        val adapter1 = SingleListingAdapter(this, getSingleList(), this)
+        val adapter1 = FormCategories(this, getSingleList(), this)
 
         // Setting the Adapter with the recyclerview
         recyclerview.adapter = adapter1
 
     }
     fun getSingleList(): ArrayList<DummyData> = arrayListOf(
-        DummyData("General information about the IP and tea estate", 0,"This is a mountain  1"),
-        DummyData("Activity Level Information", 0,"This is a mountain  2"),
-        DummyData("KPI (Activity Information)", 0,"This is a mountain  3"),
+        DummyData(getString(R.string.generalInfoCat), 0,"This is a mountain  1"),
+        DummyData(getString(R.string.activityInfoCat), 0,"This is a mountain  2"),
+        DummyData(getString(R.string.KpiInfoCat), 0,"This is a mountain  3"),
         )
 
     fun setAcknowledge() {
@@ -82,7 +82,8 @@ class FormListingActivity : BaseActivity(), ResponseHandler, ListingItemClick {
     }
 
     override fun clickIten(pos: Int) {
-        startActivity(Intent(this@FormListingActivity, SpinnerActivity::class.java))
+        if(pos==0)
+        startActivity(Intent(this@FormListingActivity, Step1Activity::class.java))
        //showToast("Coming soon.... ")
     }
 

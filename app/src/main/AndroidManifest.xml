@@ -19,7 +19,7 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".ui.SpinnerActivity"
+            android:name=".ui.Step1Activity"
             android:exported="true"
             android:screenOrientation="portrait"/>
         <activity

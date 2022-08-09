@@ -2,8 +2,10 @@ package com.app.recycler.apinetworks
 
 
 import com.app.recycler.models.BaseResponse
+import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.dashboard.DashboardData
 import com.app.recycler.models.login.LoginData
+import com.app.recycler.models.step1.CommonData
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -20,6 +22,12 @@ interface APIService {
     fun dashboardCounts(@Body requestBody: RequestBody): Call<BaseResponse<DashboardData>>
     @POST("acknowledge")
     fun acknowledge(@Body requestBody: RequestBody): Call<BaseResponse<DashboardData>>
+  @POST("get-estates")
+    fun getEstates(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
+    @POST("get-estate-district")
+    fun getEstateDistrict(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
+    @POST("save-step1-data")
+    fun save_step1_data(@Body requestBody: RequestBody): Call<BaseResponse<*>>
 
    /* // forgot
     @Headers("User-Agent: Android")
