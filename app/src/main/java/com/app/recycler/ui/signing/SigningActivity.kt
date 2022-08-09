@@ -29,8 +29,8 @@ class SigningActivity : BaseActivity(), ResponseHandler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signing)
-    /*   edt_username.setText("digantgupta@nirwana.in")
-       edt_password.setText("12345678")*/
+       edt_username.setText("digantgupta@nirwana.in")
+       edt_password.setText("12345678")
        edt_username.addTextChangedListener(mWatcher);
        edt_password.addTextChangedListener(mWatcher);
 

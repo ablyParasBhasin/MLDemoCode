@@ -79,8 +79,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20dp"
                 android:layout_marginEnd="@dimen/margin_20dp"
-                android:text="General information about the IP and tea estate "
-                android:textColor="@android:color/black"
+                android:text="@string/general_information_about_the_ip_and_tea_estate"
+                android:textColor="@color/black"
                 android:textSize="25sp"
                 android:layout_marginTop="@dimen/margin_20dp"
                 android:textStyle="bold" />
@@ -93,7 +93,7 @@
                 android:layout_marginEnd="@dimen/margin_20dp"
                 android:text="@string/what_is_the_name_of_tea_estate"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/txt_14sp"
+                android:textSize="@dimen/txt_16sp"
                 android:layout_marginTop="@dimen/margin_15dp"
                 android:textStyle="bold" />
 
@@ -109,7 +109,7 @@
                 <Spinner
                     android:id="@+id/spinnerEstate"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin_40dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
@@ -133,7 +133,7 @@
                 android:layout_marginEnd="@dimen/margin_20dp"
                 android:text="@string/location_of_tea_estate"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/txt_14sp"
+                android:textSize="@dimen/txt_16sp"
                 android:layout_marginTop="@dimen/margin_15dp"
                 android:textStyle="bold" />
 
@@ -149,7 +149,7 @@
                 <Spinner
                     android:id="@+id/spinnerEstateDistrict"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/margin_40dp"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
@@ -180,7 +180,6 @@
         android:gravity="center"
         android:text="@string/save_as_draft"
         android:textAllCaps="false"
-        android:enabled="false"
         android:textColor="@color/white"
         android:textSize="@dimen/txt_16sp" />
     <Button
@@ -194,7 +193,6 @@
         android:gravity="center"
         android:text="@string/save_continue"
         android:textAllCaps="false"
-        android:enabled="false"
         android:textColor="@color/white"
         android:textSize="@dimen/txt_16sp" />
 

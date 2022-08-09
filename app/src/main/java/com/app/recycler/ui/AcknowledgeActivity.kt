@@ -10,6 +10,7 @@ import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.dashboard.DashboardData
+import com.app.recycler.models.step1.CommonData
 import com.app.recycler.utility.Utils
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.fragment_reporting_form.*
@@ -53,8 +54,9 @@ class AcknowledgeActivity : BaseActivity(), ResponseHandler {
         hideProgress()
         when (tag) {
             API_TAG.SET_ACKNOWLEDGE -> {
-                var count = response?.body() as BaseResponse<DashboardData>
+                var count = response?.body() as BaseResponse<CommonData>
                 if (count.status.equals(Constants.API_SUCCESS)) {
+                    DataManager.instance.commonData=count.data
                     startActivity(Intent(this@AcknowledgeActivity, FormListingActivity::class.java))
                 } else
                     showDialog(count.msg, true)

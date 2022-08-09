@@ -31,6 +31,7 @@ class DataManager private constructor() : BaseActivity() {
     var favCount = 0
     var userType = 0
     var userData: LoginData? = null
+    var commonData: CommonData? = null
     private var prefs: SharedPref? = null
     private var dataManager: DataManager? = null
 
@@ -137,10 +138,10 @@ class DataManager private constructor() : BaseActivity() {
 
     fun saveStep1Data(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.save_step1_data(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
-        enqueue(object : Callback<BaseResponse<*>> {
+        enqueue(object : Callback<BaseResponse<CommonData>> {
             override fun onResponse(
-                call: Call<BaseResponse<*>>,
-                response: Response<BaseResponse<*>?>
+                call: Call<BaseResponse<CommonData>>,
+                response: Response<BaseResponse<CommonData>?>
             ) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
@@ -151,7 +152,7 @@ class DataManager private constructor() : BaseActivity() {
                 } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
             }
 
-            override fun onFailure(call: Call<BaseResponse<*>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
                 call.cancel()
                 listener.onFailure(tag, t)
             }
@@ -181,10 +182,10 @@ class DataManager private constructor() : BaseActivity() {
     }
 fun setAcknwoledge(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.acknowledge(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
-        enqueue(object : Callback<BaseResponse<DashboardData>> {
+        enqueue(object : Callback<BaseResponse<CommonData>> {
             override fun onResponse(
-                call: Call<BaseResponse<DashboardData>>,
-                response: Response<BaseResponse<DashboardData>?>
+                call: Call<BaseResponse<CommonData>>,
+                response: Response<BaseResponse<CommonData>?>
             ) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
@@ -195,7 +196,7 @@ fun setAcknwoledge(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandle
                 } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
             }
 
-            override fun onFailure(call: Call<BaseResponse<DashboardData>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
                 call.cancel()
                 listener.onFailure(tag, t)
             }

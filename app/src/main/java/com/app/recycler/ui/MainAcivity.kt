@@ -12,6 +12,7 @@ import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
 import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.applications.MyApp
 import com.app.recycler.models.BaseResponse
 import com.app.recycler.databinding.ActivityMainBinding
 import com.app.recycler.interfaces.ListingItemClick
@@ -35,6 +36,7 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        (application as MyApp).initUserInfo()
        // databinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         /*The tvUserNameis for gridView*/

@@ -21,13 +21,13 @@ interface APIService {
     @POST("dashboard-counts")
     fun dashboardCounts(@Body requestBody: RequestBody): Call<BaseResponse<DashboardData>>
     @POST("acknowledge")
-    fun acknowledge(@Body requestBody: RequestBody): Call<BaseResponse<DashboardData>>
+    fun acknowledge(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
   @POST("get-estates")
     fun getEstates(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
     @POST("get-estate-district")
     fun getEstateDistrict(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
     @POST("save-step1-data")
-    fun save_step1_data(@Body requestBody: RequestBody): Call<BaseResponse<*>>
+    fun save_step1_data(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
 
    /* // forgot
     @Headers("User-Agent: Android")

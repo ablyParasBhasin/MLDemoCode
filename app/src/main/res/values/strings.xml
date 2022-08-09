@@ -28,5 +28,7 @@
     <string name="what_is_the_name_of_tea_estate">What is the name of tea estate</string>
     <string name="save_as_draft">Save as Draft</string>
     <string name="save_continue"><![CDATA[Save & Continue]]></string>
+    <string name="location_of_the_tea_estate">Location Of The Tea Estate</string>
+    <string name="general_information_about_the_ip_and_tea_estate">General information about the IP and tea estate</string>
 
 </resources>

@@ -8,11 +8,35 @@ public class CommonData {
 @SerializedName("id")
 @Expose
 private String id;
+
+    @SerializedName("activity_id")
+    @Expose
+    private String activity_id;
+
+    public String getActivity_id() {
+        return activity_id;
+    }
+
+    public String getForm_start_date_time() {
+        return form_start_date_time;
+    }
+
+    @SerializedName("form_start_date_time")
+    @Expose
+    private String form_start_date_time;
+
 @SerializedName("estate_name")
 @Expose
 private String estateName;
+@SerializedName("estate_district_name")
+@Expose
+private String estate_district_name;
 
-public String getId() {
+    public String getEstate_district_name() {
+        return estate_district_name;
+    }
+
+    public String getId() {
 return id;
 }
 
