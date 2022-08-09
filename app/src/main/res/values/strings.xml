@@ -3,7 +3,7 @@
     <string name="app_no_internet">No Internet Connection</string>
     <string name="app_allow">allow</string>
     <string name="app_info">Information !</string>
-    <string name="terms_conditions"><![CDATA[The IPs will use this Application to collect and report weekly progress made in estate. The form should be filled in by the IP for each estate covered in the week and submit to WSAF team by end of the week. All questions are mandatory for response unless mentioned otherwise. The IP has to collect and submit the date once in a week for each estate. If there are multiple estates under an IP the form should be filled out seperately for each estate. This form will be used to collect data of activities conducted in a week in a particular tea estate. A new form should be filled out for each tea estate]]></string>
+    <string name="terms_conditions"><![CDATA[The IPs will use this Application to collect and report weekly progress made in estate. The form should be filled in by the IP for each estate covered in the week and submit to WSAF team by end of the week. All questions are mandatory for response unless mentioned otherwise. The IP has to collect and submit the date once in a week for each estate. If there are multiple estates under an IP the form should be filled out seperately for each estate. This form will be used to collect data of activities conducted in a week in a particular tea estate. A new form should be filled out for each tea estate.]]></string>
     <string name="app_ok">Ok</string>
     <string name="app_yes">Yes</string>
 
@@ -22,5 +22,11 @@
     <string name="generalInfoCat">General information about the IP and tea estate</string>
     <string name="activityInfoCat">Activity Level Information</string>
     <string name="KpiInfoCat">KPI (Activity Information)</string>
+    <string name="spinner_estate_selection">Select name of tea estate</string>
+    <string name="log_in">Log in</string>
+    <string name="location_of_tea_estate">Location of tea estate</string>
+    <string name="what_is_the_name_of_tea_estate">What is the name of tea estate</string>
+    <string name="save_as_draft">Save as Draft</string>
+    <string name="save_continue"><![CDATA[Save & Continue]]></string>
 
 </resources>

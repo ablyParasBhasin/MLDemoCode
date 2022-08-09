@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20dp"
                 android:layout_marginEnd="@dimen/margin_20dp"
-                android:text="What is the name of tea estate"
+                android:text="@string/what_is_the_name_of_tea_estate"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/txt_14sp"
                 android:layout_marginTop="@dimen/margin_15dp"
@@ -107,14 +107,13 @@
                 android:background="@drawable/spinner_bg">
 
                 <Spinner
-                    android:id="@+id/spinner_name"
+                    android:id="@+id/spinnerEstate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center"
-
-                    android:gravity="center"
                     android:layout_marginLeft="5dp"
+                    android:gravity="center"
                     android:spinnerMode="dropdown" />
 
                 <ImageView
@@ -132,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_20dp"
                 android:layout_marginEnd="@dimen/margin_20dp"
-                android:text="Location of tea estate"
+                android:text="@string/location_of_tea_estate"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/txt_14sp"
                 android:layout_marginTop="@dimen/margin_15dp"
@@ -148,7 +147,7 @@
                 android:background="@drawable/spinner_bg">
 
                 <Spinner
-                    android:id="@+id/spinner_location"
+                    android:id="@+id/spinnerEstateDistrict"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -166,66 +165,40 @@
                     android:src="@drawable/ic_withdraw_down_arrow" />
 
             </RelativeLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/margin_20dp"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/btnSaveDraft"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/btn_enable_bg"
+        android:backgroundTint="@color/btn_draft_color"
+        android:gravity="center"
+        android:text="@string/save_as_draft"
+        android:textAllCaps="false"
+        android:enabled="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_16sp" />
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+    android:layout_marginStart="@dimen/margin_15dp"
+        android:background="@drawable/btn_enable_bg"
+        android:gravity="center"
+        android:text="@string/save_continue"
+        android:textAllCaps="false"
+        android:enabled="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_16sp" />
 
-           <!-- <RelativeLayout
-                android:id="@+id/llContent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-android:layout_marginTop="@dimen/margin_50dp"
-                android:padding="@dimen/margin_10dp"
-                android:orientation="vertical">
-
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spnr_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/spinner_bg"
-                    android:text="sfvadsfv" />
-
-
-                <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/spnr_location"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/spnr_name"
-
-                    android:layout_marginTop="@dimen/margin_20dp"
-                    android:background="@drawable/spinner_bg"
-                    android:text="sfvadsfv" />
-
-
-                &lt;!&ndash;      <androidx.recyclerview.widget.RecyclerView
-                          android:id="@+id/recyclerview"
-                          android:layout_width="match_parent"
-                          android:layout_height="match_parent"
-                          android:layout_marginTop="@dimen/margin_10dp"
-                          tools:listitem="@layout/lay_single_item"
-                          android:visibility="visible"
-                          app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
-
-
-                      &lt;!&ndash;
-                                      <androidx.appcompat.widget.AppCompatButton
-                                          android:id="@+id/btn_login"
-                                          android:layout_width="match_parent"
-                                          android:layout_height="@dimen/margin_60dp"
-                                          android:layout_gravity="bottom"
-                                          android:layout_margin="@dimen/margin_30dp"
-                                          android:background="@drawable/btn_enable_bg"
-                                          android:backgroundTint="@color/colorAccent"
-                                          android:drawableStart="@drawable/add_circle"
-                                          android:gravity="center"
-                                          android:text="@string/start_new_activity"
-                                          android:textAllCaps="false"
-                                          android:enabled="false"
-                                          android:textColor="@color/white"
-                                          android:textSize="@dimen/txt_20sp" />
-                      &ndash;&gt;&ndash;&gt;
-
-
-            </RelativeLayout>-->
-
+</LinearLayout>
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

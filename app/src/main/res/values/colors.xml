@@ -61,6 +61,7 @@
     <color name="light_red">#46C9252D</color>
     <color name="light_green_shade">#3212805C</color>
     <color name="view_splace">#EEEEEE</color>
+    <color name="btn_draft_color">#cec12d</color>
 
 
     <color name="btn_enable_color">#ED7D31</color>
