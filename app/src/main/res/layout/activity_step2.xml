@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/include"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@android:color/transparent"
+            android:padding="@dimen/margin_5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_5dp"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:tint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/walletBalance"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_wallet_balance"
+            android:textColor="@color/white"
+            android:textSize="@dimen/margin_14dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvWtran_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/margin_22dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/walletBalance" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/recycler_backgroundtopleft_round"
+            app:layout_constraintTop_toBottomOf="@id/include">
+        <LinearLayout
+            android:id="@+id/llRoot"
+            android:layout_width="match_parent"
+             android:layout_height="match_parent"
+            android:background="@drawable/recycler_backgroundtopleft_round"
+            android:orientation="vertical"
+           >
+
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20dp"
+                android:layout_marginEnd="@dimen/margin_20dp"
+                android:text="@string/app_activity_level_information"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_25sp"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:textStyle="bold" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20dp"
+                android:layout_marginEnd="@dimen/margin_20dp"
+                android:text="@string/app_has_pra_been_conducted_in_this_tea_estate"
+                android:textSize="@dimen/txt_16sp"
+                android:layout_marginTop="@dimen/margin_15dp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20dp"
+                android:layout_marginEnd="@dimen/margin_20dp"
+                android:text="@string/app_please_note_this_question_should_be_answered_yes_only_for_the_first_time_a_pra_conducted_in_an_estate_for_the_other_weeks_you_can_make_the_response_as_no"
+                android:textSize="@dimen/txt_16sp"
+                android:textColor="@color/red_text"
+                android:layout_marginTop="@dimen/margin_15dp"
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/margin_8dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginStart="@dimen/margin_15dp"
+                android:layout_marginEnd="@dimen/margin_15dp"
+                android:background="@drawable/btn_gray_bg">
+
+                <RadioGroup
+                    android:id="@+id/daily_weekly_button_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/spinner_bg"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <RadioButton
+                        android:id="@+id/radio0"
+                        android:layout_width="@dimen/margin_180dp"
+                        android:gravity="center"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radio_flat_selector"
+                        android:button="@android:color/transparent"
+                        android:checked="true"
+                        android:paddingLeft="@dimen/margin_16dp"
+                        android:paddingTop="@dimen/margin_3dp"
+                        android:paddingRight="@dimen/margin_16dp"
+                        android:paddingBottom="@dimen/margin_3dp"
+                        android:text="Yes"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/radio1"
+                        android:gravity="center"
+                        android:layout_width="@dimen/margin_180dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radio_flat_selector"
+                        android:button="@android:color/transparent"
+                        android:paddingLeft="@dimen/margin_16dp"
+                        android:paddingTop="@dimen/margin_3dp"
+                        android:paddingRight="@dimen/margin_16dp"
+                        android:paddingBottom="@dimen/margin_3dp"
+                        android:text="No"
+                        android:textColor="@color/black" />
+
+                </RadioGroup>
+            </LinearLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_20dp"
+                android:layout_marginEnd="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:padding="@dimen/margin_5dp"
+                >
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/app_has_pra_been_conducted_in_this_tea_estate"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_16sp"
+
+                    android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/edtlay1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt"
+                    android:layout_marginTop="@dimen/margin_5dp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edt_bg"
+                        android:layout_marginEnd="@dimen/margin_15dp"
+                        android:padding="@dimen/margin_5dp"/>
+
+
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/margin_5dp"
+                        android:layout_marginEnd="@dimen/margin_15dp"
+                        android:background="@drawable/edt_bg"
+                        android:padding="@dimen/margin_5dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edtlay2"
+                    android:layout_below="@+id/edtlay1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edt_bg"
+                        android:layout_marginEnd="@dimen/margin_15dp"
+                        android:padding="@dimen/margin_5dp"/>
+
+
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/margin_5dp"
+                        android:layout_marginEnd="@dimen/margin_15dp"
+                        android:background="@drawable/edt_bg"
+                        android:padding="@dimen/margin_5dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edtlay3"
+                    android:layout_below="@+id/edtlay2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edt_bg"
+                        android:layout_marginEnd="@dimen/margin_15dp"
+                        android:padding="@dimen/margin_5dp"/>
+
+
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/margin_5dp"
+                        android:layout_marginEnd="@dimen/margin_15dp"
+                        android:background="@drawable/edt_bg"
+                        android:padding="@dimen/margin_5dp"/>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_checkbox"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/edtlay3"
+                    android:layout_marginTop="@dimen/margin_15dp" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/margin_20dp"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/btnSaveDraft"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_enable_bg"
+                    android:backgroundTint="@color/btn_draft_color"
+                    android:gravity="center"
+                    android:text="@string/save_as_draft"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt_16sp" />
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin_15dp"
+                    android:background="@drawable/btn_enable_bg"
+                    android:gravity="center"
+                    android:text="@string/save_continue"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt_16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

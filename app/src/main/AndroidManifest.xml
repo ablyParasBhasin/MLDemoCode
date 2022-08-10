@@ -19,9 +19,14 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".ui.Step1Activity"
+            android:name=".ui.Step2Activity"
             android:exported="true"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.Step1Activity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.signing.SigningActivity"
             android:exported="false" />
@@ -39,15 +44,15 @@
         <activity
             android:name=".ui.MainAcivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.AcknowledgeActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.FormListingActivity"
             android:exported="true"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

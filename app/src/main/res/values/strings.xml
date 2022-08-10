@@ -30,5 +30,8 @@
     <string name="save_continue"><![CDATA[Save & Continue]]></string>
     <string name="location_of_the_tea_estate">Location Of The Tea Estate</string>
     <string name="general_information_about_the_ip_and_tea_estate">General information about the IP and tea estate</string>
+    <string name="app_activity_level_information">Activity Level Information</string>
+    <string name="app_has_pra_been_conducted_in_this_tea_estate">Has PRA been conducted in this tea estate?</string>
+    <string name="app_please_note_this_question_should_be_answered_yes_only_for_the_first_time_a_pra_conducted_in_an_estate_for_the_other_weeks_you_can_make_the_response_as_no">Please note this question should be answered yes only for the first time a PRA conducted in an estate. For the other weeks you can make the response as no.</string>
 
 </resources>
