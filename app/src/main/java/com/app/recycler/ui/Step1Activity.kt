@@ -1,5 +1,6 @@
 package com.app.recycler.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -30,6 +31,7 @@ class Step1Activity : BaseActivity(), ResponseHandler {
         getEstates()
         btnSaveDraft.setOnClickListener {
 
+            startActivity(Intent(this@Step1Activity, Step2Activity::class.java))
         }
         btnSave.setOnClickListener {
             saveStep1Data()

@@ -33,5 +33,69 @@
     <string name="app_activity_level_information">Activity Level Information</string>
     <string name="app_has_pra_been_conducted_in_this_tea_estate">Has PRA been conducted in this tea estate?</string>
     <string name="app_please_note_this_question_should_be_answered_yes_only_for_the_first_time_a_pra_conducted_in_an_estate_for_the_other_weeks_you_can_make_the_response_as_no">Please note this question should be answered yes only for the first time a PRA conducted in an estate. For the other weeks you can make the response as no.</string>
+    <string name="if_yes_please_specify_the_number_of_estate_management_who_participated_in_the_pra">If Yes, Please Specify The Number Of Estate Management Who Participated In The PRA?</string>
+    <string name="if_yes_please_specify_the_number_of_estate_staff_who_participated_in_the_pra">If Yes, Please Specify The Number Of Estate Staff Who Participated In The PRA?</string>
+    <string name="if_yes_please_specify_the_number_of_estate_sub_staff_who_participated_in_the_pra">If Yes, Please Specify The Number Of Estate Sub-Staff Who Participated In The PRA?</string>
+    <string name="if_yes_please_specify_the_number_of_estate_workers_who_participated_in_the_pra">If Yes, Please Specify The Number Of Estate Workers Who Participated In The PRA?</string>
+    <string name="if_yes_please_specify_the_number_of_estate_community_members_who_participated_in_the_pra">If Yes, Please Specify The Number Of Estate Community Members Who Participated In The PRA?</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+
+
+
+    External Stakeholder Consultation
+
+    Training on POSH, DV, POCSO, legal support and justice system
+
+    Workshop on Preparation of SoPs at Estate level
+
+    Training of Management, staff and workers on Gender Sensitisation
+
+    Workshop to identify and appoint estate level First Information Persons (FIP), reporting and record keeping systems
+
+    Training of Beneficiary Leads - on Gender and VAW
+
+    Leadesrship Trainining for Women Workers
+
+    Facilitation of formation of Informal groups
+
+    Leadership training of women staff
+
+    Safety Audit Training, activity
+
+    Training and interaction with youth clubs/ groups and men workers
+
+    Activities with Ally groups
+
+    ToT with staff to create awareness and plan regular activities to prevent VAW in the workplace
+
+    Awareness creation of workers by Beneficiary Leads
+
+    Community and Family engagement
+
+    Identification and ToT of women leaders to create awareness in communities
+
+    Visits by Local Opinion Leaders, Role Models, Motivational talk and demonstration of successful case studies
+
+
+    <string name="unmute">UNMUTE</string>
+    <string name="txt_chekbox17">Visits by Local Opinion Leaders, Role Models, Motivational talk and demonstration of successful case studies</string>
+    <string name="txtchb13">Identification and ToT of women leaders to create awareness in communities</string>
+    <string name="txtchb12">Community and Family engagement</string>
+    <string name="txtchb11">Awareness creation of workers by Beneficiary Leads</string>
+    <string name="txtchb10">ToT with staff to create awareness and plan regular activities to prevent VAW in the workplace</string>
+    <string name="txtchb09">Activities with Ally groups</string>
+    <string name="txtchb08">Training and interaction with youth clubs/ groups and men workers</string>
+    <string name="txtchb07">Safety Audit Training, activity</string>
+    <string name="txtchb06">Leadership training of women staff</string>
+    <string name="txtchb05">Facilitation of formation of Informal groups</string>
+    <string name="txtchb04">Leadesrship Trainining for Women Workers</string>
+    <string name="txtchb03">Training of Beneficiary Leads - on Gender and VAW</string>
+    <string name="txtchb02">Workshop to identify and appoint estate level First Information Persons (FIP), reporting and record keeping systems</string>
+    <string name="txtchb01">Training of Management, staff and workers on Gender Sensitisation</string>
+    <string name="txtchb_external">External Stakeholder Consultation</string>
+    <string name="txtchb_training">Training on POSH, DV, POCSO, legal support and justice system</string>
+    <string name="txtchb_workshop">Workshop on Preparation of SoPs at Estate level</string>
+
 
 </resources>

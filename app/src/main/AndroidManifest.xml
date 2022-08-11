@@ -21,7 +21,9 @@
         <activity
             android:name=".ui.Step2Activity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+        </activity>
 
         <activity
             android:name=".ui.Step1Activity"

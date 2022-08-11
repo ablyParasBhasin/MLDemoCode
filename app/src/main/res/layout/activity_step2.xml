@@ -78,8 +78,6 @@
             android:orientation="vertical"
            >
 
-
-
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,7 +139,7 @@
 
 
                     <RadioButton
-                        android:id="@+id/radio0"
+                        android:id="@+id/radio_yes"
                         android:layout_width="@dimen/margin_180dp"
                         android:gravity="center"
                         android:layout_height="wrap_content"
@@ -156,7 +154,7 @@
                         android:textColor="@color/black" />
 
                     <RadioButton
-                        android:id="@+id/radio1"
+                        android:id="@+id/radio_no"
                         android:gravity="center"
                         android:layout_width="@dimen/margin_180dp"
                         android:layout_height="wrap_content"
@@ -183,106 +181,367 @@
                 android:padding="@dimen/margin_5dp"
                 >
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt"
+                <RelativeLayout
+                    android:id="@+id/layedt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="visible">
 
-                    android:text="@string/app_has_pra_been_conducted_in_this_tea_estate"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/txt_16sp"
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_yes_please_specify_the_number_of_estate_management_who_participated_in_the_pra"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_16sp"
 
-                    android:textStyle="bold" />
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/laygender1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt"
+                        android:layout_marginTop="@dimen/margin_5dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/male"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/female"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/edtlay1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/laygender1"
+                        android:layout_marginTop="@dimen/margin_5dp">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edt_bg"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:padding="@dimen/margin_5dp"/>
+
+
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/margin_5dp"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:background="@drawable/edt_bg"
+                            android:padding="@dimen/margin_5dp"/>
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_yes_please_specify_the_number_of_estate_staff_who_participated_in_the_pra"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_16sp"
+                        android:layout_below="@id/edtlay1"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/laygender2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt2"
+                        android:layout_marginTop="@dimen/margin_5dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/male"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/female"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/edtlay2"
+                        android:layout_below="@+id/laygender2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edt_bg"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:padding="@dimen/margin_5dp"/>
+
+
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/margin_5dp"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:background="@drawable/edt_bg"
+                            android:padding="@dimen/margin_5dp"/>
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_yes_please_specify_the_number_of_estate_sub_staff_who_participated_in_the_pra"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_16sp"
+                        android:layout_below="@id/edtlay2"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/laygender3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt3"
+                        android:layout_marginTop="@dimen/margin_5dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/male"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/female"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/edtlay3"
+                        android:layout_below="@+id/laygender3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edt_bg"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:padding="@dimen/margin_5dp"/>
+
+
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/margin_5dp"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:background="@drawable/edt_bg"
+                            android:padding="@dimen/margin_5dp"/>
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_yes_please_specify_the_number_of_estate_workers_who_participated_in_the_pra"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_16sp"
+                        android:layout_below="@id/edtlay3"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:id="@+id/laygender4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt4"
+                        android:layout_marginTop="@dimen/margin_5dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/male"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/female"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/edtlay4"
+                        android:layout_below="@+id/laygender4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edt_bg"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:padding="@dimen/margin_5dp"/>
+
+
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/margin_5dp"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:background="@drawable/edt_bg"
+                            android:padding="@dimen/margin_5dp"/>
+
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/if_yes_please_specify_the_number_of_estate_community_members_who_participated_in_the_pra"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_16sp"
+                        android:layout_below="@id/edtlay4"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/laygender5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txt5"
+                        android:layout_marginTop="@dimen/margin_5dp">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/male"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/female"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_14sp"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/edtlay5"
+                        android:layout_below="@+id/laygender5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10dp">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edt_bg"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:padding="@dimen/margin_5dp"/>
+
+
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="@dimen/margin_5dp"
+                            android:layout_marginEnd="@dimen/margin_15dp"
+                            android:background="@drawable/edt_bg"
+                            android:padding="@dimen/margin_5dp"/>
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+
+
                 <LinearLayout
-                    android:id="@+id/edtlay1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txt"
-                    android:layout_marginTop="@dimen/margin_5dp">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/edt_bg"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:padding="@dimen/margin_5dp"/>
-
-
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/margin_5dp"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:background="@drawable/edt_bg"
-                        android:padding="@dimen/margin_5dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/edtlay2"
-                    android:layout_below="@+id/edtlay1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10dp">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/edt_bg"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:padding="@dimen/margin_5dp"/>
-
-
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/margin_5dp"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:background="@drawable/edt_bg"
-                        android:padding="@dimen/margin_5dp"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/edtlay3"
-                    android:layout_below="@+id/edtlay2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10dp">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/edt_bg"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:padding="@dimen/margin_5dp"/>
-
-
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="@dimen/margin_5dp"
-                        android:layout_marginEnd="@dimen/margin_15dp"
-                        android:background="@drawable/edt_bg"
-                        android:padding="@dimen/margin_5dp"/>
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_checkbox"
+                    android:id="@+id/lay_chb"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/edtlay3"
-                    android:layout_marginTop="@dimen/margin_15dp" />
+                    android:layout_below="@+id/layedt"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/margin_15dp">
+
+
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=" Please Select The Activities Conducted In This Week In The Estate?"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_16sp"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_checkbox"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/margin_5dp"
+                        />
+
+                </LinearLayout>
+
+
 
             </RelativeLayout>
 
