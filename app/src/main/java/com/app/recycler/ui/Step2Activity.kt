@@ -7,6 +7,7 @@ import com.app.recycler.apinetworks.API_TAG
 import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.interfaces.ListingItemClick
+import com.app.recycler.interfaces.ListingItemDataClick
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.step1.CommonData
@@ -32,18 +33,43 @@ legal support and justice system","category_name":"Change Agents and Advocates"}
     "step2_status": NULL   Pass step2_status value 1 if user click on submit button
 */
 
-class Step2Activity : BaseActivity(), ListingItemClick, ResponseHandler {
+class Step2Activity : BaseActivity(), ListingItemClick,ListingItemDataClick, ResponseHandler
+     {
     var categoryList = ArrayList<CommonData>()
+    var mainActivityList = ArrayList<CommonData>()
     var activityList = ArrayList<CommonData>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setp2_expand)
         getAllCategories()
+        btnSave.setOnClickListener {
+            val categories = ArrayList<String>()
+            val activities = ArrayList<String>()
+
+            for(item in categoryList){
+                if(item.isCatChecked){
+                    categories.add(item.id)
+                }
+            }
+            for(item in mainActivityList){
+                if(item.isSubCatChecked){
+                    activities.add(item.id)
+                }
+            }
+            categoriesTobeSent=categories.toString().replace("[", "")
+                .replace("]", "").replace(" ", "")
+            activitiesTobeSent=activities.toString().replace("[", "")
+                .replace("]", "").replace(" ", "")
+           saveStep2Data()
+        }
     }
+         var categoriesTobeSent=""
+         var activitiesTobeSent=""
+
     var adapter:ParentAdapter?=null
     private fun setCategoryView() {
         rvCat.layoutManager = LinearLayoutManager(this)
-        val adapter = ParentAdapter(this,categoryList,this)
+        adapter = ParentAdapter(this,categoryList,this)
         rvCat.adapter = adapter
         rvCat.setHasFixedSize(true)
     }
@@ -78,7 +104,7 @@ class Step2Activity : BaseActivity(), ListingItemClick, ResponseHandler {
         }
 
     }
-    fun saveStep2Data(categoryId: String) {
+    fun saveStep2Data() {
         try {
             if (!isNetworkConnected) {
                 showDialog(getString(R.string.app_no_internet), true)
@@ -86,10 +112,14 @@ class Step2Activity : BaseActivity(), ListingItemClick, ResponseHandler {
             }
             showProgress(true)
             var jsonObject= JSONObject()
+            var jsonObject2= JSONObject()
+            jsonObject2.put("question_6",categoriesTobeSent)
+            jsonObject2.put("question_7",activitiesTobeSent)
             jsonObject.put("login_token", DataManager.instance.token)
-            jsonObject.put("user_id", categoryId)
-            jsonObject.put("step2_ans", categoryId)
+            jsonObject.put("user_id", DataManager.instance.userData?.id)
+            jsonObject.put("step2_ans", jsonObject2)
             jsonObject.put("step2_status", "1")
+            jsonObject.put("activity_id", DataManager.instance.commonData?.activity_id)
             DataManager.instance.saveStep2Data(API_TAG.SAVE_STEP_2_DATA, jsonObject, this)
         }catch (ex:Exception){
 
@@ -112,8 +142,9 @@ class Step2Activity : BaseActivity(), ListingItemClick, ResponseHandler {
             API_TAG.GET_ACTIVITY -> {
                 var count = response?.body() as BaseResponseArray<CommonData>
                 if (count.status.equals(Constants.API_SUCCESS)) {
-                    activityList= count.data as ArrayList<CommonData>
-                    adapter?.setChildAdapter(this,activityList,this)
+                     activityList= count.data as ArrayList<CommonData>
+                     mainActivityList.addAll(activityList)
+                     adapter?.setChildAdapter(this,activityList,this,categoryList[catPosition].categoryName)
                 } else
                     showDialog(count.msg, true)
             }
@@ -126,15 +157,22 @@ class Step2Activity : BaseActivity(), ListingItemClick, ResponseHandler {
         showDialog(getString(R.string.error_something_wrong), true)
     }
     var catPosition=-1
-    var subCatPosition=-1
     override fun clickItem(pos: Int) {
         catPosition=pos
         getActivity(categoryList[pos].id)
     }
 
     override fun clickChildItem(pos: Int) {
-        subCatPosition=pos
-        showToast("Cat Id is "+categoryList[catPosition].id)
-        showToast("Activity Id is"+activityList[subCatPosition].id)
+
+    }
+
+    override fun clickChildItem(pos:Int, value: String,boolean: Boolean,id:String) {
+       showToast("Cat Id is "+value)
+       for(item in mainActivityList){
+           if(id==item.id){
+               showToast("Activity Id is"+item.activityName)
+               break
+           }
+       }
     }
 }

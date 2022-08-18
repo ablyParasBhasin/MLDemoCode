@@ -46,8 +46,8 @@
                 android:id="@+id/subcategory_recyler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                android:nestedScrollingEnabled="true"
+                />
 
         </RelativeLayout>
 

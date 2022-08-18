@@ -1,6 +1,7 @@
 package com.app.recycler.ui
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +13,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.recycler.R
 import com.app.recycler.interfaces.ListingItemClick
+import com.app.recycler.interfaces.ListingItemDataClick
 import com.app.recycler.models.step1.CommonData
 
 class ParentAdapter(val contxt:Context, val categoryList: ArrayList<CommonData>, var listener: ListingItemClick):
     RecyclerView.Adapter<ParentAdapter.AdapterVH>()
 {
     var viewHolder:AdapterVH?=null
+    var adapter:ChildAdapter?=null
     inner class AdapterVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var checkbox_parent : CheckBox = itemView.findViewById(R.id.checkbox_parent)
         var linearLayout : LinearLayout = itemView.findViewById(R.id.linearLayout)
@@ -26,10 +29,11 @@ class ParentAdapter(val contxt:Context, val categoryList: ArrayList<CommonData>,
 
 
     }
-    fun setChildAdapter(contxt: Context,activityList:ArrayList<CommonData>, listener: ListingItemClick){
-        val adapter = ChildAdapter(contxt,activityList,listener)
-        viewHolder?.subcategory_recyler?.adapter = adapter
-        viewHolder?.subcategory_recyler?.setHasFixedSize(true)
+    @SuppressLint("NotifyDataSetChanged")
+    fun setChildAdapter(contxt: Context, activityList:ArrayList<CommonData>, listenerChild: ListingItemDataClick, catName:String){
+           viewHolder?.subcategory_recyler?.layoutManager = LinearLayoutManager(contxt)
+           adapter = ChildAdapter(contxt, activityList, listenerChild, catName)
+           viewHolder?.subcategory_recyler?.adapter = adapter
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterVH {
         val view : View = LayoutInflater.from(parent.context).inflate(R.layout.item_expand,parent,false)
