@@ -31,7 +31,7 @@ class Step1Activity : BaseActivity(), ResponseHandler {
         getEstates()
         btnSaveDraft.setOnClickListener {
 
-            startActivity(Intent(this@Step1Activity, Step2Activity::class.java))
+            startActivity(Intent(this@Step1Activity, Setp2ExpandActivity::class.java))
         }
         btnSave.setOnClickListener {
             saveStep1Data()

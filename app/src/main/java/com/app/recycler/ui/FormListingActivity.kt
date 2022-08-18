@@ -21,7 +21,7 @@ class FormListingActivity : BaseActivity() {
                 Intent(this@FormListingActivity, Step1Activity::class.java),1000)
         }
         lay_item2.setOnClickListener {
-            startActivityForResult(Intent(this@FormListingActivity, Step2Activity::class.java),2000)
+            startActivityForResult(Intent(this@FormListingActivity, Setp2ExpandActivity::class.java),2000)
         }
         lay_item3.setOnClickListener {
 
