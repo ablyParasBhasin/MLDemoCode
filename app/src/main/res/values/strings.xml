@@ -21,6 +21,7 @@
     <string name="error_something_wrong">Something went wrong</string>
     <string name="generalInfoCat">General information about the IP and tea estate</string>
     <string name="activityInfoCat">Activity Level Information</string>
+    <string name="stackInfoCat">StackHolder Information</string>
     <string name="KpiInfoCat">KPI (Activity Information)</string>
     <string name="spinner_estate_selection">Select name of tea estate</string>
     <string name="log_in">Log in</string>
@@ -63,5 +64,6 @@
     <string name="please_select_the_activities_conducted_in_this_week_in_the_estate">Please Select The Activities Conducted In This Week In The Estate?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="stack_info_text">StackHolders For The Activites Conducted In This Week In The Estate</string>
 
 </resources>

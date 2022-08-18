@@ -21,7 +21,7 @@ class FormListingActivity : BaseActivity() {
                 Intent(this@FormListingActivity, Step1Activity::class.java),1000)
         }
         lay_item2.setOnClickListener {
-
+            startActivityForResult(Intent(this@FormListingActivity, Step2Activity::class.java),2000)
         }
         lay_item3.setOnClickListener {
 
@@ -30,7 +30,7 @@ class FormListingActivity : BaseActivity() {
 
     fun setData() {
         title1.text = getString(R.string.generalInfoCat)
-        title2.text = getString(R.string.activityInfoCat)
+        title2.text = getString(R.string.stackInfoCat)
         title3.text = getString(R.string.KpiInfoCat)
     }
 

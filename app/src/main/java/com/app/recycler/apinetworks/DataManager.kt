@@ -158,6 +158,72 @@ class DataManager private constructor() : BaseActivity() {
             }
         })
     }
+    fun getAllCategories(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+     networkCalls.getAllCategories(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponse<CommonData>> {
+            override fun onResponse(
+                call: Call<BaseResponse<CommonData>>,
+                response: Response<BaseResponse<CommonData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listener.onSuccess(tag,response)
+
+                } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
+                call.cancel()
+                listener.onFailure(tag, t)
+            }
+        })
+    }
+    fun saveStep2Data(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+     networkCalls.saveStep2Data(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponse<CommonData>> {
+            override fun onResponse(
+                call: Call<BaseResponse<CommonData>>,
+                response: Response<BaseResponse<CommonData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listener.onSuccess(tag,response)
+
+                } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
+                call.cancel()
+                listener.onFailure(tag, t)
+            }
+        })
+    }
+    fun getActivity(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+     networkCalls.getActivity(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponse<CommonData>> {
+            override fun onResponse(
+                call: Call<BaseResponse<CommonData>>,
+                response: Response<BaseResponse<CommonData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listener.onSuccess(tag,response)
+
+                } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
+                call.cancel()
+                listener.onFailure(tag, t)
+            }
+        })
+    }
     fun dashboardCounts(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.dashboardCounts(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
         enqueue(object : Callback<BaseResponse<DashboardData>> {
