@@ -19,7 +19,7 @@
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".ui.Setp2ExpandActivity"
+            android:name=".ui.Step2Activity"
             android:exported="true"
             android:screenOrientation="portrait">
         </activity>

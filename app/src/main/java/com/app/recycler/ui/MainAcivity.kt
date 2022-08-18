@@ -98,7 +98,7 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
 
 
 
-    override fun clickIten(pos: Int) {
+    override fun clickItem(pos: Int) {
       /*  println("pos = [${getSingleList().get(pos).discription}]")
         
         val intent = Intent(this@MainAcivity, DescritionActivity::class.java)
@@ -106,6 +106,11 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
         intent.putExtra("title", getSingleList().get(pos).title);
         startActivity(intent)*/
     }
+
+    override fun clickChildItem(pos: Int) {
+
+    }
+
     fun getCounts() {
         try {
             if (!isNetworkConnected) {

@@ -2,5 +2,6 @@ package com.app.recycler.interfaces
 
 interface ListingItemClick {
 
-    fun clickIten(pos:Int)
+    fun clickItem(pos:Int)
+    fun clickChildItem(pos:Int)
 }

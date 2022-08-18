@@ -51,7 +51,7 @@ class GridViewListingAdapter(val context: Context, var arrayList: ArrayList<Dumm
         holder.itemView.setOnClickListener {
             //we can then create an intent here and start a new activity
             //with our data
-            listener.clickIten(position)
+            listener.clickItem(position)
         }
     }
 

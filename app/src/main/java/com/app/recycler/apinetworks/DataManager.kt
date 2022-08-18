@@ -160,10 +160,10 @@ class DataManager private constructor() : BaseActivity() {
     }
     fun getAllCategories(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.getAllCategories(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
-        enqueue(object : Callback<BaseResponse<CommonData>> {
+        enqueue(object : Callback<BaseResponseArray<CommonData>> {
             override fun onResponse(
-                call: Call<BaseResponse<CommonData>>,
-                response: Response<BaseResponse<CommonData>?>
+                call: Call<BaseResponseArray<CommonData>>,
+                response: Response<BaseResponseArray<CommonData>?>
             ) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
@@ -174,7 +174,7 @@ class DataManager private constructor() : BaseActivity() {
                 } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
             }
 
-            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponseArray<CommonData>>, t: Throwable) {
                 call.cancel()
                 listener.onFailure(tag, t)
             }
@@ -204,10 +204,10 @@ class DataManager private constructor() : BaseActivity() {
     }
     fun getActivity(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.getActivity(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
-        enqueue(object : Callback<BaseResponse<CommonData>> {
+        enqueue(object : Callback<BaseResponseArray<CommonData>> {
             override fun onResponse(
-                call: Call<BaseResponse<CommonData>>,
-                response: Response<BaseResponse<CommonData>?>
+                call: Call<BaseResponseArray<CommonData>>,
+                response: Response<BaseResponseArray<CommonData>?>
             ) {
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
@@ -218,7 +218,7 @@ class DataManager private constructor() : BaseActivity() {
                 } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
             }
 
-            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
+            override fun onFailure(call: Call<BaseResponseArray<CommonData>>, t: Throwable) {
                 call.cancel()
                 listener.onFailure(tag, t)
             }

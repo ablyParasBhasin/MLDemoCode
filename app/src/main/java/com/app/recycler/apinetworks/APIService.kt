@@ -29,9 +29,9 @@ interface APIService {
     @POST("save-step1-data")
     fun save_step1_data(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
     @POST("get-all-categories")
-    fun getAllCategories(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
+    fun getAllCategories(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
     @POST("getActivity")
-    fun getActivity(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
+    fun getActivity(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
     @POST("save-step2-data")
     fun saveStep2Data(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
 
