@@ -12,7 +12,7 @@ import com.app.recycler.models.DummyData
 import java.util.*
 
 
-class CheckboxListingAdapter(val context: Context, var arrayList: ArrayList<DummyData>, var listener:ListingItemClick) : RecyclerView.Adapter<CheckboxListingAdapter.MyViewHolder>() {
+class SubCategoryListingAdapter(val context: Context, var arrayList: ArrayList<DummyData>, var listener:ListingItemClick) : RecyclerView.Adapter<SubCategoryListingAdapter.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -30,10 +30,10 @@ class CheckboxListingAdapter(val context: Context, var arrayList: ArrayList<Dumm
         holder.checkbox.text = arrayList.get(position).title
 
 
-        holder.checkbox.setOnClickListener {
+        holder.itemView.setOnClickListener {
             //we can then create an intent here and start a new activity
             //with our data
-            listener.clickIten(position)
+           // listener.clickIten(position)
         }
     }
 

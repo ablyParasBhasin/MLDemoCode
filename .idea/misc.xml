@@ -32,6 +32,10 @@
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/lay_single_item.xml" value="0.10733695652173914" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/layout_progress.xml" value="0.10733695652173914" />
         <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/splash_activity.xml" value="0.14895833333333333" />
+        <entry key="app/src/main/res/layout/activity_step2.xml" value="0.21574074074074073" />
+        <entry key="app/src/main/res/layout/activity_step2_new.xml" value="0.23697916666666666" />
+        <entry key="app/src/main/res/layout/dummy.xml" value="0.28125" />
+        <entry key="app/src/main/res/layout/lay_checkbox.xml" value="0.22708333333333333" />
       </map>
     </option>
   </component>

@@ -87,13 +87,14 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
     }
 
 
-    fun getGridList(): ArrayList<DummyData> = arrayListOf(
-        DummyData("Total Reports Approved", R.drawable.total_survey,count.data.approved),
-        DummyData("Reports In Progress", R.drawable.in_progress,count.data.inProgress),
-        DummyData("Reports Completed", R.drawable.completed,count.data.completed),
+    fun getGridList(): ArrayList<DummyData> =
+        arrayListOf(DummyData("Total Reports Approved", R.drawable.total_survey,count.data.approved),
+            DummyData("Reports In Progress", R.drawable.in_progress,count.data.inProgress),
+            DummyData("Reports Completed", R.drawable.completed,count.data.completed),
 //        DummyData("To be Sync", R.drawable.to_be_synced,count.data.rejected),
-        DummyData("Pending Modification", R.drawable.delayed,count.data.rejectForModification),
-        DummyData("Rejected", R.drawable.all_risk,count.data.rejected))
+            DummyData("Pending Modification", R.drawable.delayed,count.data.rejectForModification),
+            DummyData("Rejected", R.drawable.all_risk,count.data.rejected))
+
 
 
 
