@@ -126,7 +126,7 @@ ex.printStackTrace()
             API_TAG.SAVE_STEP_1_DATA -> {
                 var reposneData = response?.body() as BaseResponse<CommonData>
                 if (reposneData.status.equals(Constants.API_SUCCESS)) {
-                    showToast(reposneData.toString())
+                    showToast(reposneData.data.msg)
                     setResult(RESULT_OK)
                     finish()
                 } else
@@ -154,7 +154,6 @@ ex.printStackTrace()
                         if (values[position] == item.estateName) {
                             getEstateDistrict(item.id)
                             selectedEstate=item.id
-                            showToast(item.estateName+item.id)
                             break
                         }
                     }
@@ -185,7 +184,6 @@ var selectedEstateDist=""
                 if (position > 0) {
                     for (item in estateDistResponseData.data) {
                         if (values[position] == item.estate_district_name) {
-                            showToast(item.estate_district_name+ item.id)
                             selectedEstateDist=item.id
                             break
                         }

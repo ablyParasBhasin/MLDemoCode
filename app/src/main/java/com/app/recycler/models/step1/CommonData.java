@@ -8,6 +8,13 @@ public class CommonData {
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("msg")
+    @Expose
+    private String msg="";
+
+    public String getMsg() {
+        return msg;
+    }
 
     public boolean isExpandable() {
         return expandable;

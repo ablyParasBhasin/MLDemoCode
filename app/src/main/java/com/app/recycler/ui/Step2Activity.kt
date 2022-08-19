@@ -9,6 +9,7 @@ import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.interfaces.ListingItemClick
 import com.app.recycler.interfaces.ListingItemDataClick
 import com.app.recycler.interfaces.ResponseHandler
+import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.step1.CommonData
 import com.uni.retailer.ui.base.BaseActivity
@@ -148,6 +149,15 @@ class Step2Activity : BaseActivity(), ListingItemClick,ListingItemDataClick, Res
                 } else
                     showDialog(count.msg, true)
             }
+            API_TAG.SAVE_STEP_2_DATA -> {
+                var reposneData = response?.body() as BaseResponse<CommonData>
+                if (reposneData.status.equals(Constants.API_SUCCESS)) {
+                    showToast(reposneData.data.msg)
+                    setResult(RESULT_OK)
+                    finish()
+                } else
+                    showDialog(reposneData.msg, true)
+            }
         }
     }
 
@@ -167,12 +177,11 @@ class Step2Activity : BaseActivity(), ListingItemClick,ListingItemDataClick, Res
     }
 
     override fun clickChildItem(pos:Int, value: String,boolean: Boolean,id:String) {
-       showToast("Cat Id is "+value)
-       for(item in mainActivityList){
+       /*for(item in mainActivityList){
            if(id==item.id){
                showToast("Activity Id is"+item.activityName)
                break
            }
-       }
+       }*/
     }
 }

@@ -3,14 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/activity_setp2_expand.xml" value="0.13229166666666667" />
-        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/item_expand.xml" value="0.15208333333333332" />
-        <entry key="..\:/latestcodebusinesscontact/MLDemoCode/app/src/main/res/layout/item_expand_child.xml" value="0.1171875" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.1315" />
         <entry key="app/src/main/res/layout/activity_setp2_expand.xml" value="0.18675213675213675" />
+        <entry key="app/src/main/res/layout/activity_setp3.xml" value="0.2688034188034188" />
+        <entry key="app/src/main/res/layout/activity_step2_updated.xml" value="0.19786324786324785" />
+        <entry key="app/src/main/res/layout/fragment_reporting_form2.xml" value="0.1905982905982906" />
         <entry key="app/src/main/res/layout/item_expand.xml" value="0.2688034188034188" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

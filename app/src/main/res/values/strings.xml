@@ -65,5 +65,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="stack_info_text">StackHolders For The Activites Conducted In This Week In The Estate</string>
+    <string name="stackholders_for_the_activites_conducted_in_this_week_in_the_estate">StackHolders For The Activites Conducted In This Week In The Estate</string>
 
 </resources>
