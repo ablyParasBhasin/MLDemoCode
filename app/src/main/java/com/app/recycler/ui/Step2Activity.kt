@@ -1,5 +1,6 @@
 package com.app.recycler.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.recycler.R
@@ -62,6 +63,10 @@ class Step2Activity : BaseActivity(), ListingItemClick,ListingItemDataClick, Res
             activitiesTobeSent=activities.toString().replace("[", "")
                 .replace("]", "").replace(" ", "")
            saveStep2Data()
+        }
+
+        btnSaveDraft.setOnClickListener {
+            startActivity(Intent(this@Step2Activity, Step3Activity::class.java))
         }
     }
          var categoriesTobeSent=""
