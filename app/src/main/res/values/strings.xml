@@ -66,5 +66,39 @@
     <string name="no">No</string>
     <string name="stack_info_text">StackHolders For The Activites Conducted In This Week In The Estate</string>
     <string name="stackholders_for_the_activites_conducted_in_this_week_in_the_estate">StackHolders For The Activites Conducted In This Week In The Estate</string>
+    <string name="please_mention_the_current_status_of_the_activity_in_the_estate">Please Mention The Current Status Of The Activity In The Estate</string>
+    <string name="completed">Completed</string>
+    <string name="in_progress">In progress</string>
+    <string name="delayed">Delayed</string>
+    <string name="at_risk">At risk</string>
+    <string name="specify_activity_dates_below">Specify Activity Dates Below</string>
+    <string name="specify_activity_start_date">Specify activity start date</string>
+    <string name="specify_activity_end_date">Specify activity end date</string>
+    <string name="how_many_meetings_were_conducted_with_district_level_officers_in_this_week">How Many Meetings Were Conducted With District Level Officers In This Week?</string>
+    <string name="if_no_meetings_were_held_please_enter_0">If no meetings were held please enter 0</string>
+    <string name="how_many_meetings_were_conducted_with_government_department_e_g_social_welfare_health_police_labor_union_in_this_week">How Many Meetings Were Conducted With Government Department – E.G. Social Welfare, Health, Police, Labor Union In This Week?</string>
+    <string name="how_many_meetings_were_conducted_with_one_stop_centers_in_this_week">How Many Meetings Were Conducted With One Stop Centers In This Week?</string>
+    <string name="how_many_meetings_were_conducted_with_dlsa_in_this_week">How Many Meetings Were Conducted With DLSA In This Week?</string>
+    <string name="how_many_meetings_were_conducted_with_registered_empaneled_csos_in_this_week">How Many Meetings Were Conducted With Registered/Empaneled CSOs In This Week?</string>
+    <string name="how_many_meetings_were_conducted_with_any_other_services_providers_in_this_week">How Many Meetings Were Conducted With Any Other Services Providers In This Week?</string>
+    <string name="can_you_please_elaborate_on_the_discussion_topics_for_the_meetings_with_these_district_level_officers_and_other_service_providers">Can You Please Elaborate On The Discussion Topics For The Meetings With These District Level Officers And Other Service Providers?</string>
+    <string name="write_below_in_the_textarea">Write below in the textarea</string>
+    <string name="please_share_pictures_from_the_activity_conducted">Please Share Pictures From The Activity Conducted</string>
+    <string name="please_upload_photos_max_3">Please upload photos (max 3)</string>
+    <string name="choose_file">Choose File</string>
+    <string name="kpi_activity_information">KPI (Activity Information)</string>
+    <string name="external_stakeholder_consultaion">EXTERNAL STAKEHOLDER CONSULTAION</string>
+
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+
+    <string name="remove_profile_photo">Remove pic</string>
+
+    <string name="please_select">Please select</string>
+    <string name="error_permissions">Some permissions are denied</string>
+    <string name="permission_denied">Permission denied</string>
+
+    <string name="intent_exception_message">Camera is not supported on this device</string>
+    <string name="camera_intent_error">No camera app found</string>
 
 </resources>
