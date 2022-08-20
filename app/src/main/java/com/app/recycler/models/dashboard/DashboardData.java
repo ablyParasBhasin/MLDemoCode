@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class DashboardData {
     @SerializedName("In Progress")
-    private String inProgress;
+    private String inProgress="0";
     @SerializedName("Rejected")
-    private String rejected;
+    private String rejected="0";
     @SerializedName("Approved")
-    private String approved;
+    private String approved="0";
     @SerializedName("Completed")
-    private String completed;
+    private String completed="0";
 
     public String getInProgress() {
         return inProgress;
@@ -34,5 +34,5 @@ public class DashboardData {
     }
 
     @SerializedName("Reject For Modification")
-    private String rejectForModification;
+    private String rejectForModification="0";
 }

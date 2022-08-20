@@ -19,6 +19,7 @@ import com.app.recycler.interfaces.ListingItemClick
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.DummyData
 import com.app.recycler.models.dashboard.DashboardData
+import com.app.recycler.models.step1.CommonData
 import com.app.recycler.utility.GridSpacingItemDecoration
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -48,12 +49,14 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
             getCounts()
 
             btnStartActivity.setOnClickListener {
-                val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
-                startActivity(intent)
+               /* val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
+                startActivity(intent)*/
+                setAcknowledge()
             }
             btnStart_Activity.setOnClickListener {
-                val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
-                startActivity(intent)
+                /*val intent = Intent(this@MainAcivity, AcknowledgeActivity::class.java)
+                startActivity(intent)*/
+                setAcknowledge()
             }
         }catch (ex:Exception){
 
@@ -61,7 +64,21 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
 
 
     }
+    fun setAcknowledge() {
+        try {
+            if (!isNetworkConnected) {
+                showDialog(getString(R.string.app_no_internet), true)
+                return
+            }
+            showProgress(true)
+            var jsonObject= JSONObject()
+            jsonObject.put("login_token", DataManager.instance.token)
+            DataManager.instance.setAcknwoledge(API_TAG.SET_ACKNOWLEDGE, jsonObject, this)
+        }catch (ex:Exception){
 
+        }
+
+    }
 
     private fun gridViewLsting() {
 
@@ -135,6 +152,14 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
                  count = response?.body() as BaseResponse<DashboardData>
                 if (count.status.equals(Constants.API_SUCCESS)) {
                     gridViewLsting()
+                } else
+                    showDialog(count.msg, true)
+            }
+            API_TAG.SET_ACKNOWLEDGE -> {
+                var count = response?.body() as BaseResponse<CommonData>
+                if (count.status.equals(Constants.API_SUCCESS)) {
+                    DataManager.instance.commonData=count.data
+                    startActivity(Intent(this, FormListingActivity::class.java))
                 } else
                     showDialog(count.msg, true)
             }
