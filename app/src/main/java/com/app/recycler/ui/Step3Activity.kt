@@ -15,14 +15,25 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.app.recycler.R
+import com.app.recycler.apinetworks.API_TAG
+import com.app.recycler.apinetworks.Constants
+import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.interfaces.ResponseHandler
+import com.app.recycler.models.BaseResponse
+import com.app.recycler.models.step1.CommonData
+import com.app.recycler.models.step3.KPIData
+import com.app.recycler.models.step3.KPIResponse
 import com.app.recycler.utility.RealStoragePathLibrary
 import com.app.recycler.utility.Utils
+import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_step3.*
+import org.json.JSONObject
+import retrofit2.Response
 import java.io.File
 import java.util.*
 import javax.xml.datatype.DatatypeConstants.MONTHS
 
-class Step3Activity : AppCompatActivity() {
+class Step3Activity : BaseActivity(), ResponseHandler {
     private val GALLERY = 1
     private val CAMERA = 2
 
@@ -85,7 +96,7 @@ class Step3Activity : AppCompatActivity() {
                 showPictureDialog()
             }
         }
-
+        getActivityQuestions()
     }
 
     private fun showPictureDialog() {
@@ -209,6 +220,40 @@ class Step3Activity : AppCompatActivity() {
         } catch (e: Exception) {
             //u.logE("Exception : $e")
         }
+    }
+    fun getActivityQuestions() {
+        try {
+            if (!isNetworkConnected) {
+                showDialog(getString(R.string.app_no_internet), true)
+                return
+            }
+            showProgress(true)
+            var jsonObject = JSONObject()
+            jsonObject.put("login_token", DataManager.instance.token)
+            jsonObject.put("activity_id","1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17")
+            DataManager.instance.getActivityQuestions(API_TAG.GET_ACTIVITY_QUE, jsonObject, this)
+        } catch (ex: Exception) {
+
+        }
+
+    }
+    override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
+        hideProgress()
+        when (tag) {
+            API_TAG.GET_ACTIVITY_QUE -> {
+                var count = response?.body() as BaseResponse<KPIData>
+                if (count.status.equals(Constants.API_SUCCESS)) {
+
+                } else
+                    showDialog(count.msg, true)
+            }
+        }
+    }
+
+    override fun onFailure(tag: API_TAG?, t: Throwable?) {
+        hideProgress()
+        println("t = [" + t.toString() + "]")
+        showDialog(getString(R.string.error_something_wrong), true)
     }
 
 }

@@ -6,6 +6,7 @@ import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.dashboard.DashboardData
 import com.app.recycler.models.login.LoginData
 import com.app.recycler.models.step1.CommonData
+import com.app.recycler.models.step3.KPIData
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -34,6 +35,8 @@ interface APIService {
     fun getActivity(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
     @POST("save-step2-data")
     fun saveStep2Data(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
+    @POST("get-activity-questions")
+    fun getActivityQuestions(@Body requestBody: RequestBody): Call<BaseResponse<KPIData>>
 
    /* // forgot
     @Headers("User-Agent: Android")

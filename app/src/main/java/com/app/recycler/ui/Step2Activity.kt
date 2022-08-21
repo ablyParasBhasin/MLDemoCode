@@ -62,11 +62,11 @@ class Step2Activity : BaseActivity(), ListingItemClick,ListingItemDataClick, Res
                 .replace("]", "").replace(" ", "")
             activitiesTobeSent=activities.toString().replace("[", "")
                 .replace("]", "").replace(" ", "")
+            DataManager.instance.activitiesTobeSent=activitiesTobeSent
            saveStep2Data()
         }
 
         btnSaveDraft.setOnClickListener {
-            startActivity(Intent(this@Step2Activity, Step3Activity::class.java))
         }
     }
          var categoriesTobeSent=""
