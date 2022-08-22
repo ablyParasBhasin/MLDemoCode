@@ -95,6 +95,10 @@ class SigningActivity : BaseActivity(), ResponseHandler {
         DataManager.instance.getSharedPrefs(this)
             ?.saveString(PrefConstants.USER_NAME, login.name)
 
+
+        DataManager.instance.getSharedPrefs(this).saveString(PrefConstants.Login_Token_Expire_Datetime, login.login_token_expire_datetime)
+
+
         DataManager.instance.getSharedPrefs(this)?.saveString(Constants.USER_DATA, serializeData)
         (application as MyApp).initUserInfo()
         startActivity(Intent(this@SigningActivity, MainAcivity::class.java))

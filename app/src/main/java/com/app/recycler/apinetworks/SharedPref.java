@@ -47,6 +47,10 @@ public class SharedPref {
         sharedpreferences.edit().remove(key).apply();
     }
 
+    public void  clearPreferrence() {
+        sharedpreferences.edit().clear().apply();
+    }
+
     public byte[] getBytes(String key) {
         String byteString = sharedpreferences.getString(key, "");
         try {

@@ -18,6 +18,11 @@ public class LoginData {
     private String login_token;
       @SerializedName("profile_pic")
     private String profile_pic;
+
+
+
+    @SerializedName("login_token_expire_datetime")
+    private String login_token_expire_datetime;
       
     public String serialize() {
         // Serialize this class into a JSON string using GSON
@@ -55,5 +60,13 @@ public class LoginData {
 
     public String getProfile_pic() {
         return profile_pic;
+    }
+
+    public String getLogin_token_expire_datetime() {
+        return login_token_expire_datetime;
+    }
+
+    public void setLogin_token_expire_datetime(String login_token_expire_datetime) {
+        this.login_token_expire_datetime = login_token_expire_datetime;
     }
 }

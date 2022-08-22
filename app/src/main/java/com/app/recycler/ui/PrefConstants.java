@@ -10,6 +10,7 @@ public interface PrefConstants {
             IS_USER_BUYER = "IS_USER_BUYER",
             IS_USER_VENDOR = "IS_USER_VENDOR",
             FCM_TOKEN = "FCM_TOKEN",
-            SIGN_UP_URL = "SIGN_UP_URL";
+            SIGN_UP_URL = "SIGN_UP_URL",
+           Login_Token_Expire_Datetime = "login_token_expire_datetime";
 
 }
