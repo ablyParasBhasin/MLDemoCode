@@ -1,9 +1,12 @@
 package com.app.recycler.ui.signing
 
+import android.content.Context
 import android.content.Intent
+import android.net.wifi.WifiManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.format.Formatter
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
 import com.app.recycler.models.BaseResponse
@@ -18,6 +21,7 @@ import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_signing.*
 import org.json.JSONObject
 import retrofit2.Response
+import java.util.*
 
 
 class SigningActivity : BaseActivity(), ResponseHandler {
@@ -26,13 +30,19 @@ class SigningActivity : BaseActivity(), ResponseHandler {
     private val homeViewModel: HomeViewModel by viewModels()
     lateinit var session : SessionManager
     var dialog: Dialog? = null*/
+   var ipAddress: String?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signing)
        edt_username.setText("digantgupta@nirwana.in")
        edt_password.setText("12345678")
-       edt_username.addTextChangedListener(mWatcher);
-       edt_password.addTextChangedListener(mWatcher);
+       edt_username.addTextChangedListener(mWatcher)
+       edt_password.addTextChangedListener(mWatcher)
+
+
+       val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        ipAddress = Formatter.formatIpAddress(wifiManager.connectionInfo.ipAddress)
+      // textView.text = "Your Device IP Address: $ipAddress"
 
        checkLoginCredentials()
        btn_login.setOnClickListener {
@@ -49,6 +59,7 @@ class SigningActivity : BaseActivity(), ResponseHandler {
         var jsonObject=JSONObject()
         jsonObject.put("email_id",edt_username.text.toString())
         jsonObject.put("password",edt_password.text.toString())
+        jsonObject.put("app_login_ip",ipAddress.toString())
         DataManager.instance.login(API_TAG.LOGIN_API, jsonObject, this)
     }
     val mWatcher: TextWatcher = object : TextWatcher {

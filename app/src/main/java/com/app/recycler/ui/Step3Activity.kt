@@ -6,28 +6,36 @@ import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.app.recycler.R
 import com.app.recycler.utility.RealStoragePathLibrary
 import com.app.recycler.utility.Utils
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_step3.*
 import java.io.File
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
+
 
 class Step3Activity : AppCompatActivity() {
     private val GALLERY = 1
     private val CAMERA = 2
 
-    lateinit var file: File
     private var cameraClickFile: File? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_step3)
@@ -73,12 +81,17 @@ class Step3Activity : AppCompatActivity() {
 
         txt_choose_pic.setOnClickListener {
 
+            //takePhoto();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
                     ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+
+
                     showPictureDialog()
                 } else {
+                    requestPermission()
                     //showStorageDialog()
                 }
             } else {
@@ -128,7 +141,8 @@ class Step3Activity : AppCompatActivity() {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraClickFile))
         }
         try {
-            startActivityForResult(intent, CAMERA)
+            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(cameraIntent, CAMERA)
         } catch (e: ActivityNotFoundException) {
             Utils.showDialog(this, getString(R.string.intent_exception_message))
         } catch (e: Exception) {
@@ -143,7 +157,7 @@ class Step3Activity : AppCompatActivity() {
             val realStoragePath = RealStoragePathLibrary(this)
             val inbuiltStoragePath = realStoragePath.inbuiltStorageAppSpecificDirectoryPath
             val microSDStoragePath = realStoragePath.microSDStorageAppSpecificDirectoryPath
-            path = if (inbuiltStoragePath != null && inbuiltStoragePath!=null) {
+            path = if (inbuiltStoragePath != null && inbuiltStoragePath.isNotEmpty()) {
                 inbuiltStoragePath
             } else {
                 microSDStoragePath
@@ -159,7 +173,7 @@ class Step3Activity : AppCompatActivity() {
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 intent.type = if (mimeTypes.size == 1) mimeTypes[0] else "*/*"
-                if (mimeTypes!=null) {
+                if (mimeTypes.isNotEmpty()) {
                     intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
                 }
             } else {
@@ -167,16 +181,50 @@ class Step3Activity : AppCompatActivity() {
                 for (mimeType in mimeTypes) {
                     mimeTypesStr += "$mimeType|"
                 }
-               // intent.type = mimeTypesStr.substring(0, mimeTypesStr.length - 1)
+                intent.type = mimeTypesStr.substring(0, mimeTypesStr.length - 1)
             }
             try {
-                startActivityForResult(intent, GALLERY)
+               // val galleryIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+              //  startActivityForResult(galleryIntent, GALLERY)
+
+
+                val galleryIntent =
+                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(galleryIntent, GALLERY)
             } catch (e: ActivityNotFoundException) {
                 Utils.showDialog(this, getString(R.string.intent_exception_message))
             } catch (e: Exception) {
                 Utils.showDialog(this, "Gallery Error")
             }
         }
+
+    private fun requestPermission() {
+        Dexter.withContext(this)
+            .withPermissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,  Manifest.permission.CAMERA)
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                    // check if all permissions are granted
+                    if (report.areAllPermissionsGranted()) {
+                        showPictureDialog()
+                    }
+
+                    // check for permanent denial of any permission
+                    if (report.isAnyPermissionPermanentlyDenied) {
+                     Toast.makeText(this@Step3Activity,"Permissions Error",Toast.LENGTH_SHORT).show()
+                       // Utility.showShortToast(this, getString(R.string.error_permissions), true)
+                    }
+                }
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest>, token: PermissionToken
+                ) { token.continuePermissionRequest()
+                }
+            }).withErrorListener {
+                Toast.makeText(this@Step3Activity,"Permissions Error",Toast.LENGTH_SHORT).show()
+            }
+            .onSameThread()
+            .check()
+    }
 
     public override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
@@ -187,21 +235,26 @@ class Step3Activity : AppCompatActivity() {
             var oriFile: File?
             if (resultCode == Activity.RESULT_OK) {
                 if (requestCode == CAMERA) {
+
                     oriFile = cameraClickFile
+
                     if (oriFile == null) {
-                        Utils.showDialog(this, "Error message")
+                        Utils.showDialog(this, "Camera error message")
                         return
                     }
-                   // CropImage.activity(Uri.fromFile(oriFile)).setCropShape(CropImageView.CropShape.RECTANGLE).start(this)
+
+                    img.setImageBitmap(intentData!!.getExtras()?.get("data") as Bitmap?)
+                    println("requestCode = [${requestCode}], resultCode = [${resultCode}], intentData = [${intentData}]")
+
 
                 } else if (requestCode == GALLERY) {
                     if (intentData == null) return
                     val selectedImage = intentData.data
                     if (selectedImage != null) {
 
-
+                        img.setImageBitmap(intentData!!.getExtras()?.get("data") as Bitmap?)
                     } else {
-                        //Utility.showDialog(this, getString(R.string.error_msg_selected_image))
+                        Utils.showDialog(this, "Gallery error message")
                     }
 
                 }
