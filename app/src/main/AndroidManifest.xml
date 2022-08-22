@@ -18,17 +18,19 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
+<!--
         <activity android:name=".ui.Step3Activity"
             android:exported="true"
             android:screenOrientation="portrait">
 
-           <!-- <intent-filter>
+           &lt;!&ndash; <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>&ndash;&gt;
 
         </activity>
+-->
         <activity
             android:name=".ui.Step2Activity"
             android:exported="true"
@@ -42,7 +44,7 @@
             android:exported="false" />
         <activity android:name=".ui.DescritionActivity" />
         <activity
-            android:name=".ui.SplashActivty"
+            android:name=".ui.Step3Activity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

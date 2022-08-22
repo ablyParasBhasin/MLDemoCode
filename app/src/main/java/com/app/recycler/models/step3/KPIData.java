@@ -3,52 +3,18 @@ package com.app.recycler.models.step3;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 public class KPIData {
 
-    @SerializedName("activity_id")
+    @SerializedName("activity_data")
     @Expose
-    private String activityId;
-    @SerializedName("activity_name")
-    @Expose
-    private String activityName;
-    @SerializedName("category_name")
-    @Expose
-    private String categoryName;
-    @SerializedName("questions")
-    @Expose
-    private Questions questions;
+    private ActivityData activityData;
 
-    public String getActivityId() {
-        return activityId;
+    public ActivityData getActivityData() {
+        return activityData;
     }
 
-    public void setActivityId(String activityId) {
-        this.activityId = activityId;
-    }
-
-    public String getActivityName() {
-        return activityName;
-    }
-
-    public void setActivityName(String activityName) {
-        this.activityName = activityName;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public Questions getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(Questions questions) {
-        this.questions = questions;
+    public void setActivityData(ActivityData activityData) {
+        this.activityData = activityData;
     }
 
 }

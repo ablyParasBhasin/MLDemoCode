@@ -1,155 +1,87 @@
 
 package com.app.recycler.models.step3;
 
-import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
 public class Questions {
 
-    @SerializedName("activity_11")
+    @SerializedName(value = "activity_1_start_date", alternate = {"activity_2_start_date","activity_3_start_date","activity_4_start_date","activity_5_start_date","activity_6_start_date","activity_7_start_date","activity_8_start_date","activity_9_start_date","activity_10_start_date","activity_11_start_date","activity_12_start_date","activity_13_start_date","activity_14_start_date","activity_15_start_date","activity_16_start_date","activity_17_start_date"})
     @Expose
-    private Activity11 activity11;
-    @SerializedName("activity_9")
+    private String activityStartDate;
+    @SerializedName(value ="activity_1_end_date", alternate = {"activity_2_end_date","activity_3_end_date","activity_4_end_date","activity_5_end_date","activity_6_end_date","activity_7_end_date","activity_8_end_date","activity_9_end_date","activity_10_end_date","activity_11_end_date","activity_12_end_date","activity_13_end_date","activity_14_end_date","activity_15_end_date","activity_16_end_date","activity_17_end_date"})
     @Expose
-    private Activity9 activity9;
-    @SerializedName("activity_12")
+    private String activityEndDate;
+    @SerializedName(value = "activity_1_file", alternate = {"activity_2_file","activity_3_file","activity_4_file","activity_5_file","activity_6_file","activity_7_file","activity_8_file","activity_9_file","activity_10_file","activity_11_file","activity_12_file","activity_13_file","activity_14_file","activity_15_file","activity_16_file","activity_17_file"})
     @Expose
-    private Activity12 activity12;
-    @SerializedName("activity_13")
+    private String activityFileFirst;
+    @SerializedName(value = "activity_21_file", alternate = {"activity_211_file","activity_212_file","activity_213_file","activity_23_file","activity_24_file","activity_25_file","activity_29_file","activity_28_file","activity_27_file","activity_210_file","activity_26_file","activity_22_file"})
     @Expose
-    private Activity13 activity13;
-    @SerializedName("activity_6")
+    private String activityFileSecond;
+    @SerializedName(value = "activity_1_comments_observations", alternate = {"activity_2_comments_observations","activity_3_comments_observations","activity_4_comments_observations","activity_5_comments_observations","activity_6_comments_observations","activity_7_comments_observations","activity_8_comments_observations","activity_9_comments_observations","activity_10_comments_observations","activity_11_comments_observations","activity_12_comments_observations","activity_13_comments_observations","activity_14_comments_observations","activity_15_comments_observations","activity_16_comments_observations","activity_17_comments_observations"})
     @Expose
-    private Activity6 activity6;
-    @SerializedName("activity_1")
+    private String activityCommentsObservations;
+    @SerializedName(value = "activity_1_curr_status", alternate = {"activity_2_curr_status","activity_3_curr_status","activity_4_curr_status","activity_5_curr_status","activity_6_curr_status","activity_7_curr_status","activity_8_curr_status","activity_9_curr_status","activity_10_curr_status","activity_11_curr_status","activity_12_curr_status","activity_13_curr_status","activity_14_curr_status","activity_15_curr_status","activity_16_curr_status","activity_17_curr_status"})
     @Expose
-    private Activity1 activity1;
-    @SerializedName("activity_10")
+    private ActivityCurrStatus activityCurrStatus;
+    @SerializedName("question")
     @Expose
-    private Activity10 activity10;
-    @SerializedName("activity_7")
-    @Expose
-    private Activity7 activity7;
-    @SerializedName("activity_4")
-    @Expose
-    private Activity4 activity4;
-    @SerializedName("activity_2")
-    @Expose
-    private Activity2 activity2;
-    @SerializedName("activity_5")
-    @Expose
-    private Activity5 activity5;
-    @SerializedName("activity_3")
-    @Expose
-    private Activity3 activity3;
-    @SerializedName("activity_8")
-    @Expose
-    private Activity8 activity8;
+    private Question question;
 
-    public Activity11 getActivity11() {
-        return activity11;
+    public String getActivityStartDate() {
+        return activityStartDate;
     }
 
-    public void setActivity11(Activity11 activity11) {
-        this.activity11 = activity11;
+    public void setActivityStartDate(String activityStartDate) {
+        this.activityStartDate = activityStartDate;
     }
 
-    public Activity9 getActivity9() {
-        return activity9;
+    public String getActivityEndDate() {
+        return activityEndDate;
     }
 
-    public void setActivity9(Activity9 activity9) {
-        this.activity9 = activity9;
+    public void setActivityEndDate(String activityEndDate) {
+        this.activityEndDate = activityEndDate;
     }
 
-    public Activity12 getActivity12() {
-        return activity12;
+    public String getActivityFileFirst() {
+        return activityFileFirst;
     }
 
-    public void setActivity12(Activity12 activity12) {
-        this.activity12 = activity12;
+    public void setActivityFileFirst(String activityFileFirst) {
+        this.activityFileFirst = activityFileFirst;
     }
 
-    public Activity13 getActivity13() {
-        return activity13;
+    public String getActivityFileSecond() {
+        return activityFileSecond;
     }
 
-    public void setActivity13(Activity13 activity13) {
-        this.activity13 = activity13;
+    public void setActivityFileSecond(String activityFileSecond) {
+        this.activityFileSecond = activityFileSecond;
     }
 
-    public Activity6 getActivity6() {
-        return activity6;
+    public String getActivityCommentsObservations() {
+        return activityCommentsObservations;
     }
 
-    public void setActivity6(Activity6 activity6) {
-        this.activity6 = activity6;
+    public void setActivityCommentsObservations(String activityCommentsObservations) {
+        this.activityCommentsObservations = activityCommentsObservations;
     }
 
-    public Activity1 getActivity1() {
-        return activity1;
+    public ActivityCurrStatus getActivityCurrStatus() {
+        return activityCurrStatus;
     }
 
-    public void setActivity1(Activity1 activity1) {
-        this.activity1 = activity1;
+    public void setActivityCurrStatus(ActivityCurrStatus activityCurrStatus) {
+        this.activityCurrStatus = activityCurrStatus;
     }
 
-    public Activity10 getActivity10() {
-        return activity10;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setActivity10(Activity10 activity10) {
-        this.activity10 = activity10;
-    }
-
-    public Activity7 getActivity7() {
-        return activity7;
-    }
-
-    public void setActivity7(Activity7 activity7) {
-        this.activity7 = activity7;
-    }
-
-    public Activity4 getActivity4() {
-        return activity4;
-    }
-
-    public void setActivity4(Activity4 activity4) {
-        this.activity4 = activity4;
-    }
-
-    public Activity2 getActivity2() {
-        return activity2;
-    }
-
-    public void setActivity2(Activity2 activity2) {
-        this.activity2 = activity2;
-    }
-
-    public Activity5 getActivity5() {
-        return activity5;
-    }
-
-    public void setActivity5(Activity5 activity5) {
-        this.activity5 = activity5;
-    }
-
-    public Activity3 getActivity3() {
-        return activity3;
-    }
-
-    public void setActivity3(Activity3 activity3) {
-        this.activity3 = activity3;
-    }
-
-    public Activity8 getActivity8() {
-        return activity8;
-    }
-
-    public void setActivity8(Activity8 activity8) {
-        this.activity8 = activity8;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
 }

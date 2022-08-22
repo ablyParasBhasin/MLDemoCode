@@ -24,7 +24,7 @@ public class CommonData {
         this.expandable = expandable;
     }
 
-   private boolean expandable=false;
+    private boolean expandable=false;
 
     public boolean isCatChecked() {
         return isCatChecked;
@@ -59,7 +59,7 @@ public class CommonData {
 
     @SerializedName("category_name")
     @Expose
-    private String categoryName;
+     String categoryName;
 
     @SerializedName("activity_id")
     @Expose
@@ -94,6 +94,30 @@ public class CommonData {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public void setActivityName(String activityName) {
+        this.activityName = activityName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public void setActivity_id(String activity_id) {
+        this.activity_id = activity_id;
+    }
+
+    public void setForm_start_date_time(String form_start_date_time) {
+        this.form_start_date_time = form_start_date_time;
+    }
+
+    public void setEstate_district_name(String estate_district_name) {
+        this.estate_district_name = estate_district_name;
     }
 
     public String getEstateName() {

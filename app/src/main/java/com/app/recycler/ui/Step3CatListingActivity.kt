@@ -14,7 +14,7 @@ import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.step1.CommonData
 import com.uni.retailer.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_setp2_expand.*
+import kotlinx.android.synthetic.main.activity_setp2_cat_list.*
 import org.json.JSONObject
 import retrofit2.Response
 
@@ -42,19 +42,13 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
     var activityList = ArrayList<CommonData>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_setp2_expand)
-        btnSaveDraft.visibility=View.GONE
+        setContentView(R.layout.activity_setp2_cat_list)
         getStep2SelectedCategories()
 
     }
 
     var adapter:SelectedCatListAdapter?=null
-    private fun setCategoryView() {
-        rvCat.layoutManager = LinearLayoutManager(this)
-        adapter = SelectedCatListAdapter(this,categoryList,this)
-        rvCat.adapter = adapter
-        rvCat.setHasFixedSize(true)
-    }
+
     fun getStep2SelectedCategories() {
         try {
             if (!isNetworkConnected) {
@@ -71,7 +65,7 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
         }
 
     }
-
+    var tempList=ArrayList<String>()
     override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
         hideProgress()
         when (tag) {
@@ -79,13 +73,23 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
                 var count = response?.body() as BaseResponseArray<CommonData>
                 if (count.status.equals(Constants.API_SUCCESS)) {
                     categoryList= count.data as ArrayList<CommonData>
-                    setCategoryView()
+                    for(item in categoryList){
+                       if(!tempList.contains(item.categoryName)){
+                           tempList.add(item.categoryName)
+                       }
+                    }
+                   setCategoryView()
                 } else
                     showDialog(count.msg, true)
             }
         }
     }
-
+    private fun setCategoryView() {
+        rvCat.layoutManager = LinearLayoutManager(this)
+        adapter = SelectedCatListAdapter(this,categoryList,tempList,this)
+        rvCat.adapter = adapter
+        rvCat.setHasFixedSize(true)
+    }
     override fun onFailure(tag: API_TAG?, t: Throwable?) {
         hideProgress()
         println("t = [" + t.toString() + "]")
@@ -93,7 +97,7 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
     }
 
     override fun clickItem(pos: Int) {
-        startActivityForResult(Intent(this,Step3Activity::class.java),4000)
+        startActivityForResult(Intent(this,Step3Activity::class.java).putExtra("activity_id",categoryList[pos].activity_id),4000)
     }
 
     override fun clickChildItem(pos: Int) {

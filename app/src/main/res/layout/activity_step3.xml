@@ -95,6 +95,7 @@
                     android:layout_marginStart="@dimen/margin_20dp"
                     android:layout_marginTop="@dimen/margin_15dp"
                     android:layout_marginEnd="@dimen/margin_20dp"
+                    android:id="@+id/catName"
                     android:text="@string/external_stakeholder_consultaion"
                     android:textSize="@dimen/txt_16sp"
                     android:textStyle="bold" />
@@ -114,8 +115,8 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/actName"
     android:text="@string/external_stakeholder_consultaion"
-    android:drawableEnd="@drawable/ic_arrow_down"
     />
 
                 </LinearLayout>
@@ -181,10 +182,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="@dimen/margin_15dp"
+                                android:layout_marginTop="@dimen/margin_5dp"
                                 android:layout_weight="1"
-                                android:hint="DD-MM-YYY"
+                                android:textStyle="bold"
+                                android:hint="DD-MM-YYYY"
                                 android:background="@drawable/edt_bg"
-                                android:padding="@dimen/margin_5dp" />
+                                android:padding="@dimen/margin_10dp" />
 
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -192,11 +195,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/margin_5dp"
+                                android:textStyle="bold"
                                 android:layout_marginEnd="@dimen/margin_15dp"
+                                android:layout_marginTop="@dimen/margin_5dp"
                                 android:layout_weight="1"
-                                android:hint="DD-MM-YYY"
+                                android:hint="DD-MM-YYYY"
                                 android:background="@drawable/edt_bg"
-                                android:padding="@dimen/margin_5dp" />
+                                android:padding="@dimen/margin_10dp" />
 
                         </LinearLayout>
 
@@ -234,47 +239,21 @@
                             android:layout_marginTop="@dimen/margin_5dp" />
 -->
 
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RadioGroup
+    android:id="@+id/radio_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-                        <RadioGroup
-                            android:id="@+id/radio_group"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+</RadioGroup></androidx.appcompat.widget.LinearLayoutCompat>
 
-
-                            <RadioButton
-                                android:id="@+id/rb_completed"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/completed"
-                                android:onClick="radio_button_click"/>
-
-                            <RadioButton
-                                android:id="@+id/rb_inprogress"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/in_progress"
-                                android:onClick="radio_button_click"/>
-
-                            <RadioButton
-                                android:id="@+id/rb_delyed"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/delayed"
-                                android:onClick="radio_button_click"/>
-
-                            <RadioButton
-                                android:id="@+id/rb_atRisk"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/at_risk"
-                                android:onClick="radio_button_click"/>
-                        </RadioGroup>
 
 
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/txt_district_level"
+                            android:id="@+id/tvQuestion1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/how_many_meetings_were_conducted_with_district_level_officers_in_this_week"

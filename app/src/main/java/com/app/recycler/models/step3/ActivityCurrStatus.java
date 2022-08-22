@@ -1,19 +1,20 @@
 
 package com.app.recycler.models.step3;
 
-import javax.annotation.Generated;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Generated("jsonschema2pojo")
-public class Activity7CurrStatus {
+public class ActivityCurrStatus {
 
     @SerializedName("question")
     @Expose
     private String question;
     @SerializedName("options")
     @Expose
-    private String options;
+    private ArrayList<String> options = null;
 
     public String getQuestion() {
         return question;
@@ -23,11 +24,11 @@ public class Activity7CurrStatus {
         this.question = question;
     }
 
-    public String getOptions() {
+    public ArrayList<String> getOptions() {
         return options;
     }
 
-    public void setOptions(String options) {
+    public void setOptions(ArrayList<String> options) {
         this.options = options;
     }
 
