@@ -100,5 +100,7 @@
 
     <string name="intent_exception_message">Camera is not supported on this device</string>
     <string name="camera_intent_error">No camera app found</string>
+    <string name="alert">Alert!</string>
+    <string name="stackholder_error">Please Submit Stackholder Information First</string>
 
 </resources>

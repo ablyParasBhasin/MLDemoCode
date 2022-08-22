@@ -115,8 +115,31 @@ class DataManager private constructor() : BaseActivity() {
                 listener.onFailure(tag, t)
             }
         })
-    }fun getEstateDistrict(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+    }
+    fun getEstateDistrict(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.getEstateDistrict(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponseArray<CommonData>> {
+            override fun onResponse(
+                call: Call<BaseResponseArray<CommonData>>,
+                response: Response<BaseResponseArray<CommonData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listener.onSuccess(tag,response)
+
+                } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponseArray<CommonData>>, t: Throwable) {
+                call.cancel()
+                listener.onFailure(tag, t)
+            }
+        })
+    }
+    fun getSelectedActivityList(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+     networkCalls.getSelectedActivityList(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
         enqueue(object : Callback<BaseResponseArray<CommonData>> {
             override fun onResponse(
                 call: Call<BaseResponseArray<CommonData>>,

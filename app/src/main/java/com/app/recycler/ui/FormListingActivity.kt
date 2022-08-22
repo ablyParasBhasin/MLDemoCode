@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.app.recycler.R
+import com.app.recycler.apinetworks.DataManager
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.fragment_reporting_form2.*
 
@@ -25,13 +26,26 @@ class FormListingActivity : BaseActivity() {
         }
         lay_item1.setOnClickListener {
             startActivityForResult(
-                Intent(this@FormListingActivity, Step1Activity::class.java),1000)
+                Intent(this@FormListingActivity, Step1Activity::class.java), 1000
+            )
         }
         lay_item2.setOnClickListener {
-            startActivityForResult(Intent(this@FormListingActivity, Step2Activity::class.java),2000)
+            startActivityForResult(
+                Intent(this@FormListingActivity, Step2Activity::class.java),
+                2000
+            )
         }
         lay_item3.setOnClickListener {
-            startActivityForResult(Intent(this@FormListingActivity, Step3Activity::class.java),3000)
+            if (DataManager.instance.activitiesTobeSent.isEmpty()) {
+                showDialog(getString(R.string.alert),getString(R.string.stackholder_error),true,false)
+                return@setOnClickListener
+            }
+            startActivityForResult(
+                Intent(
+                    this@FormListingActivity,
+                    Step3CatListingActivity::class.java
+                ), 3000
+            )
         }
     }
 
@@ -45,11 +59,26 @@ class FormListingActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         println("requestCode = [${requestCode}], resultCode = [${resultCode}], data = [${data}]")
         if (requestCode == 1000 && resultCode == RESULT_OK) {
-            item1Forward.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.ic_baseline_check_circle_24))
-        }else if (requestCode == 2000 && resultCode == RESULT_OK) {
-            item2Forward.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.ic_baseline_check_circle_24))
-        }else if (requestCode == 3000 && resultCode == RESULT_OK) {
-            item3Forward.setBackgroundDrawable(ContextCompat.getDrawable(this,R.drawable.ic_baseline_check_circle_24))
+            item1Forward.setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_baseline_check_circle_24
+                )
+            )
+        } else if (requestCode == 2000 && resultCode == RESULT_OK) {
+            item2Forward.setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_baseline_check_circle_24
+                )
+            )
+        } else if (requestCode == 3000 && resultCode == RESULT_OK) {
+            item3Forward.setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    this,
+                    R.drawable.ic_baseline_check_circle_24
+                )
+            )
         }
     }
 
