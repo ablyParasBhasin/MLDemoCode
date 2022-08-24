@@ -107,4 +107,12 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
     override fun clickChildItem(pos:Int, value: String,boolean: Boolean,id:String) {
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==4000 && resultCode== RESULT_OK){
+            setResult(RESULT_OK)
+            finish()
+        }
+    }
 }

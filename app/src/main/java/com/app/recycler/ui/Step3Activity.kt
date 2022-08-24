@@ -23,7 +23,11 @@ import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
+import com.app.recycler.models.BaseResponseArray
+import com.app.recycler.models.step1.CommonData
+import com.app.recycler.models.step3.ActivityQuestion
 import com.app.recycler.models.step3.KPIData
+import com.app.recycler.models.step3.Questions
 import com.app.recycler.utility.RealStoragePathLibrary
 import com.app.recycler.utility.Utils
 import com.uni.retailer.ui.base.BaseActivity
@@ -31,6 +35,7 @@ import kotlinx.android.synthetic.main.activity_step3.*
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.File
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -118,54 +123,237 @@ class Step3Activity : BaseActivity(), ResponseHandler,
         btnSave.setOnClickListener {
             sendData()
         }
+        btnSubmit.setOnClickListener {
+            saveStep3Data()
+        }
         getActivityQuestions()
     }
-
     fun sendData() {
-        if(DataManager.instance.activitiesTobeSent.contains(response.data.activityData.activityId)){
+        try {
+            var questions = Questions()
+            DataManager.instance.filledActivities.add(response.data.activityData.activityId)
+            if (response.data.activityData.activityId == "1") {
+                try {
+                  var jsonChild=JSONObject()
+                    jsonChild.put("activity_1_curr_status", selectedStatus)
+                    jsonChild.put("activity_1_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_1_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_1_quest_1", edt1.text.toString())
+                    jsonChild.put("activity_1_quest_2", edt2.text.toString())
+                    jsonChild.put("activity_1_quest_3", edt3.text.toString())
+                    jsonChild.put("activity_1_quest_4", edt4.text.toString())
+                    jsonChild.put("activity_1_quest_5", edt5.text.toString())
+                    jsonChild.put("activity_1_quest_6", edt6.text.toString())
+                    jsonChild.put("activity_1_quest_7", edt7.text.toString())
+                    DataManager.instance.jsonObject.put("activity_1", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+                /*   questions.activity_1_comments_observations=
+            questions.activity_1_file=
+            questions.activity_21_file=
+            questions.question.activity1Quest1=
+            questions.question.activity1Quest2=
+            questions.question.activity1Quest3=
+            questions.question.activity1Quest4=
+            questions.question.activity1Quest5=
+            questions.question.activity1Quest6=
+            questions.question.activity1Quest7=*/
 
-        }
-        if (response.data.activityData.activityId == "1") {
-
-        }
-        if (response.data.activityData.activityId == "2") {
-
+            }
+            /*  if (response.data.activityData.activityId == "2") {
+            questions.activity_2_start_date=txt_start_date.text.toString()
+            questions.activity_2_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_2_curr_status",selectedStatus)
+                questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "3") {
 
+            questions.activity_3_start_date=txt_start_date.text.toString()
+            questions.activity_3_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_3_curr_status",selectedStatus)
+                questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "4") {
-
+            questions.activity_4_start_date=txt_start_date.text.toString()
+            questions.activity_4_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_4_curr_status",selectedStatus)
+                questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "5") {
-
+            questions.activity_5_start_date=txt_start_date.text.toString()
+            questions.activity_5_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_5_curr_status",selectedStatus)
+                questions.activity_1_comments_observations =
+                questions.activity_1_file =
+                questions.activity_21_file =
+                questions.question.activity1Quest1 =
+                questions.question.activity1Quest2 =
+                questions.question.activity1Quest3 =
+                questions.question.activity1Quest4 =
+                questions.question.activity1Quest5 =
+                questions.question.activity1Quest6 =
+                questions.question.activity1Quest7 =
         }
         if (response.data.activityData.activityId == "6") {
-
+            questions.activity_6_start_date=txt_start_date.text.toString()
+            questions.activity_6_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_6_curr_status",selectedStatus)
+            questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "7") {
-
+            questions.activity_7_start_date=txt_start_date.text.toString()
+            questions.activity_7_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_7_curr_status",selectedStatus)
+                questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "8") {
-
+            questions.activity_8_start_date=txt_start_date.text.toString()
+            questions.activity_8_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_8_curr_status",selectedStatus)
+            questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "9") {
-
+            questions.activity_9_start_date=txt_start_date.text.toString()
+            questions.activity_9_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_9_curr_status",selectedStatus)
+            questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "10") {
-
+            questions.activity_10_start_date=txt_start_date.text.toString()
+            questions.activity_10_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_10_curr_status",selectedStatus)
+                questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "11") {
-
+            questions.activity_11_start_date=txt_start_date.text.toString()
+            questions.activity_11_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_11_curr_status",selectedStatus)
+                questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "12") {
-
+            questions.activity_12_start_date=txt_start_date.text.toString()
+            questions.activity_12_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_12_curr_status",selectedStatus)
+                questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
         }
         if (response.data.activityData.activityId == "13") {
+            questions.activity_13_start_date=txt_start_date.text.toString()
+            questions.activity_13_end_date=txt_end_date.text.toString()
+            jsonObject.put("activity_13_curr_status",selectedStatus)
+                questions.activity_1_comments_observations=
+                questions.activity_1_file=
+                questions.activity_21_file=
+                questions.question.activity1Quest1=
+                questions.question.activity1Quest2=
+                questions.question.activity1Quest3=
+                questions.question.activity1Quest4=
+                questions.question.activity1Quest5=
+                questions.question.activity1Quest6=
+                questions.question.activity1Quest7=
+        }*/
 
+            if (DataManager.instance.activitiesTobeSent == DataManager.instance.filledActivities.toString()
+                    .replace("[", "").replace("]", "")
+            ) {
+                btnSubmit.isEnabled = true
+                btnSubmit.alpha = 1f
+
+            }
+
+        }catch (e:Exception){
+            e.printStackTrace()
         }
-
-//        saveStep3Data()
     }
 
     private fun showPictureDialog() {
@@ -319,10 +507,17 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                 return
             }
             showProgress(true)
-            DataManager.instance.jsonObject.put("login_token", DataManager.instance.token)
-            DataManager.instance.jsonObject.put("activity_id",DataManager.instance.commonData?.activity_id)
-            DataManager.instance.jsonObject.put("user_id", DataManager.instance.userData?.id)
-            DataManager.instance.saveStep3Data(API_TAG.SAVE_STEP_3_DATA,  DataManager.instance.jsonObject, this)
+            var jsonObject=JSONObject()
+            jsonObject.put("login_token",DataManager.instance.token)
+            jsonObject.put("activity_id",DataManager.instance.commonData?.activity_id)
+            jsonObject.put("user_id", DataManager.instance.userData?.id)
+            jsonObject.put("step3_ans", DataManager.instance.jsonObject)
+            println("jsonObject = [${DataManager.instance.jsonObject}]")
+            DataManager.instance.saveStep3Data(
+                API_TAG.SAVE_STEP_3_DATA,
+                jsonObject,
+                this
+            )
         } catch (ex: Exception) {
 
         }
@@ -340,7 +535,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                     actName.text = response.data.activityData.activityName
                     try {
                         var parts =
-                            response.data.activityData.questions.activityCurrStatus.options.toString()
+                            response.data.activityData.questions.activity_1_curr_status.options.toString()
                                 .replace("[", "").replace("]", "").split(",")
                         var tempOptions = ArrayList<String>()
                         for (i in parts) {
@@ -448,6 +643,15 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                 } else
                     showDialog(response.msg, true)
             }
+            API_TAG.SAVE_STEP_2_DATA -> {
+                var reposneData = apiResponse?.body() as BaseResponse<CommonData>
+                if (reposneData.status.equals(Constants.API_SUCCESS)) {
+                    showToast(reposneData.data.msg)
+                    setResult(RESULT_OK)
+                    finish()
+                } else
+                    showDialog(reposneData.msg, true)
+            }
         }
     }
 
@@ -462,15 +666,18 @@ class Step3Activity : BaseActivity(), ResponseHandler,
         rgp.orientation = LinearLayout.HORIZONTAL
         for (i in list.indices) {
             val rbn = RadioButton(this)
+            rbn.setOnClickListener(this)
             rbn.id = View.generateViewId()
             rbn.text = list[i]
             rgp.addView(rbn)
         }
     }
+    var selectedStatus=""
 
     override fun onClick(v: View?) {
         val radioId = radio_group.checkedRadioButtonId
         val rb = findViewById<RadioButton>(radioId)
+        selectedStatus=rb.text.toString()
         rb.isChecked = true
     }
 

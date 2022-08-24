@@ -34,6 +34,7 @@ class DataManager private constructor() : BaseActivity() {
     var userData: LoginData? = null
     var commonData: CommonData? = null
     var activitiesTobeSent=""
+    var filledActivities=ArrayList<String>()
     var jsonObject = JSONObject()
     private var prefs: SharedPref? = null
     private var dataManager: DataManager? = null
