@@ -510,6 +510,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             jsonObject.put("activity_id",DataManager.instance.commonData?.activity_id)
             jsonObject.put("user_id", DataManager.instance.userData?.id)
             jsonObject.put("step3_ans", DataManager.instance.jsonObject)
+            jsonObject.put("step3_status", "1")
             println("jsonObject = [${DataManager.instance.jsonObject}]")
             DataManager.instance.saveStep3Data(
                 API_TAG.SAVE_STEP_3_DATA,
