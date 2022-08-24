@@ -1,7 +1,13 @@
 package com.app.recycler.models.step1;
 
+import com.fatbit.yoyumm.delivery.activity.common.ModleClassResponse;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 
 public class CommonData {
 
@@ -11,6 +17,11 @@ public class CommonData {
     @SerializedName("msg")
     @Expose
     private String msg="";
+
+    public CommonData(String activityName,ArrayList<String> str) {
+        this.categoryName=activityName;
+        this.arrayListActivities=str;
+    }
 
     public String getMsg() {
         return msg;
@@ -52,6 +63,16 @@ public class CommonData {
     @SerializedName("activity_name")
     @Expose
     private String activityName;
+
+    private ArrayList<String> arrayListActivities;
+
+    public ArrayList<String> getArrayListActivities() {
+        return arrayListActivities;
+    }
+
+    public void setArrayListActivities(ArrayList<String> arrayListActivities) {
+        this.arrayListActivities = arrayListActivities;
+    }
 
     public String getCategoryName() {
         return categoryName;

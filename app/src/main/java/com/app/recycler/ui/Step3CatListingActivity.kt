@@ -13,6 +13,7 @@ import com.app.recycler.interfaces.ListingItemDataClick
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.step1.CommonData
+import com.fatbit.yoyumm.delivery.activity.common.ModleClassResponse
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_setp2_cat_list.*
 import org.json.JSONObject
@@ -65,7 +66,8 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
         }
 
     }
-    var tempList=ArrayList<String>()
+
+    var filterList=ArrayList<CommonData>()
     override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
         hideProgress()
         when (tag) {
@@ -73,22 +75,42 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
                 var count = response?.body() as BaseResponseArray<CommonData>
                 if (count.status.equals(Constants.API_SUCCESS)) {
                     categoryList= count.data as ArrayList<CommonData>
-                    for(item in categoryList){
+                   /* for(item in categoryList){
                        if(!tempList.contains(item.categoryName)){
                            tempList.add(item.categoryName)
                        }
-                    }
+                    }*/
                    setCategoryView()
                 } else
                     showDialog(count.msg, true)
             }
         }
     }
+    val activtyList=ArrayList<String>()
+    var commonData:ModleClassResponse?=null
     private fun setCategoryView() {
+
+        val newArrayList: ArrayList<CommonData> = categoryList
+        for (i in 0 until categoryList.size){
+            val str = ArrayList<String>()
+
+            for (j in 0 until newArrayList.size){
+                if (categoryList[i].categoryName == newArrayList[j].categoryName){
+                    str.add(newArrayList[j].activityName)
+                    activtyList.add(newArrayList[j].activity_id)
+                }
+            }
+            filterList.add(CommonData(newArrayList[i].categoryName,str))
+        }
+
+        val newList = filterList.distinctBy { it.categoryName }
+
+
         rvCat.layoutManager = LinearLayoutManager(this)
-        adapter = SelectedCatListAdapter(this,categoryList,tempList,this)
+        adapter = SelectedCatListAdapter(this, newList as ArrayList<CommonData>,activtyList,this)
         rvCat.adapter = adapter
         rvCat.setHasFixedSize(true)
+
     }
     override fun onFailure(tag: API_TAG?, t: Throwable?) {
         hideProgress()
@@ -102,6 +124,7 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
 
     override fun clickChildItem(pos: Int) {
 
+        println("pos = [${pos}]")
     }
 
     override fun clickChildItem(pos:Int, value: String,boolean: Boolean,id:String) {

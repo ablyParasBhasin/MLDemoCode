@@ -3,18 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.1315" />
-        <entry key="app/src/main/res/layout/activity_setp2_cat_list.xml" value="0.2128205128205128" />
-        <entry key="app/src/main/res/layout/activity_setp2_expand.xml" value="0.18675213675213675" />
-        <entry key="app/src/main/res/layout/activity_setp3.xml" value="0.2688034188034188" />
-        <entry key="app/src/main/res/layout/activity_step2_updated.xml" value="0.19786324786324785" />
-        <entry key="app/src/main/res/layout/activity_step3.xml" value="0.20726495726495728" />
-        <entry key="app/src/main/res/layout/fragment_reporting_form2.xml" value="0.1905982905982906" />
-        <entry key="app/src/main/res/layout/item_cat_list.xml" value="0.21367521367521367" />
-        <entry key="app/src/main/res/layout/item_expand.xml" value="0.2688034188034188" />
+        <entry key="app/src/main/res/layout/activity_setp2_cat_list.xml" value="0.22760416666666666" />
+        <entry key="app/src/main/res/layout/item_activites_list.xml" value="0.22760416666666666" />
+        <entry key="app/src/main/res/layout/item_adapter_list.xml" value="0.22760416666666666" />
+        <entry key="app/src/main/res/layout/item_cat_list.xml" value="0.21" />
+        <entry key="app/src/main/res/layout/splash_activity.xml" value="0.11" />
       </map>
     </option>
   </component>
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
 </project>
