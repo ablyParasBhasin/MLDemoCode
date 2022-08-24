@@ -15,6 +15,8 @@ import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.step1.CommonData
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_setp2_cat_list.*
+import kotlinx.android.synthetic.main.activity_setp2_cat_list.ivBack
+import kotlinx.android.synthetic.main.fragment_reporting_form.*
 import org.json.JSONObject
 import retrofit2.Response
 
@@ -44,7 +46,9 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setp2_cat_list)
         getStep2SelectedCategories()
-
+        ivBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     var adapter:SelectedCatListAdapter?=null

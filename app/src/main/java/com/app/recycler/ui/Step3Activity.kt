@@ -32,6 +32,8 @@ import com.app.recycler.utility.RealStoragePathLibrary
 import com.app.recycler.utility.Utils
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_step3.*
+import kotlinx.android.synthetic.main.activity_step3.ivBack
+import kotlinx.android.synthetic.main.fragment_reporting_form.*
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.File
@@ -126,11 +128,13 @@ class Step3Activity : BaseActivity(), ResponseHandler,
         btnSubmit.setOnClickListener {
             saveStep3Data()
         }
+        ivBack.setOnClickListener {
+            onBackPressed()
+        }
         getActivityQuestions()
     }
     fun sendData() {
         try {
-            var questions = Questions()
             DataManager.instance.filledActivities.add(response.data.activityData.activityId)
             if (response.data.activityData.activityId == "1") {
                 try {
@@ -145,203 +149,197 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                     jsonChild.put("activity_1_quest_5", edt5.text.toString())
                     jsonChild.put("activity_1_quest_6", edt6.text.toString())
                     jsonChild.put("activity_1_quest_7", edt7.text.toString())
+                    jsonChild.put("activity_21_file", "")
+                    jsonChild.put("activity_1_file", "")
+                    jsonChild.put("activity_1_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_1", jsonChild)
                 }catch (e: Exception){
                     e.printStackTrace()
                 }
-                /*   questions.activity_1_comments_observations=
-            questions.activity_1_file=
-            questions.activity_21_file=
-            questions.question.activity1Quest1=
-            questions.question.activity1Quest2=
-            questions.question.activity1Quest3=
-            questions.question.activity1Quest4=
-            questions.question.activity1Quest5=
-            questions.question.activity1Quest6=
-            questions.question.activity1Quest7=*/
+
+            } else if (response.data.activityData.activityId == "2") {
+                try {
+                  var jsonChild=JSONObject()
+                    jsonChild.put("activity_2_curr_status", selectedStatus)
+                    jsonChild.put("activity_2_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_2_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_2_quest_1", edt1.text.toString())
+                    jsonChild.put("activity_2_quest_2", edt2.text.toString())
+                    jsonChild.put("activity_2_quest_3", edt3.text.toString())
+                    jsonChild.put("activity_21_file", "")
+                    jsonChild.put("activity_2_file", "")
+                    jsonChild.put("activity_2_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_2", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
 
             }
-            /*  if (response.data.activityData.activityId == "2") {
-            questions.activity_2_start_date=txt_start_date.text.toString()
-            questions.activity_2_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_2_curr_status",selectedStatus)
-                questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "3") {
+            else if (response.data.activityData.activityId == "3") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_3_curr_status", selectedStatus)
+                    jsonChild.put("activity_3_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_3_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_3_quest_1", edt1.text.toString())
+                    jsonChild.put("activity_3_quest_2", edt2.text.toString())
+                    jsonChild.put("activity_3_quest_3", edt3.text.toString())
+                    jsonChild.put("activity_3_file", "")
+                    jsonChild.put("activity_23_file", "")
+                    jsonChild.put("activity_3_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_3", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
 
-            questions.activity_3_start_date=txt_start_date.text.toString()
-            questions.activity_3_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_3_curr_status",selectedStatus)
-                questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "4") {
-            questions.activity_4_start_date=txt_start_date.text.toString()
-            questions.activity_4_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_4_curr_status",selectedStatus)
-                questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "5") {
-            questions.activity_5_start_date=txt_start_date.text.toString()
-            questions.activity_5_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_5_curr_status",selectedStatus)
-                questions.activity_1_comments_observations =
-                questions.activity_1_file =
-                questions.activity_21_file =
-                questions.question.activity1Quest1 =
-                questions.question.activity1Quest2 =
-                questions.question.activity1Quest3 =
-                questions.question.activity1Quest4 =
-                questions.question.activity1Quest5 =
-                questions.question.activity1Quest6 =
-                questions.question.activity1Quest7 =
-        }
-        if (response.data.activityData.activityId == "6") {
-            questions.activity_6_start_date=txt_start_date.text.toString()
-            questions.activity_6_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_6_curr_status",selectedStatus)
-            questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "7") {
-            questions.activity_7_start_date=txt_start_date.text.toString()
-            questions.activity_7_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_7_curr_status",selectedStatus)
-                questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "8") {
-            questions.activity_8_start_date=txt_start_date.text.toString()
-            questions.activity_8_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_8_curr_status",selectedStatus)
-            questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "9") {
-            questions.activity_9_start_date=txt_start_date.text.toString()
-            questions.activity_9_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_9_curr_status",selectedStatus)
-            questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "10") {
-            questions.activity_10_start_date=txt_start_date.text.toString()
-            questions.activity_10_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_10_curr_status",selectedStatus)
-                questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "11") {
-            questions.activity_11_start_date=txt_start_date.text.toString()
-            questions.activity_11_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_11_curr_status",selectedStatus)
-                questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "12") {
-            questions.activity_12_start_date=txt_start_date.text.toString()
-            questions.activity_12_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_12_curr_status",selectedStatus)
-                questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }
-        if (response.data.activityData.activityId == "13") {
-            questions.activity_13_start_date=txt_start_date.text.toString()
-            questions.activity_13_end_date=txt_end_date.text.toString()
-            jsonObject.put("activity_13_curr_status",selectedStatus)
-                questions.activity_1_comments_observations=
-                questions.activity_1_file=
-                questions.activity_21_file=
-                questions.question.activity1Quest1=
-                questions.question.activity1Quest2=
-                questions.question.activity1Quest3=
-                questions.question.activity1Quest4=
-                questions.question.activity1Quest5=
-                questions.question.activity1Quest6=
-                questions.question.activity1Quest7=
-        }*/
+            } else if (response.data.activityData.activityId == "4") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_4_curr_status", selectedStatus)
+                    jsonChild.put("activity_4_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_4_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_4_quest_1", edt1.text.toString())
+                    jsonChild.put("activity_4_quest_2", edt2.text.toString())
+                    jsonChild.put("activity_4_quest_3", edt3.text.toString())
+                    jsonChild.put("activity_4_file", "")
+                    jsonChild.put("activity_24_file", "")
+                    jsonChild.put("activity_4_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_4", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }else if (response.data.activityData.activityId == "5") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_5_curr_status", selectedStatus)
+                    jsonChild.put("activity_5_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_5_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_5_file", "")
+                    jsonChild.put("activity_25_file", "")
+                    jsonChild.put("activity_5_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_5", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }
+            else if (response.data.activityData.activityId == "6") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_6_curr_status", selectedStatus)
+                    jsonChild.put("activity_6_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_6_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_6_file", "")
+                    jsonChild.put("activity_26_file", "")
+                    jsonChild.put("activity_6_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_6", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            } else if (response.data.activityData.activityId == "7") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_7_curr_status", selectedStatus)
+                    jsonChild.put("activity_7_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_7_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_7_quest_1", edt1.text.toString())
+                    jsonChild.put("activity_7_file", "")
+                    jsonChild.put("activity_27_file", "")
+                    jsonChild.put("activity_7_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_7", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            } else if (response.data.activityData.activityId == "8") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_8_curr_status", selectedStatus)
+                    jsonChild.put("activity_8_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_8_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_8_file", "")
+                    jsonChild.put("activity_28_file", "")
+                    jsonChild.put("activity_8_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_8", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            } else if (response.data.activityData.activityId == "9") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_9_curr_status", selectedStatus)
+                    jsonChild.put("activity_9_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_9_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_9_file", "")
+                    jsonChild.put("activity_29_file", "")
+                    jsonChild.put("activity_9_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_9", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }else if (response.data.activityData.activityId == "10") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_10_curr_status", selectedStatus)
+                    jsonChild.put("activity_10_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_10_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_10_file", "")
+                    jsonChild.put("activity_210_file", "")
+                    jsonChild.put("activity_10_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_10", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }else if (response.data.activityData.activityId == "11") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_11_curr_status", selectedStatus)
+                    jsonChild.put("activity_11_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_11_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_11_file", "")
+                    jsonChild.put("activity_211_file", "")
+                    jsonChild.put("activity_11_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_11", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }else if (response.data.activityData.activityId == "12") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_12_curr_status", selectedStatus)
+                    jsonChild.put("activity_12_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_12_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_12_quest_1", edt1.text.toString())
+                    jsonChild.put("activity_12_quest_2", edt2.text.toString())
+                    jsonChild.put("activity_12_file", "")
+                    jsonChild.put("activity_212_file", "")
+                    jsonChild.put("activity_12_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_12", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }else if (response.data.activityData.activityId == "13") {
+                try {
+                    var jsonChild=JSONObject()
+                    jsonChild.put("activity_13_curr_status", selectedStatus)
+                    jsonChild.put("activity_13_start_date", txt_start_date.text.toString())
+                    jsonChild.put("activity_13_end_date", txt_end_date.text.toString())
+                    jsonChild.put("activity_13_file", "")
+                    jsonChild.put("activity_213_file", "")
+                    jsonChild.put("activity_13_comments_observations", edtComments.text.toString())
+                    DataManager.instance.jsonObject.put("activity_13", jsonChild)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+
+            }
 
             if (DataManager.instance.activitiesTobeSent == DataManager.instance.filledActivities.toString()
                     .replace("[", "").replace("]", "")

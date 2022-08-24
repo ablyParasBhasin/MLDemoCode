@@ -517,6 +517,7 @@
                             android:layout_height="@dimen/margin_60dp"
                             android:layout_marginTop="@dimen/margin_5dp"
                             android:layout_marginEnd="@dimen/margin_15dp"
+                            android:id="@+id/edtComments"
                             android:background="@drawable/edt_bg"
                             android:padding="@dimen/margin_5dp" />
 
