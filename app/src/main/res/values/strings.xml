@@ -104,5 +104,6 @@
     <string name="alert">Alert!</string>
     <string name="stackholder_error">Please Submit Stackholder Information First</string>
     <string name="comments_observations">Comments/Observations</string>
+    <string name="submit_to_server">Submit to Server</string>
 
 </resources>

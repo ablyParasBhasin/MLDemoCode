@@ -616,6 +616,22 @@
                         android:textSize="@dimen/txt_16sp" />
 
                 </LinearLayout>
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@drawable/btn_enable_bg"
+                    android:alpha="0.5"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/margin_15dp"
+                    android:layout_marginEnd="@dimen/margin_15dp"
+                    android:layout_marginBottom="@dimen/margin_15dp"
+                    android:text="@string/submit_to_server"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt_16sp" />
+
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

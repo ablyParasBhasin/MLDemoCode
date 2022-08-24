@@ -115,7 +115,57 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                 showPictureDialog()
             }
         }
+        btnSave.setOnClickListener {
+            sendData()
+        }
         getActivityQuestions()
+    }
+
+    fun sendData() {
+        if(DataManager.instance.activitiesTobeSent.contains(response.data.activityData.activityId)){
+
+        }
+        if (response.data.activityData.activityId == "1") {
+
+        }
+        if (response.data.activityData.activityId == "2") {
+
+        }
+        if (response.data.activityData.activityId == "3") {
+
+        }
+        if (response.data.activityData.activityId == "4") {
+
+        }
+        if (response.data.activityData.activityId == "5") {
+
+        }
+        if (response.data.activityData.activityId == "6") {
+
+        }
+        if (response.data.activityData.activityId == "7") {
+
+        }
+        if (response.data.activityData.activityId == "8") {
+
+        }
+        if (response.data.activityData.activityId == "9") {
+
+        }
+        if (response.data.activityData.activityId == "10") {
+
+        }
+        if (response.data.activityData.activityId == "11") {
+
+        }
+        if (response.data.activityData.activityId == "12") {
+
+        }
+        if (response.data.activityData.activityId == "13") {
+
+        }
+
+//        saveStep3Data()
     }
 
     private fun showPictureDialog() {
@@ -262,11 +312,29 @@ class Step3Activity : BaseActivity(), ResponseHandler,
 
     }
 
-    override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
+    fun saveStep3Data() {
+        try {
+            if (!isNetworkConnected) {
+                showDialog(getString(R.string.app_no_internet), true)
+                return
+            }
+            showProgress(true)
+            DataManager.instance.jsonObject.put("login_token", DataManager.instance.token)
+            DataManager.instance.jsonObject.put("activity_id",DataManager.instance.commonData?.activity_id)
+            DataManager.instance.jsonObject.put("user_id", DataManager.instance.userData?.id)
+            DataManager.instance.saveStep3Data(API_TAG.SAVE_STEP_3_DATA,  DataManager.instance.jsonObject, this)
+        } catch (ex: Exception) {
+
+        }
+
+    }
+
+    var response = BaseResponse<KPIData>()
+    override fun onSuccess(tag: API_TAG?, apiResponse: Response<*>?) {
         hideProgress()
         when (tag) {
             API_TAG.GET_ACTIVITY_QUE -> {
-                var response = response?.body() as BaseResponse<KPIData>
+                response = apiResponse?.body() as BaseResponse<KPIData>
                 if (response.status.equals(Constants.API_SUCCESS)) {
                     catName.text = response.data.activityData.categoryName
                     actName.text = response.data.activityData.activityName
@@ -338,12 +406,12 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity_9_quest_1
                         } else if (response.data.activityData.activityId == "10") {
-                            question0Lt.visibility=View.VISIBLE
-                            question1Lt.visibility=View.GONE
+                            question0Lt.visibility = View.VISIBLE
+                            question1Lt.visibility = View.GONE
                             rgQuestion0.setOnCheckedChangeListener { group, checkedId ->
-                                if(checkedId==R.id.radio_yes){
+                                if (checkedId == R.id.radio_yes) {
                                     //need to visible layouts of 2 3 4 5
-                                }else {
+                                } else {
                                     // gone everything visible above
                                 }
 

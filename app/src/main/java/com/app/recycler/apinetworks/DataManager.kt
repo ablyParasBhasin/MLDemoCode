@@ -34,6 +34,7 @@ class DataManager private constructor() : BaseActivity() {
     var userData: LoginData? = null
     var commonData: CommonData? = null
     var activitiesTobeSent=""
+    var jsonObject = JSONObject()
     private var prefs: SharedPref? = null
     private var dataManager: DataManager? = null
 
@@ -207,6 +208,28 @@ class DataManager private constructor() : BaseActivity() {
     }
     fun saveStep2Data(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.saveStep2Data(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponse<CommonData>> {
+            override fun onResponse(
+                call: Call<BaseResponse<CommonData>>,
+                response: Response<BaseResponse<CommonData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listener.onSuccess(tag,response)
+
+                } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
+                call.cancel()
+                listener.onFailure(tag, t)
+            }
+        })
+    }
+    fun saveStep3Data(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+     networkCalls.saveStep3Data(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
         enqueue(object : Callback<BaseResponse<CommonData>> {
             override fun onResponse(
                 call: Call<BaseResponse<CommonData>>,

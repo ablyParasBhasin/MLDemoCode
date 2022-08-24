@@ -35,6 +35,8 @@ interface APIService {
     fun getActivity(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
     @POST("save-step2-data")
     fun saveStep2Data(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
+    @POST("save-step3-data")
+    fun saveStep3Data(@Body requestBody: RequestBody): Call<BaseResponse<CommonData>>
     @POST("get-activity-questions")
     fun getActivityQuestions(@Body requestBody: RequestBody): Call<BaseResponse<KPIData>>
     @POST("get-selected-activity-list")
