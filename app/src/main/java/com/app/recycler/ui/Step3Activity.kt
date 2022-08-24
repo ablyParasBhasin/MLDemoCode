@@ -23,7 +23,6 @@ import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
-import com.app.recycler.models.step3.ActivityCurrStatus
 import com.app.recycler.models.step3.KPIData
 import com.app.recycler.utility.RealStoragePathLibrary
 import com.app.recycler.utility.Utils
@@ -33,7 +32,6 @@ import org.json.JSONObject
 import retrofit2.Response
 import java.io.File
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class Step3Activity : BaseActivity(), ResponseHandler,
@@ -63,7 +61,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                 month,
                 day
             )
-            dpd.datePicker.maxDate=System.currentTimeMillis()-1000
+            dpd.datePicker.maxDate = System.currentTimeMillis() - 1000
             dpd.show()
 
         }
@@ -87,7 +85,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                 month,
                 day
             )
-            dpd.datePicker.minDate=System.currentTimeMillis()-1000
+            dpd.datePicker.minDate = System.currentTimeMillis() - 1000
             dpd.show()
 
 
@@ -256,185 +254,14 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             showProgress(true)
             var jsonObject = JSONObject()
             jsonObject.put("login_token", DataManager.instance.token)
-//            jsonObject.put("activity_id", intent.getStringExtra("activity_id"))
-            jsonObject.put("activity_id", "1")
-//            jsonObject.put("activity_id","1,2,3,4,5,6,7,8,9,10,11,12,13,14,15")
+            jsonObject.put("activity_id", intent.getStringExtra("activity_id"))
             DataManager.instance.getActivityQuestions(API_TAG.GET_ACTIVITY_QUE, jsonObject, this)
         } catch (ex: Exception) {
 
         }
 
     }
-/*
 
-{
-  "code": 200,
-  "data": {
-    "activity_data": {
-      "activity_id": "3",
-      "activity_name": "Training on POSH, DV, POCSO, legal support and justice system",
-      "category_name": "Management and Staff",
-      "questions": {
-        "activity_11_start_date": "activity_11_start_date",
-        "activity_11_end_date": "activity_11_end_date",
-        "activity_11_file": "activity_11_file",
-        "activity_211_file": "activity_211_file",
-        "activity_11_comments_observations": "activity_11_comments_observations",
-        "activity_11_curr_status": {
-          "question": "activity_11_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "question": {
-          "activity_3_quest_1": "How Many Trainings Were Conducted For The Estate Management?",
-          "activity_3_quest_1_male": "How Many Estate Management Members Attended The Training?",
-          "activity_3_quest_1_female": "How Many Estate Management Members Attended The Training?",
-          "activity_3_quest_2": "How Many Trainings Were Conducted For The Estate Staff?",
-          "activity_3_quest_2_male": "How Many Estate Staff Attended The Training?",
-          "activity_3_quest_2_female": "How Many Estate Staff Attended The Training?",
-          "activity_3_quest_3": "How Many Trainings Were Conducted For The Estate IC?",
-          "activity_3_quest_3_male": "How Many IC Members Attended The Training?",
-          "activity_3_quest_3_female": "How Many IC Members Attended The Training?"
-        },
-        "activity_9_start_date": "activity_9_start_date",
-        "activity_9_end_date": "activity_9_end_date",
-        "activity_9_file": "activity_9_file",
-        "activity_29_file": "activity_29_file",
-        "activity_9_comments_observations": "activity_9_comments_observations",
-        "activity_9_curr_status": {
-          "question": "activity_9_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_12_start_date": "activity_12_start_date",
-        "activity_12_end_date": "activity_12_end_date",
-        "activity_12_file": "activity_12_file",
-        "activity_212_file": "activity_212_file",
-        "activity_12_comments_observations": "activity_12_comments_observations",
-        "activity_12_curr_status": {
-          "question": "activity_12_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_13_start_date": "activity_13_start_date",
-        "activity_13_end_date": "activity_13_end_date",
-        "activity_13_file": "activity_13_file",
-        "activity_213_file": "activity_213_file",
-        "activity_13_comments_observations": "activity_13_comments_observations",
-        "activity_13_curr_status": {
-          "question": "activity_13_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_6_start_date": "activity_6_start_date",
-        "activity_6_end_date": "activity_6_end_date",
-        "activity_6_file": "activity_6_file",
-        "activity_26_file": "activity_26_file",
-        "activity_6_comments_observations": "activity_6_comments_observations",
-        "activity_6_curr_status": {
-          "question": "activity_6_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_1_start_date": "activity_1_start_date",
-        "activity_1_end_date": "activity_1_end_date",
-        "activity_1_file": "activity_1_file",
-        "activity_21_file": "activity_21_file",
-        "activity_1_comments_observations": "activity_1_comments_observations",
-        "activity_1_curr_status": {
-          "question": "activity_1_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_10_start_date": "activity_10_start_date",
-        "activity_10_end_date": "activity_10_end_date",
-        "activity_10_file": "activity_10_file",
-        "activity_210_file": "activity_210_file",
-        "activity_10_comments_observations": "activity_10_comments_observations",
-        "activity_10_curr_status": {
-          "question": "activity_10_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_7_start_date": "activity_7_start_date",
-        "activity_7_end_date": "activity_7_end_date",
-        "activity_7_file": "activity_7_file",
-        "activity_27_file": "activity_27_file",
-        "activity_7_comments_observations": "activity_7_comments_observations",
-        "activity_7_curr_status": {
-          "question": "activity_7_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_4_start_date": "activity_4_start_date",
-        "activity_4_end_date": "activity_4_end_date",
-        "activity_4_file": "activity_4_file",
-        "activity_24_file": "activity_24_file",
-        "activity_4_comments_observations": "activity_4_comments_observations",
-        "activity_4_curr_status": {
-          "question": "activity_4_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_2_start_date": "activity_2_start_date",
-        "activity_2_end_date": "activity_2_end_date",
-        "activity_2_file": "activity_2_file",
-        "activity_22_file": "activity_22_file",
-        "activity_2_comments_observations": "activity_2_comments_observations",
-        "activity_2_curr_status": {
-          "question": "activity_2_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_8_start_date": "activity_8_start_date",
-        "activity_8_end_date": "activity_8_end_date",
-        "activity_8_file": "activity_8_file",
-        "activity_28_file": "activity_28_file",
-        "activity_8_comments_observations": "activity_8_comments_observations",
-        "activity_8_curr_status": {
-          "question": "activity_8_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_5_start_date": "activity_5_start_date",
-        "activity_5_end_date": "activity_5_end_date",
-        "activity_5_file": "activity_5_file",
-        "activity_25_file": "activity_25_file",
-        "activity_5_comments_observations": "activity_5_comments_observations",
-        "activity_5_curr_status": {
-          "question": "activity_5_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        },
-        "activity_3_start_date": "activity_3_start_date",
-        "activity_3_end_date": "activity_3_end_date",
-        "activity_3_file": "activity_3_file",
-        "activity_23_file": "activity_23_file",
-        "activity_3_comments_observations": "activity_3_comments_observations",
-        "activity_3_curr_status": {
-          "question": "activity_3_curr_status",
-          "options": [
-            "Completed,In progress,Delayed,At risk"
-          ]
-        }
-      }
-    }
-  }
-}
-
- */
     override fun onSuccess(tag: API_TAG?, response: Response<*>?) {
         hideProgress()
         when (tag) {
@@ -444,16 +271,112 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                     catName.text = response.data.activityData.categoryName
                     actName.text = response.data.activityData.activityName
                     try {
-                        var parts=response.data.activityData.questions.activityCurrStatus.options.toString().replace("[","").replace("]","").split(",")
-                        var tempOptions=ArrayList<String>()
-                        for (i in parts){
+                        var parts =
+                            response.data.activityData.questions.activityCurrStatus.options.toString()
+                                .replace("[", "").replace("]", "").split(",")
+                        var tempOptions = ArrayList<String>()
+                        for (i in parts) {
                             tempOptions.add(i)
                         }
                         addRadioButtons(tempOptions)
-                    }catch (e:Exception){
+
+                        if (response.data.activityData.activityId == "1") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity1Quest1
+                            tvQuestion2.text =
+                                response.data.activityData.questions.question.activity1Quest2
+                            tvQuestion3.text =
+                                response.data.activityData.questions.question.activity1Quest3
+                            tvQuestion4.text =
+                                response.data.activityData.questions.question.activity1Quest4
+                            tvQuestion5.text =
+                                response.data.activityData.questions.question.activity1Quest5
+                            tvQuestion6.text =
+                                response.data.activityData.questions.question.activity1Quest6
+                            tvQuestion7.text =
+                                response.data.activityData.questions.question.activity1Quest7
+                        } else if (response.data.activityData.activityId == "2") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity_2_quest_1
+                            tvQuestion2.text =
+                                response.data.activityData.questions.question.activity2Quest2
+                            tvQuestion3.text =
+                                response.data.activityData.questions.question.activity2Quest3
+
+
+                        } else if (response.data.activityData.activityId == "3") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity3Quest1
+                            tvQuestion2.text =
+                                response.data.activityData.questions.question.activity3Quest2
+                            tvQuestion3.text =
+                                response.data.activityData.questions.question.activity3Quest3
+                        } else if (response.data.activityData.activityId == "4") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity_4_quest_1
+                            tvQuestion2.text =
+                                response.data.activityData.questions.question.activity_4_quest_2
+                            tvQuestion3.text =
+                                response.data.activityData.questions.question.activity_4_quest_3
+                        } else if (response.data.activityData.activityId == "5") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity5Quest1
+                            tvQuestion2.text =
+                                response.data.activityData.questions.question.activity5Quest2
+                            tvQuestion3.text =
+                                response.data.activityData.questions.question.activity5Quest3
+                        } else if (response.data.activityData.activityId == "6") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity6Quest1
+                        } else if (response.data.activityData.activityId == "7") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity_7_quest_1
+                        } else if (response.data.activityData.activityId == "8") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity_8_quest_1
+                        } else if (response.data.activityData.activityId == "9") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity_9_quest_1
+                        } else if (response.data.activityData.activityId == "10") {
+                            question0Lt.visibility=View.VISIBLE
+                            question1Lt.visibility=View.GONE
+                            rgQuestion0.setOnCheckedChangeListener { group, checkedId ->
+                                if(checkedId==R.id.radio_yes){
+                                    //need to visible layouts of 2 3 4 5
+                                }else {
+                                    // gone everything visible above
+                                }
+
+                            }
+                            tvQuestion0.text =
+                                response.data.activityData.questions.question.activity_10_quest_1
+                            tvQuestion2.text =
+                                response.data.activityData.questions.question.activity_10_quest_2
+                            tvQuestion3.text =
+                                response.data.activityData.questions.question.activity_10_quest_3
+                            tvQuestion4.text =
+                                response.data.activityData.questions.question.activity_10_quest_4
+                            tvQuestion5.text =
+                                response.data.activityData.questions.question.activity_10_quest_5
+
+                        } else if (response.data.activityData.activityId == "11") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity_11_quest_1
+                        } else if (response.data.activityData.activityId == "12") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity_12_quest_1
+                            tvQuestion2.text =
+                                response.data.activityData.questions.question.activity_12_quest_2
+                        } else if (response.data.activityData.activityId == "13") {
+                            tvQuestion1.text =
+                                response.data.activityData.questions.question.activity_13_quest_1
+                            tvQuestion2.text =
+                                response.data.activityData.questions.question.activity_13_quest_2
+                        }
+                    } catch (e: Exception) {
                         e.printStackTrace()
                     }
-                    tvQuestion1.text=response.data.activityData.questions.question.activityQuest1
+
                 } else
                     showDialog(response.msg, true)
             }
@@ -465,6 +388,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
         println("t = [" + t.toString() + "]")
         showDialog(getString(R.string.error_something_wrong), true)
     }
+
     fun addRadioButtons(list: ArrayList<String>) {
         val rgp = findViewById<View>(R.id.radio_group) as RadioGroup
         rgp.orientation = LinearLayout.HORIZONTAL

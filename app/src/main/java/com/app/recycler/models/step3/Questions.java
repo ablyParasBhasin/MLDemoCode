@@ -26,7 +26,15 @@ public class Questions {
     private ActivityCurrStatus activityCurrStatus;
     @SerializedName("question")
     @Expose
-    private Question question;
+    private ActivityQuestion question;
+
+    public ActivityQuestion getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(ActivityQuestion question) {
+        this.question = question;
+    }
 
     public String getActivityStartDate() {
         return activityStartDate;
@@ -75,13 +83,4 @@ public class Questions {
     public void setActivityCurrStatus(ActivityCurrStatus activityCurrStatus) {
         this.activityCurrStatus = activityCurrStatus;
     }
-
-    public Question getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question question) {
-        this.question = question;
-    }
-
 }

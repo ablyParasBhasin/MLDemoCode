@@ -84,6 +84,7 @@
     <string name="can_you_please_elaborate_on_the_discussion_topics_for_the_meetings_with_these_district_level_officers_and_other_service_providers">Can You Please Elaborate On The Discussion Topics For The Meetings With These District Level Officers And Other Service Providers?</string>
     <string name="write_below_in_the_textarea">Write below in the textarea</string>
     <string name="please_share_pictures_from_the_activity_conducted">Please Share Pictures From The Activity Conducted</string>
+    <string name="please_share_attendance_pictures_from_the_activity_conducted">Please Share Attandance Pictures From The Activity Conducted</string>
     <string name="please_upload_photos_max_3">Please upload photos (max 3)</string>
     <string name="choose_file">Choose File</string>
     <string name="kpi_activity_information">KPI (Activity Information)</string>
@@ -102,5 +103,6 @@
     <string name="camera_intent_error">No camera app found</string>
     <string name="alert">Alert!</string>
     <string name="stackholder_error">Please Submit Stackholder Information First</string>
+    <string name="comments_observations">Comments/Observations</string>
 
 </resources>
