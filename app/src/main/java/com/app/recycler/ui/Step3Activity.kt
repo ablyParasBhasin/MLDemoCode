@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -16,30 +17,41 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.recycler.R
+import com.app.recycler.interfaces.ImageCrossButtonClick
 import com.app.recycler.utility.RealStoragePathLibrary
 import com.app.recycler.utility.Utils
+import com.bumptech.glide.Glide
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import kotlinx.android.synthetic.main.activity_setp2_expand.*
 import kotlinx.android.synthetic.main.activity_step3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 
-class Step3Activity : AppCompatActivity() {
+class Step3Activity : AppCompatActivity(),ImageCrossButtonClick {
     private val GALLERY = 1
     private val CAMERA = 2
 
     private var cameraClickFile: File? = null
 
+    var imageList:ArrayList<String>?=null
+    var adapter:ImagesAdapter?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_step3)
 
+        imageList=ArrayList()
 
         txt_start_date.setOnClickListener {
             val c = Calendar.getInstance()
@@ -102,9 +114,8 @@ class Step3Activity : AppCompatActivity() {
     }
 
     private fun showPictureDialog() {
-
-        var pictureDialogItems = arrayOf(getString(R.string.gallery), getString(R.string.camera), getString(
-            R.string.remove_profile_photo))
+      //  var pictureDialogItems = arrayOf(getString(R.string.gallery), getString(R.string.camera), getString(R.string.remove_profile_photo))
+        var pictureDialogItems = arrayOf(getString(R.string.gallery), getString(R.string.camera))
 
 
         val mBuilder = AlertDialog.Builder(this@Step3Activity)
@@ -128,12 +139,12 @@ class Step3Activity : AppCompatActivity() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraClickFile = File(sdCardPath + "/" + System.currentTimeMillis() + ".jpg")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            val apkURI = FileProvider.getUriForFile(
+            val photoURI = FileProvider.getUriForFile(
                 this,
                 this.applicationContext.packageName + ".provider", cameraClickFile!!)
-            if (apkURI != null) {
+            if (photoURI != null) {
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, apkURI)
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
             } else {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraClickFile))
             }
@@ -141,8 +152,7 @@ class Step3Activity : AppCompatActivity() {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraClickFile))
         }
         try {
-            val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startActivityForResult(cameraIntent, CAMERA)
+            startActivityForResult(intent, CAMERA)
         } catch (e: ActivityNotFoundException) {
             Utils.showDialog(this, getString(R.string.intent_exception_message))
         } catch (e: Exception) {
@@ -184,13 +194,12 @@ class Step3Activity : AppCompatActivity() {
                 intent.type = mimeTypesStr.substring(0, mimeTypesStr.length - 1)
             }
             try {
-               // val galleryIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-              //  startActivityForResult(galleryIntent, GALLERY)
+                val i = Intent(
+                    Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                )
+                startActivityForResult(i, GALLERY)
 
-
-                val galleryIntent =
-                    Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(galleryIntent, GALLERY)
             } catch (e: ActivityNotFoundException) {
                 Utils.showDialog(this, getString(R.string.intent_exception_message))
             } catch (e: Exception) {
@@ -243,16 +252,29 @@ class Step3Activity : AppCompatActivity() {
                         return
                     }
 
-                    img.setImageBitmap(intentData!!.getExtras()?.get("data") as Bitmap?)
+                    loadImage(cameraClickFile?.absolutePath)
                     println("requestCode = [${requestCode}], resultCode = [${resultCode}], intentData = [${intentData}]")
-
 
                 } else if (requestCode == GALLERY) {
                     if (intentData == null) return
                     val selectedImage = intentData.data
+
+
                     if (selectedImage != null) {
 
-                        img.setImageBitmap(intentData!!.getExtras()?.get("data") as Bitmap?)
+                        val filePathColumn =
+                            arrayOf(MediaStore.Images.Media.DATA)
+                        val cursor: Cursor? = selectedImage.let {
+                            contentResolver.query(it, filePathColumn, null, null, null)
+                        }
+                        cursor?.moveToFirst()
+                        val columnIndex: Int? = cursor?.getColumnIndex(filePathColumn[0])
+                        val picturePath: String? = columnIndex?.let { cursor.getString(it) }
+                        cursor?.close()
+
+                        //val file = File(picturePath ?: "")
+                        loadImage(picturePath)
+
                     } else {
                         Utils.showDialog(this, "Gallery error message")
                     }
@@ -261,6 +283,45 @@ class Step3Activity : AppCompatActivity() {
             }
         } catch (e: Exception) {
             //u.logE("Exception : $e")
+        }
+    }
+
+
+    private fun loadImage(picturePath: String?) {
+
+        imageList!!.add(picturePath!!)
+        if(imageList?.size!!>3){
+
+            Toast.makeText(this,"You can upload maximum three images.",Toast.LENGTH_SHORT).show()
+        }else{
+
+            rvImages.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)
+            adapter = ImagesAdapter(this,imageList!!,this)
+            rvImages.adapter = adapter
+            rvImages.setHasFixedSize(true)
+        }
+
+    }
+
+
+    private fun getPartImage(file: File): MultipartBody.Part {
+        val requestFile: RequestBody =
+            RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(),
+                file
+            )
+        return MultipartBody.Part.createFormData(
+            "image",
+            file.name,
+            requestFile
+        )
+    }
+
+    override fun clickCross(pos: Int) {
+        if(!imageList.isNullOrEmpty()){
+
+            imageList?.removeAt(pos)
+            adapter?.notifyDataSetChanged()
         }
     }
 
