@@ -3,6 +3,10 @@ package com.app.recycler.models.step1;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
 public class CommonData {
 
     @SerializedName("id")
@@ -15,7 +19,33 @@ public class CommonData {
     public String getMsg() {
         return msg;
     }
+    private LinkedHashMap<String,String> arrayListActivitiesMap;
 
+    public LinkedHashMap<String, String> getArrayListActivitiesMap() {
+        return arrayListActivitiesMap;
+    }
+
+    public void setArrayListActivitiesMap(LinkedHashMap<String, String> arrayListActivitiesMap) {
+        this.arrayListActivitiesMap = arrayListActivitiesMap;
+    }
+   private ArrayList<String> arrayListActivities;
+
+    public ArrayList<String> getArrayListActivities() {
+        return arrayListActivities;
+    }
+
+    public void setArrayListActivities(ArrayList<String> arrayListActivities) {
+        this.arrayListActivities = arrayListActivities;
+    }
+
+    public CommonData(String activityName, ArrayList<String> str) {
+        this.categoryName=activityName;
+        this.arrayListActivities=str;
+    }
+    public CommonData(String activityName, LinkedHashMap<String, String> arrayListActivitiesMap) {
+        this.categoryName=activityName;
+        this.arrayListActivitiesMap=arrayListActivitiesMap;
+    }
     public boolean isExpandable() {
         return expandable;
     }

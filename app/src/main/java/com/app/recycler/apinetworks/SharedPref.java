@@ -42,6 +42,9 @@ public class SharedPref {
         editor.putLong(key, value);
         editor.apply();
     }
+    public void  clearPreferrence() {
+        sharedpreferences.edit().clear().apply();
+    }
 
     public void clear(String key) {
         sharedpreferences.edit().remove(key).apply();

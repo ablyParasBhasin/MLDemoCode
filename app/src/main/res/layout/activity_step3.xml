@@ -577,6 +577,12 @@
                             android:background="@drawable/edt_bg"
                             android:padding="@dimen/margin_5dp"
                             android:text="@string/choose_file" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvImages"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            />
 
 
                     </LinearLayout>

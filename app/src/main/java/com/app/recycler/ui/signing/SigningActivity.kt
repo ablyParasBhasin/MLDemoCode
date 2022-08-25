@@ -1,16 +1,19 @@
 package com.app.recycler.ui.signing
 
+import android.content.Context
 import android.content.Intent
+import android.net.wifi.WifiManager
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
-import com.app.recycler.models.BaseResponse
 import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.applications.MyApp
 import com.app.recycler.interfaces.ResponseHandler
+import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.login.LoginData
 import com.app.recycler.ui.MainAcivity
 import com.app.recycler.ui.PrefConstants
@@ -18,6 +21,9 @@ import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_signing.*
 import org.json.JSONObject
 import retrofit2.Response
+import java.net.InetAddress
+import java.net.UnknownHostException
+import java.util.*
 
 
 class SigningActivity : BaseActivity(), ResponseHandler {
@@ -26,6 +32,8 @@ class SigningActivity : BaseActivity(), ResponseHandler {
     private val homeViewModel: HomeViewModel by viewModels()
     lateinit var session : SessionManager
     var dialog: Dialog? = null*/
+   var ipAddress: String?=null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signing)
@@ -38,6 +46,17 @@ class SigningActivity : BaseActivity(), ResponseHandler {
        btn_login.setOnClickListener {
            login()
        }
+        var ip: InetAddress
+        AsyncTask.execute{
+            try {
+                ip = InetAddress.getLocalHost()
+                ipAddress = ip.hostAddress
+                println("Your current IP address : $ip")
+                println("Your current Hostname : $ipAddress")
+            } catch (e: UnknownHostException) {
+                e.printStackTrace()
+            }
+        }
 
     }
     fun login() {
@@ -49,6 +68,7 @@ class SigningActivity : BaseActivity(), ResponseHandler {
         var jsonObject=JSONObject()
         jsonObject.put("email_id",edt_username.text.toString())
         jsonObject.put("password",edt_password.text.toString())
+        jsonObject.put("app_login_ip",ipAddress.toString())
         DataManager.instance.login(API_TAG.LOGIN_API, jsonObject, this)
     }
     val mWatcher: TextWatcher = object : TextWatcher {
@@ -88,6 +108,9 @@ class SigningActivity : BaseActivity(), ResponseHandler {
         }
     }
     private fun saveLoginInfo(login: LoginData) {
+
+        DataManager.instance.getSharedPrefs(this).saveString(PrefConstants.Login_Token_Expire_Datetime, login.login_token_expire_datetime)
+
         val serializeData = login?.serialize()
         DataManager.instance.getSharedPrefs(this)
             ?.saveString(PrefConstants.TOKEN, login.login_token)

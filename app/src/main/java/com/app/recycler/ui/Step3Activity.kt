@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -14,13 +15,16 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
 import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.interfaces.ImageCrossButtonClick
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.BaseResponseArray
@@ -34,6 +38,9 @@ import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_step3.*
 import kotlinx.android.synthetic.main.activity_step3.ivBack
 import kotlinx.android.synthetic.main.fragment_reporting_form.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.File
@@ -42,7 +49,7 @@ import java.util.*
 
 
 class Step3Activity : BaseActivity(), ResponseHandler,
-    View.OnClickListener {
+    View.OnClickListener, ImageCrossButtonClick {
     private val GALLERY = 1
     private val CAMERA = 2
 
@@ -51,6 +58,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_step3)
+        imageList=ArrayList()
         txt_start_date.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
@@ -150,7 +158,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                     jsonChild.put("activity_1_quest_6", edt6.text.toString())
                     jsonChild.put("activity_1_quest_7", edt7.text.toString())
                     jsonChild.put("activity_21_file", "")
-                    jsonChild.put("activity_1_file", "")
+                    jsonChild.put("activity_1_file", getPartImage(cameraClickFile!!))
                     jsonChild.put("activity_1_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_1", jsonChild)
                 }catch (e: Exception){
@@ -457,21 +465,40 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             var oriFile: File?
             if (resultCode == Activity.RESULT_OK) {
                 if (requestCode == CAMERA) {
+
                     oriFile = cameraClickFile
+
                     if (oriFile == null) {
-                        Utils.showDialog(this, "Error message")
+                        Utils.showDialog(this, "Camera error message")
                         return
                     }
-                    // CropImage.activity(Uri.fromFile(oriFile)).setCropShape(CropImageView.CropShape.RECTANGLE).start(this)
+
+
+                    loadImage(cameraClickFile?.absolutePath)
+                    println("requestCode = [${requestCode}], resultCode = [${resultCode}], intentData = [${intentData}]")
 
                 } else if (requestCode == GALLERY) {
                     if (intentData == null) return
                     val selectedImage = intentData.data
+
+
                     if (selectedImage != null) {
 
+                        val filePathColumn =
+                            arrayOf(MediaStore.Images.Media.DATA)
+                        val cursor: Cursor? = selectedImage.let {
+                            contentResolver.query(it, filePathColumn, null, null, null)
+                        }
+                        cursor?.moveToFirst()
+                        val columnIndex: Int? = cursor?.getColumnIndex(filePathColumn[0])
+                        val picturePath: String? = columnIndex?.let { cursor.getString(it) }
+                        cursor?.close()
+
+                        //val file = File(picturePath ?: "")
+                        loadImage(picturePath)
 
                     } else {
-                        //Utility.showDialog(this, getString(R.string.error_msg_selected_image))
+                        Utils.showDialog(this, "Gallery error message")
                     }
 
                 }
@@ -480,7 +507,43 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             //u.logE("Exception : $e")
         }
     }
+    private fun loadImage(picturePath: String?) {
 
+        imageList!!.add(picturePath!!)
+        if(imageList?.size!!>3){
+
+            Toast.makeText(this,"You can upload maximum three images.", Toast.LENGTH_SHORT).show()
+        }else{
+
+            rvImages.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            adapter = ImagesAdapter(this,imageList!!,this)
+            rvImages.adapter = adapter
+            rvImages.setHasFixedSize(true)
+        }
+
+    }
+    var imageList:ArrayList<String>?=null
+    var adapter:ImagesAdapter?=null
+    private fun getPartImage(file: File): MultipartBody.Part {
+        val requestFile: RequestBody =
+            RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(),
+                file
+            )
+        return MultipartBody.Part.createFormData(
+            "image",
+            file.name,
+            requestFile
+        )
+    }
+
+    override fun clickCross(pos: Int) {
+        if(!imageList.isNullOrEmpty()){
+
+            imageList?.removeAt(pos)
+            adapter?.notifyDataSetChanged()
+        }
+    }
     fun getActivityQuestions() {
         try {
             if (!isNetworkConnected) {
