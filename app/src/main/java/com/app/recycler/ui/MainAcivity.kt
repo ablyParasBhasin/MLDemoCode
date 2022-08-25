@@ -7,20 +7,22 @@ import retrofit2.Response*/
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
 import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.applications.MyApp
-import com.app.recycler.models.BaseResponse
 import com.app.recycler.databinding.ActivityMainBinding
 import com.app.recycler.interfaces.ListingItemClick
 import com.app.recycler.interfaces.ResponseHandler
+import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.DummyData
 import com.app.recycler.models.dashboard.DashboardData
 import com.app.recycler.models.step1.CommonData
 import com.app.recycler.utility.GridSpacingItemDecoration
+import com.app.recycler.utility.SingleShotLocationProvider
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
@@ -38,9 +40,9 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         (application as MyApp).initUserInfo()
-       // databinding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-
-        /*The tvUserNameis for gridView*/
+       /* SingleShotLocationProvider.requestSingleUpdate(
+            this
+        ) { location -> Log.d("Location", "my location is $location") }*/
 
         try {
             val str_name= DataManager.instance.getSharedPrefs(this)?.getString(PrefConstants.USER_NAME).toString()
