@@ -120,7 +120,6 @@ class Step3CatListingActivity : BaseActivity(), ListingItemClick,ListingItemData
     }
 
     override fun clickItem(pos: Int) {
-        showToast("POsitiom"+pos)
         startActivityForResult(Intent(this,Step3Activity::class.java).putExtra("activity_id",pos.toString()),4000)
     }
 

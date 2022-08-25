@@ -27,24 +27,24 @@ import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.interfaces.ImageCrossButtonClick
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
-import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.step1.CommonData
-import com.app.recycler.models.step3.ActivityQuestion
 import com.app.recycler.models.step3.KPIData
-import com.app.recycler.models.step3.Questions
 import com.app.recycler.utility.RealStoragePathLibrary
 import com.app.recycler.utility.Utils
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_step3.*
 import kotlinx.android.synthetic.main.activity_step3.ivBack
-import kotlinx.android.synthetic.main.fragment_reporting_form.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.File
-import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -105,25 +105,16 @@ class Step3Activity : BaseActivity(), ResponseHandler,
 
 
         }
+        txt_upload_pic.setOnClickListener {
 
-        txt_choose_pic.setOnClickListener {
-
+            //takePhoto();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.CAMERA
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                     showPictureDialog()
                 } else {
+                    requestPermission()
                     //showStorageDialog()
                 }
             } else {
@@ -141,6 +132,35 @@ class Step3Activity : BaseActivity(), ResponseHandler,
         }
         getActivityQuestions()
     }
+    private fun requestPermission() {
+        Dexter.withContext(this)
+            .withPermissions(
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,  Manifest.permission.CAMERA)
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                    // check if all permissions are granted
+                    if (report.areAllPermissionsGranted()) {
+                        showPictureDialog()
+                    }
+
+                    // check for permanent denial of any permission
+                    if (report.isAnyPermissionPermanentlyDenied) {
+                        Toast.makeText(this@Step3Activity,"Permissions Error",Toast.LENGTH_SHORT).show()
+                        // Utility.showShortToast(this, getString(R.string.error_permissions), true)
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest>, token: PermissionToken
+                ) { token.continuePermissionRequest()
+                }
+            }).withErrorListener {
+                Toast.makeText(this@Step3Activity,"Permissions Error",Toast.LENGTH_SHORT).show()
+            }
+            .onSameThread()
+            .check()
+    }
+
     fun sendData() {
         try {
             DataManager.instance.filledActivities.add(response.data.activityData.activityId)
@@ -365,10 +385,9 @@ class Step3Activity : BaseActivity(), ResponseHandler,
     private fun showPictureDialog() {
 
         var pictureDialogItems = arrayOf(
-            getString(R.string.gallery), getString(R.string.camera), getString(
-                R.string.remove_profile_photo
+            getString(R.string.gallery), getString(R.string.camera)
             )
-        )
+
 
 
         val mBuilder = AlertDialog.Builder(this@Step3Activity)
