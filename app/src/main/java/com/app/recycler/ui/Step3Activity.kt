@@ -816,6 +816,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             rbn.setOnClickListener(this)
             rbn.id = View.generateViewId()
             rbn.text = list[i]
+            rbn.textSize=12f
             rgp.addView(rbn)
         }
     }
