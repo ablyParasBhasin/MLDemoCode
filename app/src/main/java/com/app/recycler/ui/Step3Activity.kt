@@ -38,7 +38,6 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_step3.*
-import kotlinx.android.synthetic.main.activity_step3.ivBack
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -646,7 +645,10 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                                 response.data.activityData.questions.question.activity2Quest2
                             tvQuestion3.text =
                                 response.data.activityData.questions.question.activity2Quest3
-
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
 
                         } else if (response.data.activityData.activityId == "3") {
                             tvQuestion1.text =
@@ -655,6 +657,10 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                                 response.data.activityData.questions.question.activity3Quest2
                             tvQuestion3.text =
                                 response.data.activityData.questions.question.activity3Quest3
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "4") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity_4_quest_1
@@ -662,6 +668,10 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                                 response.data.activityData.questions.question.activity_4_quest_2
                             tvQuestion3.text =
                                 response.data.activityData.questions.question.activity_4_quest_3
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "5") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity5Quest1
@@ -669,29 +679,63 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                                 response.data.activityData.questions.question.activity5Quest2
                             tvQuestion3.text =
                                 response.data.activityData.questions.question.activity5Quest3
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "6") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity6Quest1
+                            question2Lt.visibility = View.GONE
+                            question3Lt.visibility = View.GONE
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "7") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity_7_quest_1
+                            question2Lt.visibility = View.GONE
+                            question3Lt.visibility = View.GONE
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "8") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity_8_quest_1
+                            question2Lt.visibility = View.GONE
+                            question3Lt.visibility = View.GONE
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "9") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity_9_quest_1
+                            question2Lt.visibility = View.GONE
+                            question3Lt.visibility = View.GONE
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "10") {
                             question0Lt.visibility = View.VISIBLE
-                            question1Lt.visibility = View.GONE
+
                             rgQuestion0.setOnCheckedChangeListener { group, checkedId ->
                                 if (checkedId == R.id.radio_yes) {
-                                    //need to visible layouts of 2 3 4 5
+                                    question2Lt.visibility = View.VISIBLE
+                                    question3Lt.visibility = View.VISIBLE
+                                    question4Lt.visibility = View.VISIBLE
+                                    question5Lt.visibility = View.VISIBLE
                                 } else {
-                                    // gone everything visible above
+                                    question2Lt.visibility = View.GONE
+                                    question3Lt.visibility = View.GONE
+                                    question4Lt.visibility = View.GONE
+                                    question5Lt.visibility = View.GONE
                                 }
-
                             }
+                            radio_no.isChecked=true
                             tvQuestion0.text =
                                 response.data.activityData.questions.question.activity_10_quest_1
                             tvQuestion2.text =
@@ -703,19 +747,41 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                             tvQuestion5.text =
                                 response.data.activityData.questions.question.activity_10_quest_5
 
+                            question1Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
+
                         } else if (response.data.activityData.activityId == "11") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity_11_quest_1
+                            question2Lt.visibility = View.GONE
+                            question3Lt.visibility = View.GONE
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "12") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity_12_quest_1
                             tvQuestion2.text =
                                 response.data.activityData.questions.question.activity_12_quest_2
+
+                            question3Lt.visibility = View.GONE
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         } else if (response.data.activityData.activityId == "13") {
                             tvQuestion1.text =
                                 response.data.activityData.questions.question.activity_13_quest_1
                             tvQuestion2.text =
                                 response.data.activityData.questions.question.activity_13_quest_2
+
+                            question3Lt.visibility = View.GONE
+                            question4Lt.visibility = View.GONE
+                            question5Lt.visibility = View.GONE
+                            question6Lt.visibility = View.GONE
+                            question7Lt.visibility = View.GONE
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

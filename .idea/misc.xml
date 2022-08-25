@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_radio_text.xml" value="0.1495" />
+        <entry key="app/src/main/res/drawable/btn_white_bg.xml" value="0.1495" />
         <entry key="app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.1315" />
         <entry key="app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1495" />
         <entry key="app/src/main/res/drawable/radio_selector.xml" value="0.149" />

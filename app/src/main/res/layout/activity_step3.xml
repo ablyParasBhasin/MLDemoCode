@@ -247,7 +247,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/black"
-
                             android:textSize="@dimen/txt_16sp"
                             android:textStyle="bold" />
 
@@ -269,7 +268,7 @@
                                 android:button="@android:color/transparent"
                                 android:gravity="center"
                                 android:text="@string/yes"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/bg_radio_text" />
 
                             <RadioButton
                                 android:id="@+id/radio_no"
@@ -277,12 +276,11 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/margin_5dp"
                                 android:layout_weight="1"
-                                android:checked="true"
                                 android:background="@drawable/radio_selector"
                                 android:button="@android:color/transparent"
                                 android:gravity="center"
                                 android:text="@string/no"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/bg_radio_text" />
 
                         </RadioGroup>
                         </LinearLayout>
@@ -320,6 +318,11 @@
                             android:padding="@dimen/margin_5dp" />
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/question2Lt"
+                        android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvQuestion2"
                             android:layout_width="match_parent"
@@ -348,7 +351,12 @@
                             android:background="@drawable/edt_bg"
                             android:padding="@dimen/margin_5dp" />
 
-
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/question3Lt"
+                        android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvQuestion3"
                             android:layout_width="match_parent"
@@ -377,7 +385,12 @@
                             android:background="@drawable/edt_bg"
                             android:padding="@dimen/margin_5dp" />
 
-
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/question4Lt"
+                        android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvQuestion4"
                             android:layout_width="match_parent"
@@ -405,8 +418,12 @@
                             android:layout_marginEnd="@dimen/margin_15dp"
                             android:background="@drawable/edt_bg"
                             android:padding="@dimen/margin_5dp" />
-
-
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/question5Lt"
+                        android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvQuestion5"
                             android:layout_width="match_parent"
@@ -434,8 +451,12 @@
                             android:layout_marginEnd="@dimen/margin_15dp"
                             android:background="@drawable/edt_bg"
                             android:padding="@dimen/margin_5dp" />
-
-
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/question6Lt"
+                        android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvQuestion6"
                             android:layout_width="match_parent"
@@ -463,8 +484,12 @@
                             android:layout_marginEnd="@dimen/margin_15dp"
                             android:background="@drawable/edt_bg"
                             android:padding="@dimen/margin_5dp" />
-
-
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/question7Lt"
+                        android:layout_height="wrap_content">
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvQuestion7"
                             android:layout_width="match_parent"
@@ -492,7 +517,7 @@
                             android:layout_marginEnd="@dimen/margin_15dp"
                             android:background="@drawable/edt_bg"
                             android:padding="@dimen/margin_5dp" />
-
+                    </LinearLayout>
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvComments"
                             android:layout_width="match_parent"
