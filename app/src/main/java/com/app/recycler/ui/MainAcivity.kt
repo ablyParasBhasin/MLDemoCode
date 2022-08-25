@@ -5,9 +5,11 @@ package com.app.recycler.ui
 import retrofit2.Callback
 import retrofit2.Response*/
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.telephony.TelephonyManager
 import androidx.recyclerview.widget.GridLayoutManager
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
@@ -22,7 +24,6 @@ import com.app.recycler.models.DummyData
 import com.app.recycler.models.dashboard.DashboardData
 import com.app.recycler.models.step1.CommonData
 import com.app.recycler.utility.GridSpacingItemDecoration
-import com.app.recycler.utility.SingleShotLocationProvider
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.*
@@ -60,12 +61,18 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
                 startActivity(intent)*/
                 setAcknowledge()
             }
+         /*   if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE);
+                return;
+            }
+            */
         }catch (ex:Exception){
 
         }
 
 
     }
+
     fun setAcknowledge() {
         try {
             if (!isNetworkConnected) {
