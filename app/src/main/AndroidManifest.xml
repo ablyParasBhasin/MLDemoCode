@@ -10,12 +10,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- required only for LocationRequest.PRIORITY_HIGH_ACCURACY -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!-- required for all other priorities -->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    ...
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- required only for LocationRequest.PRIORITY_HIGH_ACCURACY -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- required for all other priorities -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".applications.MyApp"
@@ -29,16 +26,25 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.DashBoardListActivity"
+            android:exported="true" >
 
+         <!--   <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+
+        </activity>
         <activity
             android:name=".ui.Step3Activity"
             android:exported="true"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".ui.Step2Activity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.Step1Activity"
             android:exported="true"
@@ -51,11 +57,13 @@
             android:name=".ui.SplashActivty"
             android:exported="true"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.MainAcivity"
@@ -73,6 +81,7 @@
             android:name=".ui.FormListingActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

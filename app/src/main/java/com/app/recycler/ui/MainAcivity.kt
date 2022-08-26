@@ -70,6 +70,13 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
 
         }
 
+        txt_goDashBoard.setOnClickListener {
+
+            val intent = Intent(this@MainAcivity, DashBoardListActivity::class.java)
+            startActivity(intent)
+
+        }
+
 
     }
 

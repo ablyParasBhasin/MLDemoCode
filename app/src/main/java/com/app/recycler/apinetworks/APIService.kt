@@ -42,6 +42,10 @@ interface APIService {
     @POST("get-selected-activity-list")
     fun getSelectedActivityList(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
 
+    @POST("user-activity-list")
+    fun getDashboardAcitivityList(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
+    // user-activity-list
+
    /* // forgot
     @Headers("User-Agent: Android")
     @FormUrlEncoded

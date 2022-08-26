@@ -207,6 +207,31 @@ class DataManager private constructor() : BaseActivity() {
             }
         })
     }
+    // user-activity-list
+    fun getDashboardActivtiyList(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
+        networkCalls.getDashboardAcitivityList(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
+        enqueue(object : Callback<BaseResponseArray<CommonData>> {
+            override fun onResponse(
+                call: Call<BaseResponseArray<CommonData>>,
+                response: Response<BaseResponseArray<CommonData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listener.onSuccess(tag,response)
+
+                } else listener.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponseArray<CommonData>>, t: Throwable) {
+                call.cancel()
+                listener.onFailure(tag, t)
+            }
+        })
+    }
+
+
     fun saveStep2Data(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandler) {
      networkCalls.saveStep2Data(jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())).
         enqueue(object : Callback<BaseResponse<CommonData>> {

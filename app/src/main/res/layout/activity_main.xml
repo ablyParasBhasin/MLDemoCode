@@ -63,15 +63,38 @@
                     android:textColor="@color/text_color"
                     android:textSize="20sp" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_14dp"
-                    android:layout_marginEnd="@dimen/margin_18dp"
-                    android:text="@string/welcome_back"
-                    android:textColor="@android:color/black"
-                    android:textStyle="bold"
-                    android:textSize="25sp" />
+                    android:orientation="horizontal">
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_14dp"
+                        android:layout_marginEnd="@dimen/margin_18dp"
+                        android:text="@string/welcome_back"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:textSize="25sp" />
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txt_goDashBoard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_14dp"
+                        android:layout_marginEnd="@dimen/margin_18dp"
+                        android:text="@string/go_to_dashboard"
+                        android:textColor="@android:color/black"
+                        android:textStyle="bold"
+                        android:padding="@dimen/margin_5dp"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
