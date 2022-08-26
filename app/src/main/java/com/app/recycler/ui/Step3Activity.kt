@@ -7,6 +7,8 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -43,7 +45,10 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.json.JSONObject
 import retrofit2.Response
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.util.*
 
 
@@ -51,7 +56,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
     View.OnClickListener, ImageCrossButtonClick {
     private val GALLERY = 1
     private val CAMERA = 2
-
+var photoPaths=ArrayList<String>()
     lateinit var file: File
     private var cameraClickFile: File? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -159,13 +164,120 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             .onSameThread()
             .check()
     }
+    private fun compressImage(file: String, filename: String): String {
+        try {
+            val bitmap = BitmapFactory.decodeFile(file)
+            val newFile = File(filesDir.absolutePath, "$filename.jpg")
+            newFile.createNewFile()
+            val bos = ByteArrayOutputStream()
+            bitmap?.compress(Bitmap.CompressFormat.JPEG, 50 /*ignored for PNG*/, bos)
+            val bitmapdata = bos.toByteArray()
+            val fos = FileOutputStream(newFile)
+            fos.write(bitmapdata)
+            fos.flush()
+            fos.close()
+            return newFile.toString()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null?:""
+    }
+/*
+*  @Multipart
+    @POST("guest-user/delivery-staff-register")
+    Call<Registration> uploadRegisterData(@Header("X-APP-LANG-ID") String lang_id,
+                                          @Part MultipartBody.Part[] files,
+                                          @Part("user_name") RequestBody user_name,
+                                          @Part("user_username") RequestBody user_username,
+                                          @Part("user_email") RequestBody user_email,
+                                          @Part("user_phone") RequestBody user_phone,
+                                          @Part("user_password") RequestBody user_password,
+                                          @Part("password1") RequestBody password1,
+                                          @Part("user_newsletter_signup") RequestBody user_newsletter_signup,
+                                          @Part("user_dob") RequestBody user_dob,
+                                          @Part("signUpWithPhone") RequestBody signUpWithPhone,
+                                          @Part("user_country_iso") RequestBody user_country_iso,
+                                          @Part("user_dial_code") RequestBody user_country_phone_code);*/
 
+
+    /*
+    public void uploadData(final int i, String username, String languageid, String user_username, String user_email,
+                           String userPhone, String user_password, String pasword1, String user_newsletter_signup,
+                           String userDob, String signUpWIthPhone, String countryISO, String countryDialCode, String[] files,
+                           ResponseHandler listner) {
+        System.out.println("i = [" + i + "], username = [" + username + "], user_username = [" + user_username + "], user_email = [" + user_email + "], userPhone = [" + userPhone + "], user_password = [" + user_password + "], pasword1 = [" + pasword1 + "], agree = [" + user_newsletter_signup + "], userDob = [" + userDob + "], countryDialCode = [" + countryDialCode + "], CountryIsoCode = [\" + countryISO + \"], SignUpWithPhone = [\" + signUpWIthPhone + \"],Language id = [" + languageid + "], files = [" + files + "], listner = [" + listner + "]");
+
+        String language_selected = DataHolder.getInstance().getLanguageId();
+
+        MediaType mediaType = MediaType.parse("multipart/form-data");
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[files.length];
+        for (int index = 0; index < files.length; index++) {
+            File file = new File(files[index]);
+            File mFile = new File(file.getPath());
+            RequestBody fileBody = RequestBody.create(mediaType, mFile);
+            //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
+            fileParts[index] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH,
+                    "user_documents_upload[%d]", index), file.getName(), fileBody);
+        }
+        responseListener = listner;
+        Call<Registration> call1 = apiInterface.uploadRegisterData(language_selected,
+                fileParts,
+                MultipartBody.create(mediaType, username),
+                MultipartBody.create(mediaType, user_username),
+                MultipartBody.create(mediaType, user_email),
+                MultipartBody.create(mediaType, userPhone),
+                MultipartBody.create(mediaType, user_password),
+                MultipartBody.create(mediaType, pasword1),
+                MultipartBody.create(mediaType, user_newsletter_signup),
+                MultipartBody.create(mediaType, userDob),
+                MultipartBody.create(mediaType, signUpWIthPhone),
+                MultipartBody.create(mediaType, countryISO),
+                MultipartBody.create(mediaType, countryDialCode));
+        call1.enqueue(new Callback<Registration>() {
+            @Override
+            public void onResponse(Call<Registration> call, Response<Registration> response) {
+               Registration registration = response.body();
+                if (Objects.requireNonNull(registration).getStatus() == Constants.SESSION_EXPIRED) {
+                    Utility.logOutUser(context);
+                }else if (Objects.requireNonNull(registration).getStatus() == Constants.SITE_UNDER_MAINTAINCE) {
+                    Utility.showSiteUnderMaintainceScreen(context);
+                } else
+                    responseListener.onSuccess(i, response);
+
+
+            }
+
+            @Override
+            public void onFailure(Call<Registration> call, Throwable t) {
+                call.cancel();
+                responseListener.onFailure(t);
+            }
+        });
+    }
+ */
     fun sendData() {
         try {
             DataManager.instance.filledActivities.add(response.data.activityData.activityId)
             if (response.data.activityData.activityId == "1") {
                 try {
-                  var jsonChild=JSONObject()
+                    val filesArray= imageList.toTypedArray()
+                    val uploadCompressdFiles = ArrayList<String>()
+                    for (i in imageList.indices) {
+                        if (imageList.get(i).endsWith(".jpeg") || imageList.get(i)
+                                .endsWith(".jpg") || imageList.get(i).endsWith(".png")
+                        ) {
+                            filesArray[i] = compressImage(
+                                imageList.get(i),
+                                Calendar.getInstance().timeInMillis.toString() + "_" + i
+                            )
+                            uploadCompressdFiles.add(filesArray[i])
+                        } else {
+                            uploadCompressdFiles.add(filesArray[i])
+                        }
+                    }
+                    val compressArray = uploadCompressdFiles.toTypedArray()
+
+                    var jsonChild=JSONObject()
                     jsonChild.put("activity_1_curr_status", selectedStatus)
                     jsonChild.put("activity_1_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_1_end_date", txt_end_date.text.toString())
@@ -177,7 +289,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                     jsonChild.put("activity_1_quest_6", edt6.text.toString())
                     jsonChild.put("activity_1_quest_7", edt7.text.toString())
                     jsonChild.put("activity_21_file", "")
-                    jsonChild.put("activity_1_file", getPartImage(cameraClickFile!!))
+                    jsonChild.put("activity_1_file", compressArray)
                     jsonChild.put("activity_1_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_1", jsonChild)
                 }catch (e: Exception){
@@ -525,14 +637,15 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             //u.logE("Exception : $e")
         }
     }
+    var count=0
     private fun loadImage(picturePath: String?) {
+        count++
 
-        imageList!!.add(picturePath!!)
-        if(imageList?.size!!>3){
-
+        println("imageList = [${imageList?.size}]")
+        if(count>3){
             Toast.makeText(this,"You can upload maximum three images.", Toast.LENGTH_SHORT).show()
         }else{
-
+            imageList?.add(picturePath.toString())
             rvImages.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             adapter = ImagesAdapter(this,imageList!!,this)
             rvImages.adapter = adapter
@@ -540,7 +653,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
         }
 
     }
-    var imageList:ArrayList<String>?=null
+    var imageList=ArrayList<String>()
     var adapter:ImagesAdapter?=null
     private fun getPartImage(file: File): MultipartBody.Part {
         val requestFile: RequestBody =
