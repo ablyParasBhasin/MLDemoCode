@@ -39,7 +39,7 @@ class DashBoardListAdapter(val contxt:Context, var activityList:ArrayList<Common
 
         holder.txt_activity_id.text = data.activity_id
         holder.txt_collecter_id.text = data.user_id
-        holder.txt_estate_name.text = data.estate_name
+        holder.txt_estate_name.text = data.estateName
         holder.txt_estate_location.text = data.estate_district_name
         holder.txt_form_start_date_time.text = data.form_start_date_time
         holder.txt_form_end_date_time.text = data.form_end_date_time

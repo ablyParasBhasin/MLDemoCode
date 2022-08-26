@@ -124,7 +124,6 @@ class DashBoardListActivity : BaseActivity(), ResponseHandler {
         when (tag) {
             API_TAG.GET_DASHBOARDACTIVITY -> {
                 var count = response?.body() as BaseResponseArray<CommonData>
-
                 if (count.status.equals(Constants.API_SUCCESS)) {
 
                     println("Ressssssspns = [${tag}], response = [${response}]")
