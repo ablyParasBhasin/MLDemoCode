@@ -80,21 +80,22 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_20dp"
-                    android:layout_marginTop="@dimen/margin_20dp"
-                    android:layout_marginEnd="@dimen/margin_20dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/btn_enable_bg"
+                    android:layout_margin="@dimen/margin_20dp"
                     android:text="@string/social_empowerment_and_economic_development_society"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/txt_25sp"
-                    android:textStyle="bold" />
+                    android:backgroundTint="@color/dark_brown"
+                    android:textSize="@dimen/txt_18sp"
+                    />
 
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_20dp"
-                    android:layout_marginEnd="@dimen/margin_20dp"
+                    android:layout_marginStart="@dimen/margin_15dp"
+                    android:layout_marginEnd="@dimen/margin_15dp"
                     android:padding="@dimen/margin_5dp">
 
 
@@ -120,8 +121,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_15dp"
-                            android:layout_marginEnd="@dimen/margin_20dp"
-                            android:layout_marginTop="@dimen/margin_10dp"
+                            android:layout_marginEnd="@dimen/margin_15dp"
                             android:padding="@dimen/margin_5dp"
                             android:background="@drawable/spinner_bg">
 
@@ -131,7 +131,6 @@
                                 android:layout_height="@dimen/margin_40dp"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
-                                android:layout_marginLeft="5dp"
                                 android:gravity="center"
                                 android:spinnerMode="dropdown" />
 
@@ -180,40 +179,6 @@
                 </RelativeLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_20dp">
-
-                    <Button
-                        android:id="@+id/btnSaveDraft"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_enable_bg"
-                        android:backgroundTint="@color/btn_draft_color"
-                        android:gravity="center"
-                        android:text="@string/save_as_draft"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/txt_16sp" />
-
-                    <Button
-                        android:id="@+id/btnSave"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="@dimen/margin_15dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/btn_enable_bg"
-                        android:gravity="center"
-                        android:text="@string/save_continue"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/txt_16sp" />
-
-                </LinearLayout>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

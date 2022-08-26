@@ -19,7 +19,8 @@ import org.json.JSONObject
 import retrofit2.Response
 
 class DashBoardListActivity : BaseActivity(), ResponseHandler {
-
+    var adapter:DashBoardListAdapter?=null
+    var values= ArrayList<String>()
     companion object{
         var InProgress=1
         var Rejected=2
@@ -29,24 +30,22 @@ class DashBoardListActivity : BaseActivity(), ResponseHandler {
 
         var status=1
     }
-    var adapter:DashBoardListAdapter?=null
-    var values: ArrayList<String>?=null
+
 
     var dataList = ArrayList<CommonData>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dash_board_list)
-        values= ArrayList()
-        dataList=ArrayList()
-
-        values?.add("InProgress")
-        values?.add("Rejected")
-        values?.add("Approved")
-        values?.add("Completed")
-        values?.add("ReportsPendingModification")
-
-        setStatusSpinner(values!!)
+        values.add("In Progress")
+        values.add("Rejected")
+        values.add("Approved")
+        values.add("Completed")
+        values.add("Reports For Modification")
+        setStatusSpinner(values)
         getAllDashBoardList()
+        ivBack.setOnClickListener{
+            onBackPressed()
+        }
     }
 
 
@@ -57,7 +56,7 @@ class DashBoardListActivity : BaseActivity(), ResponseHandler {
                 return
             }
             showProgress(true)
-            val jsonObject= JSONObject()
+            var jsonObject= JSONObject()
             jsonObject.put("login_token", DataManager.instance.token)
             jsonObject.put("user_id", DataManager.instance.userData?.id)
             jsonObject.put("status", status)
@@ -80,7 +79,7 @@ class DashBoardListActivity : BaseActivity(), ResponseHandler {
 
     fun setStatusSpinner(values: ArrayList<String>) {
         val arrayAdapter =
-            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, values)
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, values)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerStatus.adapter = arrayAdapter
         spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -91,23 +90,15 @@ class DashBoardListActivity : BaseActivity(), ResponseHandler {
                 id: Long
             ) {
 
-                if(values[position].equals("InProgress" ,ignoreCase = true)){
+                if(values[position].equals("In Progress" ,ignoreCase = true)){
                     status=InProgress
-                }
-
-                if(values[position].equals("Rejected",ignoreCase = true)){
+                }else if(values[position].equals("Rejected",ignoreCase = true)){
                     status=Rejected
-                }
-
-                if(values[position].equals("Approved",ignoreCase = true)){
+                } else if(values[position].equals("Approved",ignoreCase = true)){
                     status=Approved
-                }
-
-                if(values[position].equals("Completed",ignoreCase = true)){
+                } else if(values[position].equals("Completed",ignoreCase = true)){
                     status=Completed
-                }
-
-                if(values[position].equals("ReportsPendingModification",ignoreCase = true)){
+                }else if(values[position].equals("Reports For Modification",ignoreCase = true)){
                     status=ReportsPendingModification
                 }
 
@@ -125,10 +116,13 @@ class DashBoardListActivity : BaseActivity(), ResponseHandler {
             API_TAG.GET_DASHBOARDACTIVITY -> {
                 var count = response?.body() as BaseResponseArray<CommonData>
                 if (count.status.equals(Constants.API_SUCCESS)) {
-
-                    println("Ressssssspns = [${tag}], response = [${response}]")
-                    dataList=count.data  as ArrayList<CommonData>
-                    setAdapter()
+                    if (count.data != null){
+                        dataList = count.data as ArrayList<CommonData>
+                        setAdapter()
+                }else if(dataList.isNotEmpty()) {
+                        dataList.clear()
+                        adapter?.notifyDataSetChanged()
+                 }
                 } else
                     showDialog(count.msg, true)
             }

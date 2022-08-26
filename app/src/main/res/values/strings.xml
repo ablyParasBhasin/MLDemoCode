@@ -106,6 +106,6 @@
     <string name="comments_observations">Comments/Observations</string>
     <string name="submit_to_server">Submit to Server</string>
     <string name="social_empowerment_and_economic_development_society">Social Empowerment and Economic Development Society</string>
-    <string name="go_to_dashboard">Go to dashboard</string>
+    <string name="go_to_dashboard"><u>Go to Dashboard</u></string>
 
 </resources>

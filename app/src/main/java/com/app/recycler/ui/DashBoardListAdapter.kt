@@ -3,13 +3,18 @@ package com.app.recycler.ui
 
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.app.recycler.R
 import com.app.recycler.models.step1.CommonData
+
 
 class DashBoardListAdapter(val contxt:Context, var activityList:ArrayList<CommonData>):
     RecyclerView.Adapter<DashBoardListAdapter.AdapterVH>()
@@ -43,6 +48,21 @@ class DashBoardListAdapter(val contxt:Context, var activityList:ArrayList<Common
         holder.txt_estate_location.text = data.estate_district_name
         holder.txt_form_start_date_time.text = data.form_start_date_time
         holder.txt_form_end_date_time.text = data.form_end_date_time
+
+
+        if(data.status=="InProgress"){
+            holder.txt_status.setTextColor(ContextCompat.getColor(contxt,R.color.yellow))
+        } else if(data.status=="Rejected"){
+            holder.txt_status.setTextColor(ContextCompat.getColor(contxt,R.color.red))
+
+        } else if(data.status=="Approved"){
+            holder.txt_status.setTextColor(ContextCompat.getColor(contxt,R.color.green))
+
+        } else if(data.status=="Completed"){
+            holder.txt_status.setTextColor(ContextCompat.getColor(contxt,R.color.green))
+        }else if(data.status=="Reports For Modification"){
+            holder.txt_status.setTextColor(ContextCompat.getColor(contxt,R.color.colorAccent))
+        }
         holder.txt_status.text = data.status
     }
 
