@@ -5,28 +5,29 @@ import android.content.Context
 import android.provider.Settings
 import com.app.recycler.applications.MyApp
 import com.app.recycler.interfaces.ResponseHandler
-import com.app.recycler.models.dashboard.DashboardData
 import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.BaseResponseArray
+import com.app.recycler.models.dashboard.DashboardData
 import com.app.recycler.models.login.LoginData
 import com.app.recycler.models.step1.CommonData
 import com.app.recycler.models.step3.KPIData
 import com.app.recycler.ui.PrefConstants
 import com.uni.retailer.ui.base.BaseActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
+import java.util.*
 
 class DataManager private constructor() : BaseActivity() {
     var networkCalls: APIService
     private var deviceId: String? = null
     var token = ""
-    var userName: String? = null
-    var companyName: String? = null
-    var userImage: String? = null
     var deviceLocation: String? = null
     var cartCount = 0
     var favCount = 0
@@ -36,6 +37,7 @@ class DataManager private constructor() : BaseActivity() {
     var activitiesTobeSent=""
     var filledActivities=ArrayList<String>()
     var jsonObject = JSONObject()
+
     private var prefs: SharedPref? = null
     private var dataManager: DataManager? = null
 
@@ -64,6 +66,20 @@ class DataManager private constructor() : BaseActivity() {
                     holder = DataManager()
                 return holder!!
             }
+        var activity1ImageList = ArrayList<String>()
+        var activity2ImageList = ArrayList<String>()
+        var activity3ImageList = ArrayList<String>()
+        var activity4ImageList = ArrayList<String>()
+        var activity5ImageList = ArrayList<String>()
+        var activity6ImageList = ArrayList<String>()
+        var activity7ImageList = ArrayList<String>()
+        var activity8ImageList = ArrayList<String>()
+        var activity9ImageList = ArrayList<String>()
+        var activity10ImageList = ArrayList<String>()
+        var activity11ImageList = ArrayList<String>()
+        var activity12ImageList = ArrayList<String>()
+        var activity13ImageList = ArrayList<String>()
+
     }
     fun getSharedPrefs(ctx: Context?): SharedPref {
         if (prefs == null) prefs = SharedPref(ctx)
@@ -362,6 +378,32 @@ fun setAcknwoledge(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandle
                 call.cancel()
                 listener.onFailure(tag, t)
             }
+        })
+    }
+    fun uploadPic(tag: API_TAG?, file: String, listner: ResponseHandler) {
+        println("DataHolder.updateProfilePic $file")
+        val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+        val mFile = File(file)
+        val body = MultipartBody.Part.createFormData("userfile", mFile.name, reqFile)
+        networkCalls.uploadImage(commonData?.activity_id.toString(),body).enqueue(object : Callback<BaseResponse<CommonData>> {
+            override fun onResponse(
+                call: Call<BaseResponse<CommonData>>,
+                response: Response<BaseResponse<CommonData>?>
+            ) {
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body()?.status== Constants.INVALID_TOKEN){
+
+                    }
+                    listner.onSuccess(tag,response)
+
+                } else listner.onFailure(tag, Throwable(response.errorBody().toString()))
+            }
+
+            override fun onFailure(call: Call<BaseResponse<CommonData>>, t: Throwable) {
+                call.cancel()
+                listner.onFailure(tag, t)
+            }
+
         })
     }
 

@@ -3,6 +3,7 @@ package com.app.recycler.ui
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.app.ProgressDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,6 +11,7 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -26,6 +28,19 @@ import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
 import com.app.recycler.apinetworks.Constants
 import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.apinetworks.DataManager.Companion.activity10ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity11ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity12ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity13ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity1ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity2ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity3ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity4ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity5ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity6ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity7ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity8ImageList
+import com.app.recycler.apinetworks.DataManager.Companion.activity9ImageList
 import com.app.recycler.interfaces.ImageCrossButtonClick
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
@@ -43,12 +58,15 @@ import kotlinx.android.synthetic.main.activity_step3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONObject
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.net.HttpURLConnection
+import java.net.URL
 import java.util.*
 
 
@@ -56,13 +74,13 @@ class Step3Activity : BaseActivity(), ResponseHandler,
     View.OnClickListener, ImageCrossButtonClick {
     private val GALLERY = 1
     private val CAMERA = 2
-var photoPaths=ArrayList<String>()
+    var photoPaths = ArrayList<String>()
     lateinit var file: File
     private var cameraClickFile: File? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_step3)
-        imageList=ArrayList()
+        imagePaths = ArrayList()
         txt_start_date.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
@@ -113,9 +131,19 @@ var photoPaths=ArrayList<String>()
 
             //takePhoto();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ) == PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.CAMERA
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
                     showPictureDialog()
                 } else {
                     requestPermission()
@@ -129,6 +157,9 @@ var photoPaths=ArrayList<String>()
             sendData()
         }
         btnSubmit.setOnClickListener {
+            if(activity1ImageList.size>2)
+                uploadPic(File(activity1ImageList[0]))
+
             saveStep3Data()
         }
         ivBack.setOnClickListener {
@@ -136,10 +167,14 @@ var photoPaths=ArrayList<String>()
         }
         getActivityQuestions()
     }
+
     private fun requestPermission() {
         Dexter.withContext(this)
             .withPermissions(
-                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,  Manifest.permission.CAMERA)
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
+            )
             .withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                     // check if all permissions are granted
@@ -149,21 +184,24 @@ var photoPaths=ArrayList<String>()
 
                     // check for permanent denial of any permission
                     if (report.isAnyPermissionPermanentlyDenied) {
-                        Toast.makeText(this@Step3Activity,"Permissions Error",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@Step3Activity, "Permissions Error", Toast.LENGTH_SHORT)
+                            .show()
                         // Utility.showShortToast(this, getString(R.string.error_permissions), true)
                     }
                 }
 
                 override fun onPermissionRationaleShouldBeShown(
                     permissions: List<PermissionRequest>, token: PermissionToken
-                ) { token.continuePermissionRequest()
+                ) {
+                    token.continuePermissionRequest()
                 }
             }).withErrorListener {
-                Toast.makeText(this@Step3Activity,"Permissions Error",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Step3Activity, "Permissions Error", Toast.LENGTH_SHORT).show()
             }
             .onSameThread()
             .check()
     }
+
     private fun compressImage(file: String, filename: String): String {
         try {
             val bitmap = BitmapFactory.decodeFile(file)
@@ -180,104 +218,21 @@ var photoPaths=ArrayList<String>()
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return null?:""
+        return null ?: ""
     }
-/*
-*  @Multipart
-    @POST("guest-user/delivery-staff-register")
-    Call<Registration> uploadRegisterData(@Header("X-APP-LANG-ID") String lang_id,
-                                          @Part MultipartBody.Part[] files,
-                                          @Part("user_name") RequestBody user_name,
-                                          @Part("user_username") RequestBody user_username,
-                                          @Part("user_email") RequestBody user_email,
-                                          @Part("user_phone") RequestBody user_phone,
-                                          @Part("user_password") RequestBody user_password,
-                                          @Part("password1") RequestBody password1,
-                                          @Part("user_newsletter_signup") RequestBody user_newsletter_signup,
-                                          @Part("user_dob") RequestBody user_dob,
-                                          @Part("signUpWithPhone") RequestBody signUpWithPhone,
-                                          @Part("user_country_iso") RequestBody user_country_iso,
-                                          @Part("user_dial_code") RequestBody user_country_phone_code);*/
 
-
-    /*
-    public void uploadData(final int i, String username, String languageid, String user_username, String user_email,
-                           String userPhone, String user_password, String pasword1, String user_newsletter_signup,
-                           String userDob, String signUpWIthPhone, String countryISO, String countryDialCode, String[] files,
-                           ResponseHandler listner) {
-        System.out.println("i = [" + i + "], username = [" + username + "], user_username = [" + user_username + "], user_email = [" + user_email + "], userPhone = [" + userPhone + "], user_password = [" + user_password + "], pasword1 = [" + pasword1 + "], agree = [" + user_newsletter_signup + "], userDob = [" + userDob + "], countryDialCode = [" + countryDialCode + "], CountryIsoCode = [\" + countryISO + \"], SignUpWithPhone = [\" + signUpWIthPhone + \"],Language id = [" + languageid + "], files = [" + files + "], listner = [" + listner + "]");
-
-        String language_selected = DataHolder.getInstance().getLanguageId();
-
-        MediaType mediaType = MediaType.parse("multipart/form-data");
-        MultipartBody.Part[] fileParts = new MultipartBody.Part[files.length];
-        for (int index = 0; index < files.length; index++) {
-            File file = new File(files[index]);
-            File mFile = new File(file.getPath());
-            RequestBody fileBody = RequestBody.create(mediaType, mFile);
-            //Setting the file name as an empty string here causes the same issue, which is sending the request successfully without saving the files in the backend, so don't neglect the file name parameter.
-            fileParts[index] = MultipartBody.Part.createFormData(String.format(Locale.ENGLISH,
-                    "user_documents_upload[%d]", index), file.getName(), fileBody);
-        }
-        responseListener = listner;
-        Call<Registration> call1 = apiInterface.uploadRegisterData(language_selected,
-                fileParts,
-                MultipartBody.create(mediaType, username),
-                MultipartBody.create(mediaType, user_username),
-                MultipartBody.create(mediaType, user_email),
-                MultipartBody.create(mediaType, userPhone),
-                MultipartBody.create(mediaType, user_password),
-                MultipartBody.create(mediaType, pasword1),
-                MultipartBody.create(mediaType, user_newsletter_signup),
-                MultipartBody.create(mediaType, userDob),
-                MultipartBody.create(mediaType, signUpWIthPhone),
-                MultipartBody.create(mediaType, countryISO),
-                MultipartBody.create(mediaType, countryDialCode));
-        call1.enqueue(new Callback<Registration>() {
-            @Override
-            public void onResponse(Call<Registration> call, Response<Registration> response) {
-               Registration registration = response.body();
-                if (Objects.requireNonNull(registration).getStatus() == Constants.SESSION_EXPIRED) {
-                    Utility.logOutUser(context);
-                }else if (Objects.requireNonNull(registration).getStatus() == Constants.SITE_UNDER_MAINTAINCE) {
-                    Utility.showSiteUnderMaintainceScreen(context);
-                } else
-                    responseListener.onSuccess(i, response);
-
-
-            }
-
-            @Override
-            public void onFailure(Call<Registration> call, Throwable t) {
-                call.cancel();
-                responseListener.onFailure(t);
-            }
-        });
-    }
- */
     fun sendData() {
         try {
             DataManager.instance.filledActivities.add(response.data.activityData.activityId)
             if (response.data.activityData.activityId == "1") {
                 try {
-                    val filesArray= imageList.toTypedArray()
-                    val uploadCompressdFiles = ArrayList<String>()
-                    for (i in imageList.indices) {
-                        if (imageList.get(i).endsWith(".jpeg") || imageList.get(i)
-                                .endsWith(".jpg") || imageList.get(i).endsWith(".png")
-                        ) {
-                            filesArray[i] = compressImage(
-                                imageList.get(i),
-                                Calendar.getInstance().timeInMillis.toString() + "_" + i
-                            )
-                            uploadCompressdFiles.add(filesArray[i])
-                        } else {
-                            uploadCompressdFiles.add(filesArray[i])
-                        }
+                    activity1ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity1ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
                     }
-                    val compressArray = uploadCompressdFiles.toTypedArray()
-
-                    var jsonChild=JSONObject()
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_1_curr_status", selectedStatus)
                     jsonChild.put("activity_1_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_1_end_date", txt_end_date.text.toString())
@@ -289,16 +244,23 @@ var photoPaths=ArrayList<String>()
                     jsonChild.put("activity_1_quest_6", edt6.text.toString())
                     jsonChild.put("activity_1_quest_7", edt7.text.toString())
                     jsonChild.put("activity_21_file", "")
-                    jsonChild.put("activity_1_file", compressArray)
+                    jsonChild.put("activity_1_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_1_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_1", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             } else if (response.data.activityData.activityId == "2") {
                 try {
-                  var jsonChild=JSONObject()
+                    activity2ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity2ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_2_curr_status", selectedStatus)
                     jsonChild.put("activity_2_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_2_end_date", txt_end_date.text.toString())
@@ -306,175 +268,253 @@ var photoPaths=ArrayList<String>()
                     jsonChild.put("activity_2_quest_2", edt2.text.toString())
                     jsonChild.put("activity_2_quest_3", edt3.text.toString())
                     jsonChild.put("activity_21_file", "")
-                    jsonChild.put("activity_2_file", "")
+                    jsonChild.put("activity_2_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_2_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_2", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
-            }
-            else if (response.data.activityData.activityId == "3") {
+            } else if (response.data.activityData.activityId == "3") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity3ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity3ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_3_curr_status", selectedStatus)
                     jsonChild.put("activity_3_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_3_end_date", txt_end_date.text.toString())
                     jsonChild.put("activity_3_quest_1", edt1.text.toString())
                     jsonChild.put("activity_3_quest_2", edt2.text.toString())
                     jsonChild.put("activity_3_quest_3", edt3.text.toString())
-                    jsonChild.put("activity_3_file", "")
+                    jsonChild.put("activity_3_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_23_file", "")
                     jsonChild.put("activity_3_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_3", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             } else if (response.data.activityData.activityId == "4") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity4ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity4ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_4_curr_status", selectedStatus)
                     jsonChild.put("activity_4_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_4_end_date", txt_end_date.text.toString())
                     jsonChild.put("activity_4_quest_1", edt1.text.toString())
                     jsonChild.put("activity_4_quest_2", edt2.text.toString())
                     jsonChild.put("activity_4_quest_3", edt3.text.toString())
-                    jsonChild.put("activity_4_file", "")
+                    jsonChild.put("activity_4_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_24_file", "")
                     jsonChild.put("activity_4_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_4", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
-            }else if (response.data.activityData.activityId == "5") {
+            } else if (response.data.activityData.activityId == "5") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity5ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity5ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_5_curr_status", selectedStatus)
                     jsonChild.put("activity_5_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_5_end_date", txt_end_date.text.toString())
-                    jsonChild.put("activity_5_file", "")
+                    jsonChild.put("activity_5_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_25_file", "")
                     jsonChild.put("activity_5_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_5", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
-            }
-            else if (response.data.activityData.activityId == "6") {
+            } else if (response.data.activityData.activityId == "6") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity6ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity6ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_6_curr_status", selectedStatus)
                     jsonChild.put("activity_6_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_6_end_date", txt_end_date.text.toString())
-                    jsonChild.put("activity_6_file", "")
+                    jsonChild.put("activity_6_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_26_file", "")
                     jsonChild.put("activity_6_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_6", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             } else if (response.data.activityData.activityId == "7") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity7ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity7ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_7_curr_status", selectedStatus)
                     jsonChild.put("activity_7_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_7_end_date", txt_end_date.text.toString())
                     jsonChild.put("activity_7_quest_1", edt1.text.toString())
-                    jsonChild.put("activity_7_file", "")
+                    jsonChild.put("activity_7_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_27_file", "")
                     jsonChild.put("activity_7_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_7", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             } else if (response.data.activityData.activityId == "8") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity8ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity8ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_8_curr_status", selectedStatus)
                     jsonChild.put("activity_8_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_8_end_date", txt_end_date.text.toString())
-                    jsonChild.put("activity_8_file", "")
+                    jsonChild.put("activity_8_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_28_file", "")
                     jsonChild.put("activity_8_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_8", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
             } else if (response.data.activityData.activityId == "9") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity9ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity9ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_9_curr_status", selectedStatus)
                     jsonChild.put("activity_9_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_9_end_date", txt_end_date.text.toString())
-                    jsonChild.put("activity_9_file", "")
+                    jsonChild.put("activity_9_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_29_file", "")
                     jsonChild.put("activity_9_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_9", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
-            }else if (response.data.activityData.activityId == "10") {
+            } else if (response.data.activityData.activityId == "10") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity10ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity10ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_10_curr_status", selectedStatus)
                     jsonChild.put("activity_10_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_10_end_date", txt_end_date.text.toString())
-                    jsonChild.put("activity_10_file", "")
+                    jsonChild.put("activity_10_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_210_file", "")
                     jsonChild.put("activity_10_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_10", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
-            }else if (response.data.activityData.activityId == "11") {
+            } else if (response.data.activityData.activityId == "11") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity11ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity11ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_11_curr_status", selectedStatus)
                     jsonChild.put("activity_11_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_11_end_date", txt_end_date.text.toString())
-                    jsonChild.put("activity_11_file", "")
+                    jsonChild.put("activity_11_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_211_file", "")
                     jsonChild.put("activity_11_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_11", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
-            }else if (response.data.activityData.activityId == "12") {
+            } else if (response.data.activityData.activityId == "12") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity12ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity12ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_12_curr_status", selectedStatus)
                     jsonChild.put("activity_12_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_12_end_date", txt_end_date.text.toString())
                     jsonChild.put("activity_12_quest_1", edt1.text.toString())
                     jsonChild.put("activity_12_quest_2", edt2.text.toString())
-                    jsonChild.put("activity_12_file", "")
+                    jsonChild.put("activity_12_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_212_file", "")
                     jsonChild.put("activity_12_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_12", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
-            }else if (response.data.activityData.activityId == "13") {
+            } else if (response.data.activityData.activityId == "13") {
                 try {
-                    var jsonChild=JSONObject()
+                    activity13ImageList.addAll(imagePaths)
+                    var fileName=ArrayList<String>()
+                    for(item in activity13ImageList){
+                        var file= File(item)
+                        fileName.add(file.name)
+                    }
+                    var jsonChild = JSONObject()
                     jsonChild.put("activity_13_curr_status", selectedStatus)
                     jsonChild.put("activity_13_start_date", txt_start_date.text.toString())
                     jsonChild.put("activity_13_end_date", txt_end_date.text.toString())
-                    jsonChild.put("activity_13_file", "")
+                    jsonChild.put("activity_13_file", fileName.toString().replace("[", "")
+                        .replace("]", "").replace(" ", ""))
                     jsonChild.put("activity_213_file", "")
                     jsonChild.put("activity_13_comments_observations", edtComments.text.toString())
                     DataManager.instance.jsonObject.put("activity_13", jsonChild)
-                }catch (e: Exception){
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
 
@@ -488,7 +528,7 @@ var photoPaths=ArrayList<String>()
 
             }
 
-        }catch (e:Exception){
+        } catch (e: Exception) {
             e.printStackTrace()
         }
     }
@@ -497,8 +537,7 @@ var photoPaths=ArrayList<String>()
 
         var pictureDialogItems = arrayOf(
             getString(R.string.gallery), getString(R.string.camera)
-            )
-
+        )
 
 
         val mBuilder = AlertDialog.Builder(this@Step3Activity)
@@ -637,30 +676,32 @@ var photoPaths=ArrayList<String>()
             //u.logE("Exception : $e")
         }
     }
-    var count=0
+
+    var count = 0
+    var imagePaths = ArrayList<String>()
     private fun loadImage(picturePath: String?) {
         count++
 
-        println("imageList = [${imageList?.size}]")
-        if(count>3){
-            Toast.makeText(this,"You can upload maximum three images.", Toast.LENGTH_SHORT).show()
-        }else{
-            imageList?.add(picturePath.toString())
-            rvImages.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            adapter = ImagesAdapter(this,imageList!!,this)
+        println("imagePaths = [${imagePaths.size}]")
+        if (count > 3) {
+            Toast.makeText(this, "You can upload maximum three images.", Toast.LENGTH_SHORT).show()
+        } else {
+            imagePaths.add(picturePath.toString())
+            rvImages.layoutManager =
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            adapter = ImagesAdapter(this, imagePaths, this)
             rvImages.adapter = adapter
             rvImages.setHasFixedSize(true)
         }
 
     }
-    var imageList=ArrayList<String>()
-    var adapter:ImagesAdapter?=null
+
+
+    var adapter: ImagesAdapter? = null
     private fun getPartImage(file: File): MultipartBody.Part {
         val requestFile: RequestBody =
-            RequestBody.create(
-                "multipart/form-data".toMediaTypeOrNull(),
-                file
-            )
+            file
+                .asRequestBody("multipart/form-data".toMediaTypeOrNull())
         return MultipartBody.Part.createFormData(
             "image",
             file.name,
@@ -669,12 +710,12 @@ var photoPaths=ArrayList<String>()
     }
 
     override fun clickCross(pos: Int) {
-        if(!imageList.isNullOrEmpty()){
-
-            imageList?.removeAt(pos)
+        if (!imagePaths.isNullOrEmpty()) {
+            imagePaths.removeAt(pos)
             adapter?.notifyDataSetChanged()
         }
     }
+
     fun getActivityQuestions() {
         try {
             if (!isNetworkConnected) {
@@ -699,9 +740,9 @@ var photoPaths=ArrayList<String>()
                 return
             }
             showProgress(true)
-            var jsonObject=JSONObject()
-            jsonObject.put("login_token",DataManager.instance.token)
-            jsonObject.put("activity_id",DataManager.instance.commonData?.activity_id)
+            var jsonObject = JSONObject()
+            jsonObject.put("login_token", DataManager.instance.token)
+            jsonObject.put("activity_id", DataManager.instance.commonData?.activity_id)
             jsonObject.put("user_id", DataManager.instance.userData?.id)
             jsonObject.put("step3_ans", DataManager.instance.jsonObject)
             jsonObject.put("step3_status", "1")
@@ -713,6 +754,30 @@ var photoPaths=ArrayList<String>()
             )
         } catch (ex: Exception) {
 
+        }
+
+    }
+
+    fun uploadPic(file: File) {
+        try {
+
+
+            var compressedFile = compressImage(
+                file.path,
+                Calendar.getInstance().timeInMillis.toString() + "_"
+            )
+            if (!isNetworkConnected) {
+                showDialog(getString(R.string.app_no_internet), true)
+                return
+            }
+            showProgress(true)
+            DataManager.instance.uploadPic(
+                API_TAG.UPLOAD_PIC,
+                compressedFile,
+                this
+            )
+        } catch (ex: Exception) {
+            ex.printStackTrace()
         }
 
     }
@@ -848,7 +913,7 @@ var photoPaths=ArrayList<String>()
                                     question5Lt.visibility = View.GONE
                                 }
                             }
-                            radio_no.isChecked=true
+                            radio_no.isChecked = true
                             tvQuestion0.text =
                                 response.data.activityData.questions.question.activity_10_quest_1
                             tvQuestion2.text =
@@ -903,12 +968,19 @@ var photoPaths=ArrayList<String>()
                 } else
                     showDialog(response.msg, true)
             }
-            API_TAG.SAVE_STEP_2_DATA -> {
+            API_TAG.SAVE_STEP_3_DATA -> {
                 var reposneData = apiResponse?.body() as BaseResponse<CommonData>
                 if (reposneData.status.equals(Constants.API_SUCCESS)) {
                     showToast(reposneData.data.msg)
                     setResult(RESULT_OK)
                     finish()
+                } else
+                    showDialog(reposneData.msg, true)
+            }
+            API_TAG.UPLOAD_PIC -> {
+                var reposneData = apiResponse?.body() as BaseResponse<CommonData>
+                if (reposneData.status.equals(Constants.API_SUCCESS)) {
+                    saveStep3Data()
                 } else
                     showDialog(reposneData.msg, true)
             }
@@ -929,18 +1001,38 @@ var photoPaths=ArrayList<String>()
             rbn.setOnClickListener(this)
             rbn.id = View.generateViewId()
             rbn.text = list[i]
-            rbn.textSize=12f
+            rbn.textSize = 12f
             rgp.addView(rbn)
         }
     }
-    var selectedStatus=""
+
+    var selectedStatus = ""
 
     override fun onClick(v: View?) {
         val radioId = radio_group.checkedRadioButtonId
         val rb = findViewById<RadioButton>(radioId)
-        selectedStatus=rb.text.toString()
+        selectedStatus = rb.text.toString()
         rb.isChecked = true
     }
 
+   /* private class AsyncTaskImage :
+        AsyncTask<String?, String?, String>() {
+
+        override fun onPostExecute(str: String) {
+            super.onPostExecute(str)
+
+        }
+
+        override fun doInBackground(vararg params: String?):String {
+            try {
+
+
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return ""
+        }
+
+    }*/
 
 }

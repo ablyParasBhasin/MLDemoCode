@@ -1,5 +1,13 @@
 package com.app.recycler.models;
 
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 import com.app.recycler.models.step1.CommonData;
@@ -35,3 +43,5 @@ this.data = data;
         return error_message;
     }
 }
+
+

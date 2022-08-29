@@ -7,10 +7,10 @@ import com.app.recycler.models.dashboard.DashboardData
 import com.app.recycler.models.login.LoginData
 import com.app.recycler.models.step1.CommonData
 import com.app.recycler.models.step3.KPIData
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
-import retrofit2.http.POST
 
 
 interface APIService {
@@ -41,9 +41,23 @@ interface APIService {
     fun getActivityQuestions(@Body requestBody: RequestBody): Call<BaseResponse<KPIData>>
     @POST("get-selected-activity-list")
     fun getSelectedActivityList(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
-
     @POST("user-activity-list")
     fun getDashboardAcitivityList(@Body requestBody: RequestBody): Call<BaseResponseArray<CommonData>>
+
+    @Multipart
+    @POST("file-upload")
+    fun uploadImage(@Header("Activity_id") activity_id:String,
+        @Part file: MultipartBody.Part?
+    ):Call<BaseResponse<CommonData>>
+   /* @Multipart
+    @POST("save-step3-data")
+    fun saveStep3DataApi(
+        @Part("login_token") login_token: RequestBody?,
+        @Part("activity_id") activity_id: RequestBody?,
+        @Part("user_id") user_id: RequestBody?,
+        @Part("step3_ans") step3_ans: RequestBody?,
+        @Part("step3_status") step3_status: RequestBody?,
+    )*/
     // user-activity-list
 
    /* // forgot
