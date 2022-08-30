@@ -41,9 +41,6 @@ class MainAcivity : BaseActivity(), ListingItemClick, ResponseHandler {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         (application as MyApp).initUserInfo()
-       /* SingleShotLocationProvider.requestSingleUpdate(
-            this
-        ) { location -> Log.d("Location", "my location is $location") }*/
 
         try {
             val str_name= DataManager.instance.getSharedPrefs(this)?.getString(PrefConstants.USER_NAME).toString()

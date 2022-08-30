@@ -3,6 +3,7 @@ package com.app.recycler.apinetworks
 import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
+import androidx.core.net.toUri
 import com.app.recycler.applications.MyApp
 import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
@@ -13,6 +14,8 @@ import com.app.recycler.models.step1.CommonData
 import com.app.recycler.models.step3.KPIData
 import com.app.recycler.ui.PrefConstants
 import com.uni.retailer.ui.base.BaseActivity
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -37,7 +40,7 @@ class DataManager private constructor() : BaseActivity() {
     var activitiesTobeSent=""
     var filledActivities=ArrayList<String>()
     var jsonObject = JSONObject()
-
+    var jsonObjectDeviceDetails = JSONObject()
     private var prefs: SharedPref? = null
     private var dataManager: DataManager? = null
 
@@ -380,11 +383,12 @@ fun setAcknwoledge(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandle
             }
         })
     }
-    fun uploadPic(tag: API_TAG?, file: String, listner: ResponseHandler) {
+
+    fun uploadPic(tag: API_TAG?, file: String,fileName:String, listner: ResponseHandler) {
         println("DataHolder.updateProfilePic $file")
-        val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-        val mFile = File(file)
-        val body = MultipartBody.Part.createFormData("userfile", mFile.name, reqFile)
+        var mFile=File(file.toUri().path)
+        val reqFile = RequestBody.create("image/*".toMediaType(), mFile)
+        val body = MultipartBody.Part.createFormData("userfile", fileName, reqFile)
         networkCalls.uploadImage(commonData?.activity_id.toString(),body).enqueue(object : Callback<BaseResponse<CommonData>> {
             override fun onResponse(
                 call: Call<BaseResponse<CommonData>>,

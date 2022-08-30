@@ -23,6 +23,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
@@ -73,7 +74,9 @@ import java.util.*
 class Step3Activity : BaseActivity(), ResponseHandler,
     View.OnClickListener, ImageCrossButtonClick {
     private val GALLERY = 1
-    private val CAMERA = 2
+    private val CAMERA1 = 1
+    private val CAMERA2 = 2
+    var code=0
     var photoPaths = ArrayList<String>()
     lateinit var file: File
     private var cameraClickFile: File? = null
@@ -128,38 +131,17 @@ class Step3Activity : BaseActivity(), ResponseHandler,
 
         }
         txt_upload_pic.setOnClickListener {
-
-            //takePhoto();
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    ) == PackageManager.PERMISSION_GRANTED &&
-                    ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.CAMERA
-                    ) == PackageManager.PERMISSION_GRANTED
-                ) {
-                    showPictureDialog()
-                } else {
-                    requestPermission()
-                    //showStorageDialog()
-                }
-            } else {
-                showPictureDialog()
-            }
+            code=CAMERA1
+            clickPic()
+        }
+        txt_choose_pic_attendance.setOnClickListener {
+            code=CAMERA2
+            clickPic()
         }
         btnSave.setOnClickListener {
             sendData()
         }
         btnSubmit.setOnClickListener {
-            if(activity1ImageList.size>2)
-                uploadPic(File(activity1ImageList[0]))
-
             saveStep3Data()
         }
         ivBack.setOnClickListener {
@@ -167,7 +149,32 @@ class Step3Activity : BaseActivity(), ResponseHandler,
         }
         getActivityQuestions()
     }
-
+fun clickPic(){
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            takePicture()
+//            showPictureDialog() this method will open the camera and gallery with popup
+        } else {
+            requestPermission()
+            //showStorageDialog()
+        }
+    } else {
+        takePicture()
+//        showPictureDialog() this method will open the camera and gallery with popup
+    }
+}
     private fun requestPermission() {
         Dexter.withContext(this)
             .withPermissions(
@@ -179,7 +186,8 @@ class Step3Activity : BaseActivity(), ResponseHandler,
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
                     // check if all permissions are granted
                     if (report.areAllPermissionsGranted()) {
-                        showPictureDialog()
+                        takePicture()
+                     //   showPictureDialog()  this method will open the camera and gallery with popup
                     }
 
                     // check for permanent denial of any permission
@@ -575,7 +583,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraClickFile))
         }
         try {
-            startActivityForResult(intent, CAMERA)
+            startActivityForResult(intent, code)
         } catch (e: ActivityNotFoundException) {
             Utils.showDialog(this, getString(R.string.intent_exception_message))
         } catch (e: Exception) {
@@ -633,7 +641,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
         try {
             var oriFile: File?
             if (resultCode == Activity.RESULT_OK) {
-                if (requestCode == CAMERA) {
+                if (requestCode == CAMERA1) {
 
                     oriFile = cameraClickFile
 
@@ -644,6 +652,19 @@ class Step3Activity : BaseActivity(), ResponseHandler,
 
 
                     loadImage(cameraClickFile?.absolutePath)
+                    println("requestCode = [${requestCode}], resultCode = [${resultCode}], intentData = [${intentData}]")
+
+                } else if (requestCode == CAMERA2) {
+
+                    oriFile = cameraClickFile
+
+                    if (oriFile == null) {
+                        Utils.showDialog(this, "Camera error message")
+                        return
+                    }
+
+
+                    loadSecondImage(cameraClickFile?.absolutePath)
                     println("requestCode = [${requestCode}], resultCode = [${resultCode}], intentData = [${intentData}]")
 
                 } else if (requestCode == GALLERY) {
@@ -679,6 +700,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
 
     var count = 0
     var imagePaths = ArrayList<String>()
+    var imageSecondPaths = ArrayList<String>()
     private fun loadImage(picturePath: String?) {
         count++
 
@@ -689,15 +711,38 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             imagePaths.add(picturePath.toString())
             rvImages.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-            adapter = ImagesAdapter(this, imagePaths, this)
-            rvImages.adapter = adapter
+            adapter1 = ImagesAdapter(this, imagePaths, this)
+            rvImages.adapter = adapter1
             rvImages.setHasFixedSize(true)
+            var file =File(picturePath?.toUri()?.path)
+                uploadPic(file,file.name)
+
+        }
+
+    }
+    private fun loadSecondImage(picturePath: String?) {
+        count++
+
+        println("imagePaths = [${imageSecondPaths.size}]")
+        if (count > 3) {
+            Toast.makeText(this, "You can upload maximum three images.", Toast.LENGTH_SHORT).show()
+        } else {
+            imageSecondPaths.add(picturePath.toString())
+            rvImages.layoutManager =
+                LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            adapter2 = ImagesAdapter(this, imageSecondPaths, this)
+            rvImages.adapter = adapter2
+            rvImages.setHasFixedSize(true)
+            var file =File(picturePath?.toUri()?.path)
+                uploadPic(file,file.name)
+
         }
 
     }
 
 
-    var adapter: ImagesAdapter? = null
+    var adapter1: ImagesAdapter? = null
+    var adapter2: ImagesAdapter? = null
     private fun getPartImage(file: File): MultipartBody.Part {
         val requestFile: RequestBody =
             file
@@ -710,9 +755,12 @@ class Step3Activity : BaseActivity(), ResponseHandler,
     }
 
     override fun clickCross(pos: Int) {
-        if (!imagePaths.isNullOrEmpty()) {
+        if (code==CAMERA1) {
             imagePaths.removeAt(pos)
-            adapter?.notifyDataSetChanged()
+            adapter1?.notifyDataSetChanged()
+        }else if (code==CAMERA2) {
+            imageSecondPaths.removeAt(pos)
+            adapter2?.notifyDataSetChanged()
         }
     }
 
@@ -758,10 +806,8 @@ class Step3Activity : BaseActivity(), ResponseHandler,
 
     }
 
-    fun uploadPic(file: File) {
+    fun uploadPic(file: File,fileName:String) {
         try {
-
-
             var compressedFile = compressImage(
                 file.path,
                 Calendar.getInstance().timeInMillis.toString() + "_"
@@ -773,7 +819,7 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             showProgress(true)
             DataManager.instance.uploadPic(
                 API_TAG.UPLOAD_PIC,
-                compressedFile,
+                compressedFile,fileName,
                 this
             )
         } catch (ex: Exception) {
@@ -980,13 +1026,13 @@ class Step3Activity : BaseActivity(), ResponseHandler,
             API_TAG.UPLOAD_PIC -> {
                 var reposneData = apiResponse?.body() as BaseResponse<CommonData>
                 if (reposneData.status.equals(Constants.API_SUCCESS)) {
-                    saveStep3Data()
+
+
                 } else
                     showDialog(reposneData.msg, true)
             }
         }
     }
-
     override fun onFailure(tag: API_TAG?, t: Throwable?) {
         hideProgress()
         println("t = [" + t.toString() + "]")

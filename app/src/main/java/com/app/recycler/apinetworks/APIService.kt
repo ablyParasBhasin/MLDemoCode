@@ -46,9 +46,7 @@ interface APIService {
 
     @Multipart
     @POST("file-upload")
-    fun uploadImage(@Header("Activity_id") activity_id:String,
-        @Part file: MultipartBody.Part?
-    ):Call<BaseResponse<CommonData>>
+    fun uploadImage(@Header("Activity_id") activityID:String ,@Part file: MultipartBody.Part):Call<BaseResponse<CommonData>>
    /* @Multipart
     @POST("save-step3-data")
     fun saveStep3DataApi(

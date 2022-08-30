@@ -119,6 +119,7 @@ class Step2Activity : BaseActivity(), ListingItemClick,ListingItemDataClick, Res
             showProgress(true)
             var jsonObject= JSONObject()
             var jsonObject2= JSONObject()
+
             jsonObject2.put("question_6",categoriesTobeSent)
             jsonObject2.put("question_7",activitiesTobeSent)
             jsonObject.put("login_token", DataManager.instance.token)

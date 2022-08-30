@@ -50,7 +50,7 @@ class SplashActivty : AppCompatActivity() {
         if(!apiDateTime.isNullOrEmpty()){
             val sdf = SimpleDateFormat("yyyy-M-dd hh:mm:ss")
             val currentDate = sdf.format(Date())
-            System.out.println("C DATE is  "+currentDate)
+            println("current  $currentDate")
 
             val loginDateTime = sdf.parse(apiDateTime)
             val currentDateTime = sdf.parse(currentDate)

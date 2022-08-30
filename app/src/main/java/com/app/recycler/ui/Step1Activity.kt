@@ -1,10 +1,19 @@
 package com.app.recycler.ui
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.os.Build
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.app.recycler.R
 import com.app.recycler.apinetworks.API_TAG
 import com.app.recycler.apinetworks.Constants
@@ -13,17 +22,25 @@ import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.step1.CommonData
+import com.app.recycler.utility.SingleShotLocationProvider
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_spinner.*
 import org.json.JSONObject
 import retrofit2.Response
+import java.lang.reflect.Field
 
 
 class Step1Activity : BaseActivity(), ResponseHandler {
+    var loc:Location?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spinner)
-
+        getLocation()
         ivBack.setOnClickListener {
             onBackPressed()
 
@@ -37,7 +54,57 @@ class Step1Activity : BaseActivity(), ResponseHandler {
             saveStep1Data()
         }
     }
+    fun getLocation(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED) {
+                getLatlng()
+            } else {
+                requestPermission()
+            }
+        } else {
+            getLatlng()
+        }
+    }
+    private fun requestPermission() {
+        Dexter.withContext(this)
+            .withPermissions(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+            )
+            .withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                    // check if all permissions are granted
+                    if (report.areAllPermissionsGranted()) {
+                        getLatlng()
+                        //   showPictureDialog()  this method will open the camera and gallery with popup
+                    }
 
+                    // check for permanent denial of any permission
+                    if (report.isAnyPermissionPermanentlyDenied) {
+                        Toast.makeText(this@Step1Activity, "Permissions Error", Toast.LENGTH_SHORT)
+                            .show()
+                        // Utility.showShortToast(this, getString(R.string.error_permissions), true)
+                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest>, token: PermissionToken
+                ) {
+                    token.continuePermissionRequest()
+                }
+            }).withErrorListener {
+                Toast.makeText(this@Step1Activity, "Permissions Error", Toast.LENGTH_SHORT).show()
+            }
+            .onSameThread()
+            .check()
+    }
     fun getEstates() {
         try {
             if (!isNetworkConnected) {
@@ -78,7 +145,19 @@ class Step1Activity : BaseActivity(), ResponseHandler {
                 return
             }
             showProgress(true)
+            getLocation()
+            // {“ip_address”:”10.246.21.897”,”latitude”:”2424234.44”,”longitude”:”43444334.34”,”ime_no”:”iyiuy877”,”model”:”note 5 pro”,”os_name”:”android”,”os_version”:”10.2”}’
+
             var jsonObject = JSONObject()
+            val fields = VERSION_CODES::class.java.fields
+            var codeName = "UNKNOWN"
+            fields.filter { it.getInt(VERSION_CODES::class) == Build.VERSION.SDK_INT }
+                .forEach { codeName = it.name }
+            DataManager.instance.jsonObjectDeviceDetails.put("ip_address",getIpv4HostAddress())
+            DataManager.instance.jsonObjectDeviceDetails.put("ime_no", Settings.Secure.getString(contentResolver,Settings.Secure.ANDROID_ID))
+            DataManager.instance.jsonObjectDeviceDetails.put("model",Build.MODEL)
+            DataManager.instance.jsonObjectDeviceDetails.put("os_name",codeName)
+            DataManager.instance.jsonObjectDeviceDetails.put("os_version",Build.VERSION.SDK_INT)
             jsonObject.put("login_token", DataManager.instance.token)
             jsonObject.put("user_id", DataManager.instance.userData?.id)
             jsonObject.put("activity_id", DataManager.instance.commonData?.activity_id)
@@ -86,6 +165,7 @@ class Step1Activity : BaseActivity(), ResponseHandler {
             jsonObject.put("tea_estate", selectedEstate)
             jsonObject.put("tea_estate_district", selectedEstateDist)
             jsonObject.put("step1_status", "1")
+            jsonObject.put("app_device_details",DataManager.instance.jsonObjectDeviceDetails)
             DataManager.instance.saveStep1Data(API_TAG.SAVE_STEP_1_DATA, jsonObject, this)
         } catch (ex: Exception) {
 ex.printStackTrace()
@@ -101,13 +181,14 @@ ex.printStackTrace()
             API_TAG.GET_ESTATES -> {
                 estateResponseData = response?.body() as BaseResponseArray<CommonData>
                 if (estateResponseData.status.equals(Constants.API_SUCCESS)) {
-                    var values = ArrayList<String>()
-                    values.add(getString(R.string.spinner_estate_selection))
-                    for (item in estateResponseData.data.indices) {
-                        values.add(estateResponseData.data[item].estateName)
+                    if(estateResponseData.data!=null) {
+                        var values = ArrayList<String>()
+                        values.add(getString(R.string.spinner_estate_selection))
+                        for (item in estateResponseData.data.indices) {
+                            values.add(estateResponseData.data[item].estateName)
+                        }
+                        setEstateSpinner(values)
                     }
-                    setEstateSpinner(values)
-
                 } else
                     showDialog(estateResponseData.msg, true)
             }

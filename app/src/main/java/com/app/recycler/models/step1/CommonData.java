@@ -128,7 +128,7 @@ public class CommonData {
 
     @SerializedName("activity_id")
     @Expose
-    private String activity_id;
+    private String activity_id="";
 
     public String getActivity_id() {
         return activity_id;

@@ -21,7 +21,9 @@ import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_signing.*
 import org.json.JSONObject
 import retrofit2.Response
+import java.net.Inet4Address
 import java.net.InetAddress
+import java.net.NetworkInterface
 import java.net.UnknownHostException
 import java.util.*
 
@@ -32,7 +34,6 @@ class SigningActivity : BaseActivity(), ResponseHandler {
     private val homeViewModel: HomeViewModel by viewModels()
     lateinit var session : SessionManager
     var dialog: Dialog? = null*/
-   var ipAddress: String?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,19 +47,9 @@ class SigningActivity : BaseActivity(), ResponseHandler {
        btn_login.setOnClickListener {
            login()
        }
-        var ip: InetAddress
-        AsyncTask.execute{
-            try {
-                ip = InetAddress.getLocalHost()
-                ipAddress = ip.hostAddress
-                println("Your current IP address : $ip")
-                println("Your current Hostname : $ipAddress")
-            } catch (e: UnknownHostException) {
-                e.printStackTrace()
-            }
-        }
 
     }
+
     fun login() {
         if (!isNetworkConnected) {
             showDialog(getString(R.string.app_no_internet), true)
@@ -68,7 +59,7 @@ class SigningActivity : BaseActivity(), ResponseHandler {
         var jsonObject=JSONObject()
         jsonObject.put("email_id",edt_username.text.toString())
         jsonObject.put("password",edt_password.text.toString())
-        jsonObject.put("app_login_ip",ipAddress.toString())
+        jsonObject.put("app_login_ip",getIpv4HostAddress())
         DataManager.instance.login(API_TAG.LOGIN_API, jsonObject, this)
     }
     val mWatcher: TextWatcher = object : TextWatcher {

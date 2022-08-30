@@ -6,10 +6,11 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Location
 import android.net.ConnectivityManager
 import android.os.Build
-import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -21,8 +22,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.app.recycler.R
+import com.app.recycler.apinetworks.DataManager
+import com.app.recycler.utility.SingleShotLocationProvider
 import com.google.android.material.snackbar.Snackbar
+import java.net.Inet4Address
+import java.net.NetworkInterface
 import java.util.*
+
 
 /**
  * Created by Paras on 26/4/19.
@@ -30,7 +36,6 @@ import java.util.*
 open class BaseActivity : AppCompatActivity() {
 
     var currentOpen = 1
-
     // public static CommonCallback listener;
     var loadingDialog: AlertDialog? = null
 
@@ -136,6 +141,23 @@ open class BaseActivity : AppCompatActivity() {
         val toast = Toast.makeText(this@BaseActivity, msg, Toast.LENGTH_SHORT)
         toast.setGravity(Gravity.CENTER, 0, 0)
         toast.show()
+    }
+    fun getIpv4HostAddress(): String {
+        NetworkInterface.getNetworkInterfaces()?.toList()?.map { networkInterface ->
+            networkInterface.inetAddresses?.toList()?.find {
+                !it.isLoopbackAddress && it is Inet4Address
+            }?.let { return it.hostAddress }
+        }
+        return ""
+    }
+    fun getLatlng(){
+        SingleShotLocationProvider.requestSingleUpdate(this,object :SingleShotLocationProvider.LocationCallback{
+            override fun onNewLocationAvailable(location: SingleShotLocationProvider.GPSCoordinates?) {
+                DataManager.instance.jsonObjectDeviceDetails.put("latitude",location?.latitude)
+                DataManager.instance.jsonObjectDeviceDetails.put("longitude",location?.longitude)
+                println("Location ${location?.latitude}")
+            }
+        })
     }
 
     fun setLangRecreate(activity: Activity, langval: String) {
