@@ -14,7 +14,6 @@ import com.app.recycler.models.step1.CommonData
 import com.app.recycler.models.step3.KPIData
 import com.app.recycler.ui.PrefConstants
 import com.uni.retailer.ui.base.BaseActivity
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -34,7 +33,7 @@ class DataManager private constructor() : BaseActivity() {
     var deviceLocation: String? = null
     var cartCount = 0
     var favCount = 0
-    var userType = 0
+    var publicIP = ""
     var userData: LoginData? = null
     var commonData: CommonData? = null
     var activitiesTobeSent=""
@@ -384,12 +383,13 @@ fun setAcknwoledge(tag: API_TAG?,jsonObject:JSONObject, listener: ResponseHandle
         })
     }
 
-    fun uploadPic(tag: API_TAG?, file: String,fileName:String, listner: ResponseHandler) {
+    fun uploadPic(tag: API_TAG?, file: String,fileName:String,activity_id:String, listner: ResponseHandler) {
         println("DataHolder.updateProfilePic $file")
         var mFile=File(file.toUri().path)
+        println("DataHolder.updateProfilePic mfile $mFile")
         val reqFile = RequestBody.create("image/*".toMediaType(), mFile)
         val body = MultipartBody.Part.createFormData("userfile", fileName, reqFile)
-        networkCalls.uploadImage(commonData?.activity_id.toString(),body).enqueue(object : Callback<BaseResponse<CommonData>> {
+        networkCalls.uploadImage(activity_id,body).enqueue(object : Callback<BaseResponse<CommonData>> {
             override fun onResponse(
                 call: Call<BaseResponse<CommonData>>,
                 response: Response<BaseResponse<CommonData>?>

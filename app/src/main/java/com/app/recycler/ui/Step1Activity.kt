@@ -22,6 +22,7 @@ import com.app.recycler.interfaces.ResponseHandler
 import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.BaseResponseArray
 import com.app.recycler.models.step1.CommonData
+import com.app.recycler.utility.GetPublicIP
 import com.app.recycler.utility.SingleShotLocationProvider
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -41,6 +42,7 @@ class Step1Activity : BaseActivity(), ResponseHandler {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_spinner)
         getLocation()
+        GetPublicIP().execute()
         ivBack.setOnClickListener {
             onBackPressed()
 
@@ -153,11 +155,11 @@ class Step1Activity : BaseActivity(), ResponseHandler {
             var codeName = "UNKNOWN"
             fields.filter { it.getInt(VERSION_CODES::class) == Build.VERSION.SDK_INT }
                 .forEach { codeName = it.name }
-            DataManager.instance.jsonObjectDeviceDetails.put("ip_address",getIpv4HostAddress())
+            DataManager.instance.jsonObjectDeviceDetails.put("ip_address", DataManager.instance.publicIP)
             DataManager.instance.jsonObjectDeviceDetails.put("ime_no", Settings.Secure.getString(contentResolver,Settings.Secure.ANDROID_ID))
             DataManager.instance.jsonObjectDeviceDetails.put("model",Build.MODEL)
             DataManager.instance.jsonObjectDeviceDetails.put("os_name",codeName)
-            DataManager.instance.jsonObjectDeviceDetails.put("os_version",Build.VERSION.SDK_INT)
+            DataManager.instance.jsonObjectDeviceDetails.put("os_version",Build.VERSION.RELEASE)
             jsonObject.put("login_token", DataManager.instance.token)
             jsonObject.put("user_id", DataManager.instance.userData?.id)
             jsonObject.put("activity_id", DataManager.instance.commonData?.activity_id)
@@ -168,7 +170,7 @@ class Step1Activity : BaseActivity(), ResponseHandler {
             jsonObject.put("app_device_details",DataManager.instance.jsonObjectDeviceDetails)
             DataManager.instance.saveStep1Data(API_TAG.SAVE_STEP_1_DATA, jsonObject, this)
         } catch (ex: Exception) {
-ex.printStackTrace()
+            ex.printStackTrace()
         }
 
     }
@@ -196,7 +198,7 @@ ex.printStackTrace()
                  estateDistResponseData = response?.body() as BaseResponseArray<CommonData>
                 if (estateDistResponseData.status.equals(Constants.API_SUCCESS)) {
                     var values = ArrayList<String>()
-                    values.add(getString(R.string.location_of_the_tea_estate))
+//                    values.add(getString(R.string.location_of_the_tea_estate))
                     for (item in estateDistResponseData.data.indices) {
                         values.add(estateDistResponseData.data[item].estate_district_name)
                     }
@@ -262,14 +264,14 @@ var selectedEstateDist=""
                 position: Int,
                 id: Long
             ) {
-                if (position > 0) {
+//                if (position > 0) {
                     for (item in estateDistResponseData.data) {
                         if (values[position] == item.estate_district_name) {
                             selectedEstateDist=item.id
                             break
                         }
                     }
-                }
+//                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

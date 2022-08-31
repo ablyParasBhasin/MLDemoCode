@@ -17,6 +17,7 @@ import com.app.recycler.models.BaseResponse
 import com.app.recycler.models.login.LoginData
 import com.app.recycler.ui.MainAcivity
 import com.app.recycler.ui.PrefConstants
+import com.app.recycler.utility.GetPublicIP
 import com.uni.retailer.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_signing.*
 import org.json.JSONObject
@@ -38,8 +39,9 @@ class SigningActivity : BaseActivity(), ResponseHandler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signing)
-       edt_username.setText("digantgupta@nirwana.in")
+       edt_username.setText("satya@nirwana.in")
        edt_password.setText("12345678")
+        GetPublicIP().execute()
        edt_username.addTextChangedListener(mWatcher);
        edt_password.addTextChangedListener(mWatcher);
 
@@ -59,7 +61,7 @@ class SigningActivity : BaseActivity(), ResponseHandler {
         var jsonObject=JSONObject()
         jsonObject.put("email_id",edt_username.text.toString())
         jsonObject.put("password",edt_password.text.toString())
-        jsonObject.put("app_login_ip",getIpv4HostAddress())
+        jsonObject.put("app_login_ip",DataManager.instance.publicIP)
         DataManager.instance.login(API_TAG.LOGIN_API, jsonObject, this)
     }
     val mWatcher: TextWatcher = object : TextWatcher {

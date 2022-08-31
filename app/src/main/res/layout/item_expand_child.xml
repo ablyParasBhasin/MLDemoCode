@@ -24,7 +24,7 @@
             android:id="@+id/checkbox_child"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/txt_10sp"
+            android:textSize="@dimen/txt_14sp"
             android:textColor="@color/black"
             android:text="test"/>
 

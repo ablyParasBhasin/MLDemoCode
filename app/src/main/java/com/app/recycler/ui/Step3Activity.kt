@@ -3,7 +3,6 @@ package com.app.recycler.ui
 import android.Manifest
 import android.app.Activity
 import android.app.DatePickerDialog
-import android.app.ProgressDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,7 +10,6 @@ import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -66,8 +64,9 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.URL
+import java.net.InetAddress
+import java.net.NetworkInterface
+import java.net.SocketException
 import java.util.*
 
 
@@ -699,6 +698,7 @@ fun clickPic(){
     }
 
     var count = 0
+    var countSecond = 0
     var imagePaths = ArrayList<String>()
     var imageSecondPaths = ArrayList<String>()
     private fun loadImage(picturePath: String?) {
@@ -721,18 +721,18 @@ fun clickPic(){
 
     }
     private fun loadSecondImage(picturePath: String?) {
-        count++
+        countSecond++
 
         println("imagePaths = [${imageSecondPaths.size}]")
-        if (count > 3) {
+        if (countSecond > 3) {
             Toast.makeText(this, "You can upload maximum three images.", Toast.LENGTH_SHORT).show()
         } else {
             imageSecondPaths.add(picturePath.toString())
-            rvImages.layoutManager =
+            rvImagesSecond.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             adapter2 = ImagesAdapter(this, imageSecondPaths, this)
-            rvImages.adapter = adapter2
-            rvImages.setHasFixedSize(true)
+            rvImagesSecond.adapter = adapter2
+            rvImagesSecond.setHasFixedSize(true)
             var file =File(picturePath?.toUri()?.path)
                 uploadPic(file,file.name)
 
@@ -819,7 +819,7 @@ fun clickPic(){
             showProgress(true)
             DataManager.instance.uploadPic(
                 API_TAG.UPLOAD_PIC,
-                compressedFile,fileName,
+                compressedFile,fileName, intent.getStringExtra("activity_id").toString(),
                 this
             )
         } catch (ex: Exception) {

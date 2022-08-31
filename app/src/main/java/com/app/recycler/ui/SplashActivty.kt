@@ -2,16 +2,16 @@ package com.app.recycler.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.app.recycler.utility.ConstantMethod
 import com.app.recycler.R
 import com.app.recycler.apinetworks.DataManager
 import com.app.recycler.ui.signing.SigningActivity
+import com.app.recycler.utility.GetPublicIP
+import java.net.InetAddress
+import java.net.NetworkInterface
+import java.net.SocketException
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class SplashActivty : AppCompatActivity() {
